@@ -1,0 +1,301 @@
+---
+title: "LAScatalog"
+---
+
+```{r setup, include=FALSE}
+source("R/setup_rgl.R")
+```
+
+## Relevant resources:
+
+-   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/05_engine.R)
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/engine.html)
+
+## Overview
+
+This code performs various operations on lidar data using LAScatalog functionality. We visualize and inspect the data, validate the files, clip the data based on specific coordinates, generate a Canopy Height Model (CHM), specify processing options, and use parallel computing.
+
+## Environment
+
+```{r clear_warnings, warnings = FALSE, message=FALSE}
+# Clear environment
+rm(list = ls(globalenv()))
+
+# Load packages
+library(lidR)
+library(sf)
+```
+
+## Basic Usage
+
+In this section, we will cover the basic usage of the `lidR` package, including reading lidar data, visualization, and inspecting metadata.
+
+If you haven't downloaded the catalog files yet:
+
+[Download additional classified lidar files for 05_engine (.zip, 80 MB)](./ctg_class.zip)
+[Download additional normalized lidar files for 05_engine (.zip, 78 MB)](./ctg_norm.zip)
+
+Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
+
+### Read catalog from directory of files
+
+We begin by creating a LAS catalog (`ctg`) from a folder containing multiple `.las/.laz` files using the `readLAScatalog()` function.
+
+```{r read_catalog, warnings = FALSE, message=FALSE}
+# Read catalog of files
+ctg <- readLAScatalog(folder = "data/ctg_norm")
+```
+
+### Catalog information
+
+We can receive a summary about the catalog by calling the object's name.
+
+```{r inspect_catalog}
+ctg
+```
+
+### Visualize catalog
+
+We can visualize the catalog, showing the spatial coverage of the lidar data *header* extents. Note with `chunk = TRUE` we see the automatic buffers (dashed line) applied to each tile to avoid edge effects.
+
+```{r visualize_catalog}
+#| label: fig-catalog-plot
+#| fig-cap: "Visualization of the `LAScatalog` showing the spatial layout of the individual lidar tiles."
+plot(ctg, chunk = TRUE)
+```
+
+With the `mapview` package installed, this map can be interactive if we use `map = TRUE`. Try clicking on a tile to see its header information.
+
+```{r visualize_catalog-mapview}
+#| label: fig-catalog-plot-interactive
+#| fig-cap: "Interactive visualization of the `LAScatalog` using `mapview`"
+# Interactive
+plot(ctg, map = TRUE)
+```
+
+::: {.panel-tabset}
+### Success
+
+When all processing is completed without issues, all tiles are colored green.
+
+![Catalog plot showing all tiles in green, indicating success.](img/ctg/success.png)
+
+### Warning
+
+If a process runs but generates a warning for a tile they are coloured yellow. The processing for that tile may have completed, but it requires inspection.
+
+![Catalog plot tiles in orange, indicating warnings.](img/ctg/warning.png)
+
+### Error
+
+A tile colored in red indicates that the processing failed for that file. 
+
+Tip: set `opt_stop_early(ctg)` <- FALSE to continue processing
+
+![Catalog plot showing some tiles in red, indicating errors.](img/ctg/error.png)
+:::
+
+## File indexing
+
+We can explore indexing of `LAScatalog` input files for efficient processing.
+
+Indexing generates .lax files associated with each .laz/.las point cloud to speed up processing.
+
+::: callout-note
+## Indexing
+**The `lidR` policy has always been: use `LAStools` and `lasindex` for spatial indexing**. Alternatively there is a hidden function in `lidR` that users can call (`lidR:::catalog_laxindex()`).
+:::
+
+```{r, echo = FALSE, results = FALSE}
+# Instructions for cleaning up any existing .lax files
+path <- "data/ctg_norm"
+file_list <- list.files(path)
+delete_lax <- file_list[grep("\\.lax$", file_list)]
+file.remove(file.path(path, delete_lax))
+```
+
+```{r indexing_files}
+# check if files have .lax
+is.indexed(ctg)
+# generate index files
+lidR:::catalog_laxindex(ctg)
+# check if files have .lax
+is.indexed(ctg)
+```
+
+## Generate CHM
+
+Now that we understand how a catalog works, lets apply it to generate some layers.
+
+First create another CHM by rasterizing the point cloud data from the catalog similarly to how we processed a single file.
+
+```{r generate_chm, warning = FALSE, message = FALSE}
+#| label: fig-catalog-chm
+#| fig-cap: "Canopy Height Model (CHM) generated from the entire `LAScatalog` at 1.0m resolution."
+# Generate CHM
+chm <- rasterize_canopy(las = ctg,
+                        res = 1,
+                        algorithm = p2r(subcircle = 0.15))
+plot(chm)
+```
+
+## Catalog processing options
+
+We can manipulate catalog options to alter processing on-the-fly across all tiles.
+
+```{r catalog_options, warning = FALSE, message = FALSE}
+#| label: fig-catalog-chm-filtered
+#| fig-cap: "CHM generated from the `LAScatalog` after applying filters to drop points below 0m and above 50m."
+# Setting options and re-rasterizing the CHM
+opt_filter(ctg) <- "-drop_z_below 0 -drop_z_above 50"
+opt_select(ctg) <- "xyz"
+chm <- rasterize_canopy(las = ctg, res = 1, algorithm = p2r(subcircle = 0.15))
+plot(chm)
+```
+
+## Generate pixel metrics and visualize
+
+We calculate summary metric rasters using the `pixel_metrics` function and visualize the results.
+
+```{r generate_metrics, warning = FALSE, message = FALSE}
+#| label: fig-catalog-maxz
+#| fig-cap: "Raster of mean point height (Z) calculated from the `LAScatalog` at a 20m resolution."
+# Generate pixel-based metrics
+max_z <- pixel_metrics(las = ctg, func = ~mean(Z), res = 20)
+plot(max_z)
+```
+
+## First returns only
+
+We can adjust the catalog options to calculate metrics based on first returns only.
+
+```{r generate_metrics_first_returns, warning = FALSE, message = FALSE}
+#| label: fig-catalog-maxz-first
+#| fig-cap: "Raster of mean point height (Z) using only first returns, calculated from the `LAScatalog` at 20m resolution."
+opt_filter(ctg) <- "-drop_z_below 0 -drop_z_above 50 -keep_first"
+max_z <- pixel_metrics(las = ctg, func = ~mean(Z), res = 20)
+plot(max_z)
+```
+
+## Specifying catalog options
+
+We can define how the LAScatalog should be broken down into chunks for processing. A 10m buffer is added to each chunk to avoid edge artifacts when a function's calculations depend on neighboring points (also automatically applied by default).
+
+```{r specify_catalog_options_parallel}
+#| label: fig-catalog-chunks
+#| fig-cap: "Visualization of the `LAScatalog` processing chunks, with a size of 500m (red solid lines) and a 10m buffer (green dashed lines)."
+# Specify options
+opt_select(ctg) <- "xyz"
+opt_chunk_size(ctg) <- 500
+opt_chunk_buffer(ctg) <- 10
+opt_progress(ctg) <- TRUE
+
+# Visualize and summarize the catalog chunks
+plot(ctg, chunk = TRUE)
+summary(ctg)
+```
+
+### Parallel computing
+
+In this section, we explore parallel computing using the `lidR` package.
+
+Parallel computing can apply the 
+
+::: {.callout-note}
+*Resource Considerations for Parallel Processing:*
+
+Be mindful of your system's resources. Parallel processing loads multiple tiles into memory (RAM) simultaneously. The required memory depends on the number of workers (cores), the point density and size of your tiles, and the complexity of the function being applied. If you encounter memory-related errors, try reducing the number of workers.
+
+Run `parallel::detectCores()` to see avaliable workers - *limit your use to a fraction of available cores* as other processes on your machine require computation.
+:::
+
+
+## Load `future` library
+
+Firstly, we load the `future` library to enable parallel processing.
+
+```{r load_future}
+library(future)
+```
+
+
+## Single core processing
+
+To establish a baseline, we generate a point density raster using a single processing core. 
+
+plan(sequential) from `future` ensures that the code runs sequentially, not in parallel.
+
+```{r single_core_processing, warning = FALSE, message = FALSE}
+#| label: fig-catalog-density-seq
+#| fig-cap: "Point density raster generated using a single processing core."
+# Process on single core
+plan(sequential)
+
+# Generate a point density raster (points per square metre)
+dens_seq <- rasterize_density(ctg, res = 10)
+
+
+plot(dens_seq)
+```
+
+## Parallel processing
+
+Now, we'll perform the same operation but leverage multiple cores. 
+
+In calling plan(multisession, workers = 3L) from `future`, lidR will automatically distribute the processing chunks across three CPU cores (workers). 
+
+The result should be identical to the single-core version, and should be faster than single-core systems.
+
+```{r parallel_processing, warning = FALSE, message = FALSE}
+#| label: fig-catalog-density-par
+#| fig-cap: "Point density raster generated in parallel using multiple cores."
+# Process on multi-core with three workers
+plan(multisession, workers = 3L)
+
+# Generate the same density raster, but in parallel
+dens_par <- rasterize_density(ctg, res = 10)
+
+plot(dens_par)
+```
+
+## Revert to single core
+
+It is good practice to always return the `plan(sequential)` after a parallel task is complete to avoid unintended parallel execution in later code.
+
+```{r revert_to_single_core}
+# Back to single core
+plan(sequential)
+```
+
+## Conclusion
+
+*This concludes the tutorial on basic usage, catalog validation, indexing, CHM generation, metric generation, and parallel computing to generate point density rasters using the `lidR` and `future` packages in R.*
+
+## Exercises
+
+Using:
+
+`ctg <- readLAScatalog(folder = "data/ctg_norm")`
+
+#### E1.
+
+Calculate a set of metrics from the `lidRmetrics` package on the catalogue (voxel metrics will take too long)
+
+Using:
+
+`ctg <- readLAScatalog(folder = "data/ctg_class")`
+
+#### E2.
+
+Read in the non-normalized las catalog filtering the point cloud to only include first returns.
+
+#### E3.
+
+Generate a DTM at 1m spatial resolution for the provided catalog with only first returns.
+
+::: callout-tip
+The Multiple Returns and Canopy Penetration
+This exercise highlights a critical and unique capability of Airborne Laser Scanning (ALS). 
+
+Unlike methods based on imagery like Digital Aerial Photogrammetry (DAP), map the visible surface, lidar pulses can penetrate through gaps in the vegetation generating multiple returns each. This allows us to map the ground surface even under dense forest cover, which is essential for creating accurate Digital Terrain Models (DTMs).
+:::

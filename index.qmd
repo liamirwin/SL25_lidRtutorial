@@ -1,0 +1,141 @@
+---
+title: "`lidR`: (A workshop for) Airborne Lidar Data Manipulation and Visualization for Environmental Applications"
+author:
+  - name: "Liam A.K. Irwin"
+    affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
+  - name: "Brent A. Murray"
+    affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
+  - name: "Tristan R.H. Goodbody"
+    affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
+  - name: "Jean-Romain Roussel"
+    affiliation: "r-lidar consulting & development"
+date: 2025-06-22
+---
+
+```{r setup, include=FALSE}
+source("R/setup_rgl.R")
+```
+
+
+## People
+
+**Presenters:**
+
+[Liam Irwin (UBC)](https://www.researchgate.net/profile/Liam-Irwin-3)
+
+[Brent Murray (UBC)](https://www.researchgate.net/profile/Brent-Murray-4)
+
+## Materials
+
+[This repository](https://github.com/liamirwin/LPS_lidRtutorial) contains the material for an 80 minute `lidR` tutorial workshop. You should install the material on your own machine from [this repository](https://github.com/liamirwin/LPS_lidRtutorial). It contains the code and point-clouds we will use. The workshop intends to:
+
+-   Present an overview of what can be done with `lidR`
+-   Give users an understanding of how `lidR` may fit their needs
+-   Exercises will be done depending on available time - users are encouraged to work on these after the workshop!
+
+::: callout-tip
+**Introduction slides:** [Intro to Airborne LiDAR & lidR](LPS_lidR_LiDAR_Intro.html)
+:::
+
+## Download Workshop Materials
+
+You can download the complete workshop package containing all code, data, and exercises here:
+
+[Download the LPS lidR Tutorial Package (.zip, 26 MB)](./LPS_lidRtutorial_package.zip)
+
+[Download additional classified lidar files for 05_engine (.zip, 80 MB)](./ctg_class.zip)
+
+[Download additional normalized lidar files for 05_engine (.zip, 78 MB)](./ctg_norm.zip)
+
+Unzip the first to a folder, and run the `.Rproj` file with RStudio installed for the easiest experience.
+Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
+
+![Target Folder and Data Structure for Workshop Contents](img/folder_structure.png)
+
+## Requirements
+
+### R version and Rstudio
+
+-   You need to install a recent version of `R` i.e. `R 4.x` or newer.
+-   We will work with [Rstudio](https://www.rstudio.com/). This IDE is not mandatory to follow the workshop but is highly recommended.
+
+### R Packages
+
+::: callout-tip
+**Easy setup for new users**
+Please open the `LPS_lidRtutorial_package.Rproj` in RStudio.
+Next, open `01_read.R` to run code to automatically install packages.
+:::
+
+Please install the `lidR` package in its latest version (4.2.1).
+
+``` r
+install.packages("lidR")
+```
+
+To run all code in the tutorial locally, you will need to install the following packages. You can use `lidR` without them or follow along with provided code and outputs.
+
+``` r
+libs <- c("terra","viridis","future","sf","mapview")
+
+install.packages(libs)
+```
+
+In the metrics section we introduce and work with a user-made package that supports `lidR` with additional functions to generate layers useful in vegetation and biodiversity mapping.
+
+To follow along with these steps; install `lidRmetrics` from GitHub (not available on CRAN), this requires the `devtools` package
+
+```r
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
+devtools::install_github("ptompalski/lidRmetrics")
+```
+
+### Datasets
+
+We will be working with a sample ALS dataset [openly available](https://geolion.zh.ch/geodatensatz/show?nbid=2618 "Data Description and Access") for Canton Zürich flown in spring 2014.
+
+The raw data has been thinned to a uniform density (20 points/m2) to speed up processing.
+
+## Estimated schedule {.smaller}
+
+-   Introduction to Lidar and lidR (09:00)
+-   Reading LAS and LAZ files (09:10)
+-   Point Classification and filtering (9:15)
+-   Digital Terrain Models and Height Normalization (9:25)
+-   Canopy Height Models (9:35)
+-   Lidar Summary Metrics (9:50)
+-   File Collection Processing Engine (10:10)
+
+## Resources
+
+We strongly recommend having the following resources available to you:
+
+-   The [`lidR` official documentation](https://cran.r-project.org/web/packages/lidR/lidR.pdf)
+-   The [lidRbook](https://r-lidar.github.io/lidRbook/) of tutorials
+
+When working on exercises:
+
+-   [Stack Exchange with the `lidR` tag](https://gis.stackexchange.com/questions/tagged/lidr)
+
+## `lidR`
+
+`lidR` is an R package to work with LiDAR data developed at Laval University (Québec, Canada). It was developed & continues to be maintained by [Jean-Romain Roussel](https://github.com/Jean-Romain) and was made possible between:
+
+-   2015 and 2018 thanks to the financial support of the AWARE project NSERC CRDPJ 462973-14; grantee Prof. Nicholas C. Coops.
+
+-   2018 and 2021 thanks to the financial support of the Ministère des Forêts, de la Faune et des Parcs (Québec).
+
+-   2021 and 2024 thanks to the financial support of Laval University.
+
+The current release version of `lidR` can be found on [CRAN](https://cran.r-project.org/web/packages/lidR/) and source code is hosted on [GitHub](https://github.com/r-lidar/lidR).
+
+::: callout-note
+![](img/rlidar_banner.png)
+
+## Note
+
+Since 2024, the `lidR` package is no longer supported by Laval University, but the software will remain free and open-source. `r-lidar` has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their [website](https://www.r-lidar.com/) for more information.
+:::

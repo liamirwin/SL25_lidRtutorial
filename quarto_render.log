@@ -1,0 +1,656 @@
+1
+/31                              
+2/31 [setup]                      
+
+3
+/31                              
+4/31 [clear_warnings]             
+
+5
+/31                              
+6/31 [load_and_inspect_lidar_data]
+
+7
+/31                              
+8/31 [fig-zrh-basic]              
+
+9
+/31                              
+10/31 [fig-zrh-classification]     
+
+11
+/31                              
+12/31 [fig-zrh-intensity]          
+
+13
+/31                              
+14/31 [fig-zrh-scan-angle]         
+
+15
+/31                              
+16/31 [on_the_fly_transform]       
+
+17
+/31                              
+18/31 [fig-zrh-ground-filter]      
+
+19
+/31                              
+20/31 [filter_points]              
+
+21
+/31                              
+22/31 [fig-zrh-first-returns]      
+
+23
+/31                              
+24/31 [select_attributes]          
+
+25
+/31                              
+26/31 [filter_poi_example]         
+
+27
+/31                              
+28/31 [fig-filter-poi-ground]      
+
+29
+/31                              
+30/31 [fig-filter-poi-first-ground]
+
+31
+/31                              
+
+output file: 01_read.knit.md
+
+
+Warning messages:
+
+1: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-basic'. 
+2: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-classification'. 
+3: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-intensity'. 
+4: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-scan-angle'. 
+5: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-ground-filter'. 
+6: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-zrh-first-returns'. 
+7: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-filter-poi-ground'. 
+8: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-filter-poi-first-ground'. 
+
+1
+/35                              
+
+2/35 [setup]                      
+
+3
+/35                              
+4/35 [clear_warnings]             
+
+5
+/35                              
+6/35 [dtm_data_preprocessing]     
+
+7
+/35                              
+8/35 [fig-dtm-initial-plot]       
+
+9
+/35                              
+10/35 [fig-dtm-classification-plot]
+
+11
+/35                              
+12/35 [dtm_triangulation]          
+
+13
+/35                              
+14/35 [fig-dtm-tin-3d]             
+
+15
+/35                              
+16/35 [fig-dtm-overlay]            
+
+17
+/35                              
+
+18/35 [dtm_idw]                    
+
+19
+/35                              
+20/35 [fig-dtm-idw-3d]             
+
+21
+/35                              
+22/35 [raw-norm-cs]                
+
+23
+/35                              
+24/35 [fig-cs-raw]                 
+
+25
+/35                              
+26/35 [fig-cs-norm]                
+
+27
+/35                              
+28/35 [normalization_dtm]          
+
+29
+/35                              
+30/35 [fig-normalized-dtm]         
+
+31
+/35                              
+32/35 [normalization_dtm_tin]      
+
+33
+/35                              
+34/35 [fig-normalized-tin]         
+
+35
+/35                              
+
+output file: 02_dtm.knit.md
+
+
+Warning messages:
+
+1: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-dtm-initial-plot'. 
+2: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-dtm-classification-plot'. 
+3: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-dtm-tin-3d'. 
+4: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-dtm-overlay'. 
+5: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-dtm-idw-3d'. 
+6: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-normalized-dtm'. 
+7: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-normalized-tin'. 
+
+1
+/25                              
+
+2/25 [setup]                      
+
+3
+/25                              
+4/25 [clear_warnings]             
+
+5
+/25                              
+6/25 [load_lidar_data]            
+
+7
+/25                              
+8/25 [fig-chm-initial-las]        
+
+9
+/25                              
+10/25 [fig-chm-p2r-2m]             
+
+11
+/25                              
+12/25 [fig-chm-p2r-1m]             
+
+13
+/25                              
+14/25 [fig-chm-p2r-subcircle]      
+
+15
+/25                              
+16/25 [fig-chm-p2r-large-subcircle]
+
+17
+/25                              
+18/25 [fig-chm-p2r-na-fill]        
+
+19
+/25                              
+20/25 [fig-chm-pitfree]            
+
+21
+/25                              
+22/25 [fig-chm-pitfree-subcircle]  
+
+23
+/25                              
+24/25 [fig-chm-smoothed]           
+
+25
+/25                              
+
+output file: 03_chm.knit.md
+
+
+1
+/33                           
+
+2/33 [setup]                   
+
+3
+/33                           
+4/33 [als_metrics_cs]          
+
+5
+/33                           
+6/33 [clear warnings]          
+
+7
+/33                           
+8/33 [load_lidar_data]         
+
+9
+/33                           
+10/33 [fig-metrics-mean-height] 
+
+11
+/33                           
+12/33 [fig-metrics-max-height]  
+
+13
+/33                           
+14/33 [fig-metrics-multi]       
+
+15
+/33                           
+16/33 [fig-metrics-std]         
+
+17
+/33                           
+18/33 [fig-metrics-zsd]         
+
+19
+/33                           
+20/33 [fig-metrics-canopy-cover]
+
+21
+/33                           
+22/33 [fig-metrics-lad]         
+
+23
+/33                           
+24/33 [cvlad]                   
+
+25
+/33                           
+26/33 [fig-metrics-dispersion]  
+
+27
+/33                           
+28/33 [fig-metrics-crr]         
+
+29
+/33                           
+30/33 [fig-metrics-vci]         
+
+31
+/33                           
+
+32/33 [fig-metrics-user-defined]
+
+33
+/33                           
+
+output file: 04_metrics.knit.md
+
+
+There were 11 warnings (use warnings() to see them)
+
+
+1
+/35                               
+2/35 [setup]                       
+
+3
+/35                               
+4/35 [clear_warnings]              
+
+5
+/35                               
+6/35 [read_catalog]                
+
+7
+/35                               
+8/35 [inspect_catalog]             
+
+9
+/35                               
+10/35 [fig-catalog-plot]            
+
+11
+/35                               
+12/35 [fig-catalog-plot-interactive]
+
+13
+/35                               
+14/35 [unnamed-chunk-1]             
+
+15
+/35                               
+16/35 [indexing_files]              
+
+17
+/35                               
+18/35 [fig-catalog-chm]             
+
+19
+/35                               
+20/35 [fig-catalog-chm-filtered]    
+
+21
+/35                               
+22/35 [fig-catalog-maxz]            
+
+23
+/35                               
+24/35 [fig-catalog-maxz-first]      
+
+25
+/35                               
+26/35 [fig-catalog-chunks]          
+
+27
+/35                               
+28/35 [load_future]                 
+
+29
+/35                               
+30/35 [fig-catalog-density-seq]     
+
+31
+/35                               
+32/35 [fig-catalog-density-par]     
+
+33
+/35                               
+34/35 [revert_to_single_core]       
+
+35
+/35                               
+
+output file: 05_engine.knit.md
+
+
+Warning messages:
+
+1: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-plot'. 
+2: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-plot-interactive'. 
+3: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-chm'. 
+4: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-chm-filtered'. 
+5: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-maxz'. 
+6: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-maxz-first'. 
+7: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-chunks'. 
+8: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-density-seq'. 
+9: Duplicated chunk option(s) 'label' in both chunk header and pipe comments of the chunk 'fig-catalog-density-par'. 
+
+1
+/33                
+
+2/33 [setup]        
+
+3
+/33                
+4/33 [pkg]          
+
+5
+/33                
+6/33 [las-e1]       
+
+7
+/33                
+8/33 [las-e2]       
+
+9
+/33                
+10/33 [las-e3]       
+
+11
+/33                
+12/33 [dtm-e1]       
+
+13
+/33                
+14/33 [dtm-e2]       
+
+15
+/33                
+16/33 [chm-e1]       
+
+17
+/33                
+18/33 [chm-e2]       
+
+19
+/33                
+20/33 [chm-e3]       
+
+21
+/33                
+22/33 [metrics-e1]   
+
+23
+/33                
+24
+/33 [metrics-e2]   
+
+25
+/33                
+26/33 [metrics-e3]   
+
+27
+/33                
+28/33 [lascatalog-e1]
+
+29
+/33                
+30/33 [lascatalog-e3]
+
+31
+/33                
+32/33 [lascatalog-e2]
+
+33
+/33                
+
+output file: 06_solutions.knit.md
+
+
+1
+/3                 
+
+2
+/3 [lidR-downloads]
+
+3
+/3                 
+
+output file: LPS_lidR_LiDAR_Intro.knit.md
+
+
+1
+/3        
+2/3
+ [setup]
+
+3
+/3        
+
+output file: index.knit.md
+
+
+1
+/41                                   
+
+2/41 [setup]                           
+
+3
+/41                                   
+4/41 [clear warnings]                  
+
+5
+/41                                   
+6/41 [load_and_inspect_lidar_data]     
+
+7
+/41                                   
+8/41 [select_circular_areas]           
+
+9
+/41                                   
+10/41 [plot_circle]                     
+
+11
+/41                                   
+12/41 [select_rectangular_areas]        
+
+13
+/41                                   
+14/41 [plot_rectangle]                  
+
+15
+/41                                   
+16/41 [select_multiple]                 
+
+17
+/41                                   
+18/41 [plot_1]                          
+
+19
+/41                                   
+20/41 [plot_2]                          
+
+21
+/41                                   
+22/41 [extraction_complex_geometries_sf]
+
+23
+/41                                   
+24/41 [plot_stand]                      
+
+25
+/41                                   
+26/41 [clip_las]                        
+
+27
+/41                                   
+28/41 [visualize_clipped_ctg]           
+
+29
+/41                                   
+30/41 [visualize_clipped_ctg_two]       
+
+31
+/41                                   
+32/41 [validate_clipped]                
+
+33
+/41                                   
+34/41 [delete_dems]                     
+
+35
+/41                                   
+36/41 [independent_files]               
+
+37
+/41                                   
+38/41 [plots_catalog]                   
+
+39
+/41                                   
+40/41 [check_plot]                      
+
+41
+/41                                   
+
+output file: S1_roi.knit.md
+
+
+1
+/43                           
+2/43 [setup]                   
+
+3
+/43                           
+4/43 [clear warnings]          
+
+5
+/43                           
+6/43 [chm_creation]            
+
+7
+/43                           
+8/43 [chm_smoothing]           
+
+9
+/43                           
+10/43 [tree_detection]          
+
+11
+/43                           
+12/43 [tree_segmentation]       
+
+13
+/43                           
+14/43 [tree_segmentation_legnth]
+
+15
+/43                           
+16/43 [visualize_trees]         
+
+17
+/43                           
+18/43 [unnamed-chunk-1]         
+
+19
+/43                           
+20/43 [visualize_tree_25]       
+
+21
+/43                           
+22/43 [visualize_tree_125]      
+
+23
+/43                           
+24/43 [raster_trees]            
+
+25
+/43                           
+26/43 [tree_detection_no_chm]   
+
+27
+/43                           
+28/43 [visualize_tree_tops ]    
+
+29
+/43                           
+30/43 [tree_segmentation_li]    
+
+31
+/43                           
+32/43 [visualize_tree_segmented]
+
+33
+/43                           
+34/43 [crown_metrics_example]   
+
+35
+/43                           
+36/43 [user_defined_metrics]    
+
+37
+/43                           
+38/43 [pre_defined_metrics]     
+
+39
+/43                           
+40/43 [delineate_crowns]        
+
+41
+/43                           
+42/43 [set_catalog_options_itd] 
+
+43
+/43                           
+
+output file: S2_its.knit.md
+
+
+
+
+Output created: docs\index.html
+
+

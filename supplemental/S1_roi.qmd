@@ -1,0 +1,249 @@
+---
+title: "Regions of Interest"
+---
+
+```{r setup, include=FALSE}
+source("R/setup_rgl.R")
+```
+
+## Relevant Resources
+
+-   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/07_s1_roi.R)
+
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/engine.html#engine-clip)
+
+## Overview
+
+We demonstrate the selection of regions of interest (ROIs) from LiDAR data. Geometries like circles and rectangles are selected based on coordinates. Complex geometries are extracted from shapefiles to clip specific areas.
+
+## Environment
+
+```{r clear warnings, warnings = FALSE, message=FALSE}
+# Clear environment
+rm(list = ls(globalenv()))
+
+# Load packages
+library(lidR)
+library(sf)
+```
+
+## Simple Geometries
+
+### Load LiDAR Data and Inspect
+
+We start by loading some LiDAR data and inspecting its header and number of point records.
+
+```{r load_and_inspect_lidar_data}
+las <- readLAS(files = 'data/zrh_norm.laz')
+# Inspect the header and the number of point records
+las@header
+las@header$`Number of point records`
+```
+
+### Select Circular and Rectangular Areas
+
+We can select circular and rectangular areas from the LiDAR data based on specified coordinates and radii or dimensions.
+
+```{r select_circular_areas}
+# Establish coordinates
+x <- 2670592
+y <- 1258890
+
+# Select a circular area
+circle <- clip_circle(las = las, xcenter = x, ycenter = y, radius = 30)
+
+# Inspect the circular area and the number of point records
+circle
+circle@header$`Number of point records`
+```
+
+``` r
+# Plot the circular area
+plot(circle)
+```
+
+```{r plot_circle, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(circle, bg = "white")
+```
+
+We can do the same with a rectangular area by defining corner coordinates.
+
+```{r select_rectangular_areas}
+# Select a rectangular area
+rect <- clip_rectangle(las = las, xleft = x, ybottom = y, xright = x + 40, ytop = y + 30)
+```
+
+``` r
+# Plot the rectangular area
+plot(rect)
+```
+
+```{r plot_rectangle, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(rect, bg = "white")
+```
+
+We can also supply multiple coordinate pairs to clip multiple ROIs.
+
+```{r select_multiple}
+# Select multiple random circular areas
+x <- runif(2, x, x)
+y <- runif(2, 1258840, 1258890)
+
+plots <- clip_circle(las = las, xcenter = x, ycenter = y, radius = 10)
+```
+
+``` r
+# Plot each of the multiple circular areas
+plot(plots[[1]])
+```
+
+```{r plot_1, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(plots[[1]], bg = "white")
+```
+
+``` r
+# Plot each of the multiple circular areas
+plot(plots[[2]])
+```
+
+```{r plot_2, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(plots[[2]], bg = "white")
+```
+
+## Extraction of Complex Geometries from Shapefiles
+
+We demonstrate how to extract complex geometries from shapefiles using the `clip_roi()` function from the `lidR` package.
+
+We use the `sf` package to load an ROI and then clip to its extents.
+
+```{r extraction_complex_geometries_sf, warning=FALSE, message=FALSE}
+# Load the shapefile using sf
+stand_bdy <- sf::st_read(dsn = "data/roi/roi.gpkg", quiet = TRUE)
+
+# Plot the LiDAR header information without the map
+plot(las@header, map = FALSE)
+
+# Plot the stand boundary areas on top of the LiDAR header plot
+plot(stand_bdy, add = TRUE, col = "#08B5FF39")
+
+# Extract points within the stand boundary using clip_roi()
+stand <- clip_roi(las = las, geometry = stand_bdy)
+```
+
+``` r
+# Plot the extracted points within the planting areas
+plot(stand)
+```
+
+```{r plot_stand, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Plot the extracted points within the stand area
+plot(stand, bg = "white")
+```
+
+## Clipping ROIs with a catalog
+
+We clip the `LAS` data in the catalog using specified coordinate groups.
+
+```{r clip_las, warning = FALSE, message = FALSE}
+
+ctg <- catalog("data/ctg_norm")
+
+# Set coordinate groups
+x <- c(2670578, 2671234, 2671499, 2671755, 2671122)
+y <- c(1258601, 1259050, 1259450, 1259900, 1258750)
+
+# Visualize coordinate groups
+plot(ctg)
+points(x, y)
+
+# Clip plots
+rois <- clip_circle(las = ctg, xcenter = x, ycenter = y, radius = 30)
+```
+
+``` r
+plot(rois[[1]])
+```
+
+```{r visualize_clipped_ctg, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(rois[[1]], bg = "white")
+```
+
+``` r
+plot(rois[[3]])
+```
+
+```{r visualize_clipped_ctg_two, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+# Visualize the LiDAR data with a default color palette
+plot(rois[[3]], bg = "white")
+```
+
+## Validate clipped data
+
+We validate the clipped LAS data using the `las_check` function.
+
+```{r validate_clipped}
+las_check(rois[[1]])
+las_check(rois[[3]])
+```
+
+## Independent files (e.g. plots) as catalogs
+
+We read an individual LAS file as a catalog and perform operations on it.
+
+```{r delete_dems, echo = FALSE, results = FALSE}
+# Instructions for cleaning up any existing .lax files
+# (Note: Please replace 'path' with the appropriate path)
+path <- paste0(tempdir())
+file_list <- list.files(path)
+delete_tif <- file_list[grep("\\.tif$", file_list)]
+delete_las <- file_list[grep("\\.laz$", file_list)]
+file.remove(file.path(path, delete_tif))
+file.remove(file.path(path, delete_las))
+```
+
+```{r independent_files, warning = FALSE, message = FALSE}
+# Read single file as catalog
+ctg <- readLAScatalog(folder = "data/zrh_norm.laz")
+
+# Set options for output files
+opt_output_files(ctg) <- paste0(tempdir(),"/{XCENTER}_{XCENTER}")
+
+# Write file as .laz
+opt_laz_compression(ctg) <- TRUE
+
+# Get random plot locations and clip
+x <- runif(n = 4, min = ctg$Min.X, max = ctg$Max.X)
+y <- runif(n = 4, min = ctg$Min.Y, max = ctg$Max.Y)
+rois <- clip_circle(las = ctg, xcenter = x, ycenter = y, radius = 10)
+```
+
+```{r plots_catalog, warning = FALSE, message = FALSE}
+# Read catalog of plots
+ctg_plots <- readLAScatalog(tempdir())
+
+# Set independent files option
+opt_independent_files(ctg_plots) <- TRUE
+opt_output_files(ctg_plots) <- paste0(tempdir(),"/{XCENTER}_{XCENTER}")
+
+# Generate plot-level terrain models
+rasterize_terrain(las = ctg_plots, res = 1, algorithm = tin())
+```
+
+```{r check_plot}
+# Check files
+path <- paste0(tempdir())
+file_list <- list.files(path, full.names = TRUE)
+file <- file_list[grep("\\.tif$", file_list)][[1]]
+
+# plot dtm
+plot(terra::rast(file))
+```
+
+## Conclusion
+
+This concludes our tutorial on selecting simple geometries and extracting complex geometries from geopackage files (or shapefiles etc...) using the `lidR` package in R.

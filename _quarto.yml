@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+  render:
+    - "*.qmd"
+    - "LPS_lidR_LiDAR_Intro.qmd"
+    - "!R/"
+
+website:
+  title: "lidRtutorial"
+  favicon: "img/logo.png"
+  site-url: https://r-lidar.github.io/lidRbook/
+  navbar:
+    search: true
+    background: dark
+    collapse-below: lg
+    type: light
+    logo: "img/logo.png"
+    left:
+      - text: "1-LAS"
+        href: "01_read.qmd"
+      - text: "2-DTM"
+        href: "02_dtm.qmd"
+      - text: "3-CHM"
+        href: "03_chm.qmd"
+      - text: "4-METRICS"
+        href: "04_metrics.qmd"
+      - text: "5-LASCATALOG"
+        href: "05_engine.qmd"
+      - text: "6-SOLUTIONS"
+        href: "06_solutions.qmd"
+      - text: "SUPPLEMENTAL"
+        menu:
+          - text: "ROI"
+            href: "supplemental/S1_roi.qmd"
+          - text: "ITS"
+            href: "supplemental/S2_its.qmd"
+  search: 
+    location: navbar
+    type: overlay
+
+lightbox: true
+
+format:
+  html:
+    theme: [simple, assets/styles.scss]
+    css: [assets/custom.css]
+    toc: true
+    toc-depth: 4
+    code-overflow: wrap
+
+editor: source

@@ -1,0 +1,198 @@
+---
+title: "Excercise Solutions"
+---
+
+```{r setup, include=FALSE}
+source("R/setup_rgl.R")
+```
+
+## Resources
+
+-   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/06_solutions.R)
+
+## 1-LAS
+
+```{r pkg, warning=FALSE, message=FALSE}
+# Load packages
+library(sf)
+library(terra)
+library(lidR)
+library(lidRmetrics)
+```
+
+#### E1.
+
+Using the `plot()` function plot the point cloud with a different attribute that has not been done yet
+
+Try adding axis = TRUE, legend = TRUE to your plot argument `plot(las, axis = TRUE, legend = TRUE)`
+
+```{r las-e1}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+plot(las, color = "ReturnNumber", axis = TRUE, legend = TRUE)
+```
+
+#### E2.
+
+Create a filtered las object of returns that have an Intensity greater that 50, and plot it.
+
+```{r las-e2}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+i_50 <- filter_poi(las = las, Intensity > 50)
+plot(i_50)
+```
+
+#### E3.
+
+Read in the las file with only xyz and intensity only. Hint go to the lidRbook section to find out how to do this.
+
+
+```{r las-e3}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz", select = "xyzi")
+```
+
+
+## 2-DTM
+
+
+#### E1.
+
+Compute two DTMs for this point cloud with differing spatial resolutions, plot both e.g. `plot(dtm1)
+
+```{r dtm-e1}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_class.laz")
+dtm_5 <- rasterize_terrain(las=las, res=5, algorithm=tin())
+dtm_10 <- rasterize_terrain(las=las, res=10, algorithm=tin())
+plot(dtm_5)
+plot(dtm_10)
+```
+
+#### E2.
+
+Now use the `plot_dtm3d()` function to visualize and move around your newly created DTMs
+
+```{r dtm-e2}
+#| code-fold: true
+plot_dtm3d(dtm_5)
+```
+
+
+## 3-CHM
+
+
+#### E1.
+
+Using the `p2r()` and `pitfree()` (defining your own arguments) create two CHMs with the same resolution and plot them. What differences do you notice?
+
+```{r chm-e1}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+chm_p2r <- rasterize_canopy(las=las, res=2, algorithm=p2r())
+
+thresholds <- c(0, 5, 10, 20, 25, 30)
+max_edge <- c(0, 1.35)
+chm_pitfree <- rasterize_canopy(las = las, res = 2, algorithm = pitfree(thresholds, max_edge))
+
+plot(chm_p2r)
+plot(chm_pitfree)
+```
+
+#### E2.
+
+Using `terra::focal()` with the `w = matrix(1, 5, 5)` and `fun = max`, plot a manipulated CHM using one of the CHMs you previously generated.
+
+```{r chm-e2}
+#| code-fold: true
+schm <- terra::focal(chm_pitfree, w = matrix(1, 5, ,5), fun = max, na.rm = TRUE)
+plot(schm)
+```
+
+#### E3.
+
+Create a 10 m CHM using a algorithm of your choice. Would this information still be useful at this scale?
+
+```{r chm-e3}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+chm <- rasterize_canopy(las=las, res=10, algorithm=p2r())
+plot(chm)
+```
+
+## 4-METRICS
+
+#### E1.
+
+Generate another metric set provided by the `lidRmetrics` package (voxel metrics will take too long)
+
+```{r metrics-e1}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+dispersion <- pixel_metrics(las, ~metrics_percentiles(z = Z), res = 20)
+```
+
+#### E2.
+
+Map the density of ground returns at a 5 m resolution. Hint `filter = -keep_class 2`
+
+```{r metrics-e2}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz", filter = "-keep_class 2")
+gnd <- pixel_metrics(las, ~length(Z)/25, res=5)
+plot(gnd)
+```
+
+#### E3.
+
+ssuming that biomass is estimated using the equation `B = 0.5 * mean Z + 0.9 * 90th percentile of Z` applied on first returns only, map the biomass.
+
+```{r metrics-e3}
+#| code-fold: true
+las <- readLAS(files = "data/zrh_norm.laz")
+B <- pixel_metrics(las, ~0.5*mean(Z) + 0.9*quantile(Z, probs = 0.9), 10, filter = ~ReturnNumber == 1L)
+plot(B)
+```
+
+
+## 6-LASCATALOG
+
+
+#### E1.
+
+Calculate a set of metrics from the `lidRmetrics` package on the catalogue (voxel metrics will take too long)
+
+```{r lascatalog-e1}
+#| code-fold: true
+ctg <- readLAScatalog(folder = "data/ctg_norm")
+dispersion <- pixel_metrics(ctg, ~metrics_dispersion(z = Z, dz = 2, zmax = 30), res = 20)
+plot(dispersion)
+```
+
+#### E2.
+
+Read in the non-normalized las catalog filtering the point cloud to only include first returns.
+
+```{r lascatalog-e3}
+#| code-fold: true
+ctg <- readLAScatalog(folder = "data/ctg_class")
+opt_filter(ctg) <- "-keep_first -keep_class 2"
+```
+
+#### E3.
+
+Generate a DTM at 1m spatial resolution for the provided catalog with only first returns.
+
+```{r lascatalog-e2}
+#| code-fold: true
+dtm_first <- rasterize_terrain(ctg, res = 1, algorithm = tin())
+plot(dtm_first)
+```
+
+::: callout-tip
+The Multiple Returns and Canopy Penetration
+This exercise highlights a critical and unique capability of Airborne Laser Scanning (ALS). 
+
+Unlike methods based on imagery like Digital Aerial Photogrammetry (DAP), map the visible surface, LiDAR pulses can penetrate through gaps in the vegetation generating multiple returns each. This allows us to map the ground surface even under dense forest cover, which is essential for creating accurate Digital Terrain Models (DTMs).
+:::

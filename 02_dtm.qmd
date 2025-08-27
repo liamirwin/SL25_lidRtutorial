@@ -1,0 +1,257 @@
+---
+title: "Digital Terrain Models"
+---
+
+```{r setup, include=FALSE}
+source("R/setup_rgl.R")
+```
+
+## Relevant resources
+
+-   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/02_dtm.R)
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/dtm.html)
+
+## Overview
+
+Airborne Laser Scanning has for decades been used to generate detailed models of terrain based on lidar measurements. Lidar's ability to produce consistent wall-to-wall ground measurements, even when obscured by vegetation is a critical advantage of the technology in environmental mapping.
+
+Digital Terrain Models (DTMs) are gridded (raster) surfaces generated at a given `spatial resolution` with an interpolation method that populates each cell with an elevation value.
+
+This tutorial explores the creation of DTMs from lidar data. It demonstrates two algorithms for DTM generation: ground point triangulation, and inverse-distance weighting. Additionally, the tutorial showcases DTM-based normalization and point-based normalization, accompanied by exercises for hands-on practice.
+
+## Environment
+
+```{r clear_warnings, warnings = FALSE, message = FALSE}
+# Clear environment
+rm(list = ls(globalenv()))
+
+# Load packages
+library(lidR)
+```
+
+## DTM (Digital Terrain Model)
+
+In this section, we'll generate a Digital Terrain Model (DTM) from lidar data using two different algorithms: `tin()` and `knnidw()`.
+
+### Data Preprocessing
+
+```{r dtm_data_preprocessing}
+# Load lidar data where points are already pre-classified
+las <- readLAS(files = "data/zrh_class.laz")
+```
+
+### Visualizing Lidar Data
+
+We start by visualizing the entire lidar point cloud to get an initial overview.
+
+``` r
+plot(las)
+```
+
+```{r dtm_visualize_data, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-dtm-initial-plot
+#| fig-cap: "Visualization of the lidar point cloud, coloured by elevation."
+# Visualize using the classification attribute as colors
+plot(las, bg = "white")
+```
+
+Visualizing the Lidar data again, this time to distinguish ground points (blue) more effectively.
+
+``` r
+plot(las, color = "Classification")
+```
+
+```{r dtm_visualize_data_bg, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-dtm-classification-plot
+#| fig-cap: "lidar point cloud coloured by the Classification attribute to distinguish ground points."
+# Visualize using the classification attribute as colors
+plot(las, color = "Classification", bg = "white")
+```
+
+### Triangulation Algorithm - `tin()`
+
+We create a DTM using the `tin()` algorithm with a resolution of 1 meter.
+
+```{r dtm_triangulation}
+# Generate a DTM using the TIN (Triangulated Irregular Network) algorithm
+dtm_tin <- rasterize_terrain(las = las, res = 1, algorithm = tin())
+```
+
+::: callout-note
+## Degenerated points
+You may receive a warning about degenerated points when creating a DTM.
+A degenerated point in lidar data refers to a point with identical XY(Z) coordinates as another point. 
+This means two or more points occupy exactly the same location in XY/3D space. 
+Degenerated points can cause issues in tasks like creating a digital terrain model, as they don't add new information and can lead to inconsistencies. 
+Identifying and handling degenerated points appropriately is crucial for accurate and meaningful results.
+:::
+
+### Visualizing DTM in 3D
+
+To better conceptualize the terrain, we visualize the generated DTM in a 3D plot.
+
+``` r
+# Visualize the DTM in 3D
+plot_dtm3d(dtm_tin)
+```
+
+```{r dtm_visualize_3d, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-dtm-tin-3d
+#| fig-cap: "A 3D visualization of the Digital Terrain Model (DTM) generated using the `tin()` algorithm."
+# Visualize the DTM in 3D
+plot_dtm3d(dtm_tin, bg = "white")
+```
+
+### Visualizing DTM with Lidar Point Cloud
+
+We overlay the DTM on the lidar data (non-ground points only) for a more comprehensive view of the terrain.
+
+``` r
+# Filter for non-ground points to show dtm better
+las_ng <- filter_poi(las = las, Classification != 2L)
+
+# Visualize the lidar data with the overlaid DTM in 3D
+x <- plot(las_ng, bg = "white")
+add_dtm3d(x, dtm_tin, bg = "white")
+```
+
+```{r dtm_visualize_with_lidar, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-dtm-overlay
+#| fig-cap: "The `tin()` generated DTM overlaid with the non-ground lidar points."
+# Filter for non-ground points to show dtm better
+las_ng <- filter_poi(las = las, Classification != 2L)
+
+# Visualize the lidar data with the overlaid DTM in 3D
+x <- plot(las_ng, bg = "white")
+add_dtm3d(x, dtm_tin, bg = "white")
+```
+
+### Inverse-Distance Weighting (IDW) Algorithm - `knnidw()`
+
+Next, we generate a DTM using the IDW algorithm to compare results with the TIN-based DTM.
+
+```{r dtm_idw}
+# Generate a DTM using the IDW (Inverse-Distance Weighting) algorithm
+dtm_idw <- rasterize_terrain(las = las, res = 1, algorithm = knnidw())
+```
+
+### Visualizing IDW-based DTM in 3D
+
+We visualize the DTM generated using the IDW algorithm in a 3D plot.
+
+``` r
+# Visualize the IDW-based DTM in 3D
+plot_dtm3d(dtm_idw)
+```
+
+```{r dtm_visualize_idw_3d, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-dtm-idw-3d
+#| fig-cap: "A three-dimensional visualization of the DTM generated using the `knnidw()` algorithm."
+# Visualize the IDW-based DTM in 3D
+plot_dtm3d(dtm_idw, bg = "white")
+```
+
+## Height Normalization
+
+Height normalization is applied by subtracting terrain height from return heights above the ground level. This serves to remove distortion from topography and isolate vegetation structure. In doing so elevation (Z coordinates) of each return is converted from height above some reference surface; such as sea level (mASL) to above ground (mAGL)
+
+Normalization is a critical pre-processing step that enables the signal of vegetation structure to be isolated and mapped.
+
+We'll perform height normalization of lidar data using both DTM-based and point-based normalization methods.
+
+```{r raw-norm-cs, echo = FALSE}
+p1 <- c(mean(las@data$X), mean(las@data$Y))
+p2 <- c(mean(las@data$X) - 250, mean(las@data$Y))
+
+
+las <- readLAS('data/zrh_class.laz')
+las_cs <- clip_transect(las, p1 = p1,
+                        p2 = p2, width = 0.25) 
+
+las_norm <- readLAS('data/zrh_norm.laz')
+las_cs_norm <- clip_transect(las_norm, p1 = p1,
+                        p2 = p2, width = 0.25) 
+
+library(ggplot2)
+
+p_las <- ggplot(data = las_cs@data) +
+  geom_point(aes(x = X, y = Z), alpha = 0.5) + 
+  labs(title = 'Raw Cross Section', y = 'Height above ground (mAGL)') +
+  theme_classic()
+
+p_norm <- ggplot(data = las_cs_norm@data) +
+  geom_point(aes(x = X, y = Z), alpha = 0.5) + 
+  labs(title = 'Height Normalized Cross Section', y = 'Height above ground (mAGL)') +
+  theme_classic()
+```
+
+```{r}
+#| label: fig-cs-raw
+#| fig-cap: "Two-dimensional cross section (0.5m wide) showing raw *non-normalized* points"
+p_las
+```
+
+```{r}
+#| label: fig-cs-norm
+#| fig-cap: "Two-dimensional cross section (0.5m wide) showing ground *normalized* points"
+p_norm
+```
+
+### DTM-based Normalization
+
+First, we perform DTM-based normalization on the lidar data using the previously generated DTM.
+
+```{r normalization_dtm}
+# Normalize the lidar data using DTM-based normalization
+nlas_dtm <- normalize_height(las = las, algorithm = dtm_tin)
+```
+
+### Visualizing Normalized Lidar Data
+
+We visualize the normalized lidar data, illustrating heights relative to the DTM (mAGL).
+
+``` r
+# Visualize the normalized lidar data
+plot(nlas_dtm)
+```
+
+```{r normalization_visualize, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+#| label: fig-normalized-dtm
+#| fig-cap: "Visualization of the lidar data after height normalization using the pre-computed DTM."
+# Visualize the normalized lidar data
+plot(nlas_dtm, bg = "white")
+```
+
+### DTM-based Normalization with TIN Algorithm
+
+We perform DTM-based normalization on the lidar data using the TIN algorithm. Rather than specifying a resolution for an interpolated DTM a triangular irregular network (TIN) will be directly fit to ground returns (on-the-fly) and used to normalize points elevations.
+
+```{r normalization_dtm_tin}
+# Normalize the lidar data using DTM-based normalization with TIN algorithm
+nlas_tin <- normalize_height(las = las, algorithm = tin())
+```
+
+### Visualizing Normalized Lidar Data with TIN
+
+We visualize the normalized lidar data using the TIN algorithm, showing heights relative to the DTM.
+
+```{r normalization_visualize_tin}
+#| label: fig-normalized-tin
+#| fig-cap: "Visualization of the lidar data after height normalization using the `tin()` algorithm directly."
+# Visualize the normalized lidar data using the TIN algorithm
+plot(nlas_tin, bg = "white")
+```
+
+## Exercises
+
+#### E1.
+
+Compute two DTMs for this point cloud with differing spatial resolutions, plot both 
+
+#### E2.
+
+Now use the `plot_dtm3d()` function to visualize and move around your newly created DTMs
+
+## Conclusion
+
+This tutorial covered the creation of Digital Terrain Models (DTMs) from lidar data using different algorithms and explored height normalization techniques. The exercises provided hands-on opportunities to apply these concepts, enhancing understanding and practical skills.
