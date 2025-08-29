@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://r-lidar.github.io/lidRbook/supplemental/S2_its.html</loc>
-    <lastmod>2025-06-20T15:08:37.622Z</lastmod>
-  </url>
-  <url>
     <loc>https://r-lidar.github.io/lidRbook/index.html</loc>
-    <lastmod>2025-06-21T19:15:56.536Z</lastmod>
+    <lastmod>2025-08-28T15:53:52.056Z</lastmod>
   </url>
   <url>
-    <loc>https://r-lidar.github.io/lidRbook/06_solutions.html</loc>
-    <lastmod>2025-06-19T20:01:32.089Z</lastmod>
+    <loc>https://r-lidar.github.io/lidRbook/08_solutions.html</loc>
+    <lastmod>2025-08-28T15:53:47.976Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-lidar.github.io/lidRbook/06_catalog.html</loc>
+    <lastmod>2025-08-28T15:53:47.975Z</lastmod>
   </url>
   <url>
     <loc>https://r-lidar.github.io/lidRbook/04_metrics.html</loc>
-    <lastmod>2025-06-21T19:15:54.888Z</lastmod>
+    <lastmod>2025-08-28T15:53:47.974Z</lastmod>
   </url>
   <url>
     <loc>https://r-lidar.github.io/lidRbook/02_dtm.html</loc>
-    <lastmod>2025-06-21T19:24:18.988Z</lastmod>
+    <lastmod>2025-08-28T15:53:47.970Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-lidar.github.io/lidRbook/00_preprocess.html</loc>
+    <lastmod>2025-08-28T15:53:47.969Z</lastmod>
   </url>
   <url>
     <loc>https://r-lidar.github.io/lidRbook/01_read.html</loc>
-    <lastmod>2025-06-21T19:20:29.851Z</lastmod>
+    <lastmod>2025-08-28T15:53:47.969Z</lastmod>
   </url>
   <url>
     <loc>https://r-lidar.github.io/lidRbook/03_chm.html</loc>
-    <lastmod>2025-06-20T15:07:05.133Z</lastmod>
+    <lastmod>2025-08-28T15:53:47.971Z</lastmod>
   </url>
   <url>
-    <loc>https://r-lidar.github.io/lidRbook/05_engine.html</loc>
-    <lastmod>2025-06-21T19:15:54.891Z</lastmod>
+    <loc>https://r-lidar.github.io/lidRbook/05_aba.html</loc>
+    <lastmod>2025-08-28T15:53:52.063Z</lastmod>
+  </url>
+  <url>
+    <loc>https://r-lidar.github.io/lidRbook/07_its.html</loc>
+    <lastmod>2025-08-28T15:53:52.344Z</lastmod>
   </url>
   <url>
     <loc>https://r-lidar.github.io/lidRbook/LPS_lidR_LiDAR_Intro.html</loc>
-    <lastmod>2025-06-21T20:18:02.139Z</lastmod>
-  </url>
-  <url>
-    <loc>https://r-lidar.github.io/lidRbook/supplemental/S1_roi.html</loc>
-    <lastmod>2025-06-20T15:08:09.472Z</lastmod>
+    <lastmod>2025-08-28T15:53:48.074Z</lastmod>
   </url>
 </urlset>

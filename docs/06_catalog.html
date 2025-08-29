@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.39">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>LAScatalog – lidRtutorial</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./img/logo.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-27fe5e52d84ec6ae2c2701a6fe055ed5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="assets/custom.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./img/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">lidRtutorial</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./00_preprocess.html"> 
+<span class="menu-text">0-PREPROCESS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./01_read.html"> 
+<span class="menu-text">1-LAS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./02_dtm.html"> 
+<span class="menu-text">2-DTM</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./03_chm.html"> 
+<span class="menu-text">3-CHM</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./04_metrics.html"> 
+<span class="menu-text">4-METRICS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./05_aba.html"> 
+<span class="menu-text">5-ABA</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./06_catalog.html" aria-current="page"> 
+<span class="menu-text">6-LASCATALOG</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./07_its.html"> 
+<span class="menu-text">7-ITS</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./08_solutions.html"> 
+<span class="menu-text">8-SOLUTIONS</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-supplemental" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SUPPLEMENTAL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-supplemental">    
+        <li class="dropdown-header">ROI</li>
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#relevant-resources" id="toc-relevant-resources" class="nav-link active" data-scroll-target="#relevant-resources">Relevant resources:</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
+  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link" data-scroll-target="#basic-usage">Basic Usage</a>
+  <ul>
+  <li><a href="#read-catalog-from-directory-of-files" id="toc-read-catalog-from-directory-of-files" class="nav-link" data-scroll-target="#read-catalog-from-directory-of-files">Read catalog from directory of files</a></li>
+  <li><a href="#catalog-information" id="toc-catalog-information" class="nav-link" data-scroll-target="#catalog-information">Catalog information</a></li>
+  <li><a href="#visualize-catalog" id="toc-visualize-catalog" class="nav-link" data-scroll-target="#visualize-catalog">Visualize catalog</a></li>
+  </ul></li>
+  <li><a href="#file-indexing" id="toc-file-indexing" class="nav-link" data-scroll-target="#file-indexing">File indexing</a></li>
+  <li><a href="#generate-chm" id="toc-generate-chm" class="nav-link" data-scroll-target="#generate-chm">Generate CHM</a></li>
+  <li><a href="#catalog-processing-options" id="toc-catalog-processing-options" class="nav-link" data-scroll-target="#catalog-processing-options">Catalog processing options</a></li>
+  <li><a href="#generate-pixel-metrics-and-visualize" id="toc-generate-pixel-metrics-and-visualize" class="nav-link" data-scroll-target="#generate-pixel-metrics-and-visualize">Generate pixel metrics and visualize</a></li>
+  <li><a href="#first-returns-only" id="toc-first-returns-only" class="nav-link" data-scroll-target="#first-returns-only">First returns only</a></li>
+  <li><a href="#specifying-catalog-options" id="toc-specifying-catalog-options" class="nav-link" data-scroll-target="#specifying-catalog-options">Specifying catalog options</a>
+  <ul>
+  <li><a href="#parallel-computing" id="toc-parallel-computing" class="nav-link" data-scroll-target="#parallel-computing">Parallel computing</a></li>
+  </ul></li>
+  <li><a href="#load-future-library" id="toc-load-future-library" class="nav-link" data-scroll-target="#load-future-library">Load <code>future</code> library</a></li>
+  <li><a href="#single-core-processing" id="toc-single-core-processing" class="nav-link" data-scroll-target="#single-core-processing">Single core processing</a></li>
+  <li><a href="#parallel-processing" id="toc-parallel-processing" class="nav-link" data-scroll-target="#parallel-processing">Parallel processing</a></li>
+  <li><a href="#revert-to-single-core" id="toc-revert-to-single-core" class="nav-link" data-scroll-target="#revert-to-single-core">Revert to single core</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#e1." id="toc-e1." class="nav-link" data-scroll-target="#e1.">E1.</a></li>
+  <li><a href="#e2." id="toc-e2." class="nav-link" data-scroll-target="#e2.">E2.</a></li>
+  <li><a href="#e3." id="toc-e3." class="nav-link" data-scroll-target="#e3.">E3.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LAScatalog</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="relevant-resources" class="level2">
+<h2 class="anchored" data-anchor-id="relevant-resources">Relevant resources:</h2>
+<ul>
+<li><a href="https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/05_engine.R">Code</a></li>
+<li><a href="https://r-lidar.github.io/lidRbook/engine.html">lidRbook section</a></li>
+</ul>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This code performs various operations on lidar data using LAScatalog functionality. We visualize and inspect the data, validate the files, clip the data based on specific coordinates, generate a Canopy Height Model (CHM), specify processing options, and use parallel computing.</p>
+</section>
+<section id="environment" class="level2">
+<h2 class="anchored" data-anchor-id="environment">Environment</h2>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear environment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>(<span class="fu">globalenv</span>()))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lidR)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic Usage</h2>
+<p>In this section, we will cover the basic usage of the <code>lidR</code> package, including reading lidar data, visualization, and inspecting metadata.</p>
+<p>If you haven’t downloaded the catalog files yet:</p>
+<p><a href="./ctg_class.zip">Download additional classified lidar files for 05_engine (.zip, 80 MB)</a> <a href="./ctg_norm.zip">Download additional normalized lidar files for 05_engine (.zip, 78 MB)</a></p>
+<p>Unzip <code>ctg_class.zip</code> and <code>ctg_norm.zip</code> to their respective folders in <code>data/ctg_*</code></p>
+<section id="read-catalog-from-directory-of-files" class="level3">
+<h3 class="anchored" data-anchor-id="read-catalog-from-directory-of-files">Read catalog from directory of files</h3>
+<p>We begin by creating a LAS catalog (<code>ctg</code>) from a folder containing multiple <code>.las/.laz</code> files using the <code>readLAScatalog()</code> function.</p>
+<div class="cell" data-warnings="false">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read catalog of files</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ctg <span class="ot">&lt;-</span> <span class="fu">readLAScatalog</span>(<span class="at">folder =</span> <span class="st">"data/ctg_norm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="catalog-information" class="level3">
+<h3 class="anchored" data-anchor-id="catalog-information">Catalog information</h3>
+<p>We can receive a summary about the catalog by calling the object’s name.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ctg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : LAScatalog (v1.1 format 1)
+extent      : 2670500, 2672000, 1258500, 1260000 (xmin, xmax, ymin, ymax)
+coord. ref. : CH1903+ / LV95 
+area        : 2.25 km²
+points      : 11.25 million points
+type        : airborne
+density     : 5 points/m²
+density     : 2 pulses/m²
+num. files  : 9 </code></pre>
+</div>
+</div>
+</section>
+<section id="visualize-catalog" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-catalog">Visualize catalog</h3>
+<p>We can visualize the catalog, showing the spatial coverage of the lidar data <em>header</em> extents. Note with <code>chunk = TRUE</code> we see the automatic buffers (dashed line) applied to each tile to avoid edge effects.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ctg, <span class="at">chunk =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Visualization of the LAScatalog showing the spatial layout of the individual lidar tiles."><img src="06_catalog_files/figure-html/fig-catalog-plot-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Visualization of the <code>LAScatalog</code> showing the spatial layout of the individual lidar tiles.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>With the <code>mapview</code> package installed, this map can be interactive if we use <code>map = TRUE</code>. Try clicking on a tile to see its header information.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interactive</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ctg, <span class="at">map =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>'mapview' is required to display the LAScatalog interactively.</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-plot-interactive" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-plot-interactive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-plot-interactive-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Interactive visualization of the LAScatalog using mapview"><img src="06_catalog_files/figure-html/fig-catalog-plot-interactive-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-plot-interactive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Interactive visualization of the <code>LAScatalog</code> using <code>mapview</code>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Success</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Warning</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Error</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>When all processing is completed without issues, all tiles are colored green.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="img/ctg/success.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Catalog plot showing all tiles in green, indicating success."><img src="img/ctg/success.png" class="img-fluid figure-img" alt="Catalog plot showing all tiles in green, indicating success."></a></p>
+<figcaption>Catalog plot showing all tiles in green, indicating success.</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>If a process runs but generates a warning for a tile they are coloured yellow. The processing for that tile may have completed, but it requires inspection.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="img/ctg/warning.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Catalog plot tiles in orange, indicating warnings."><img src="img/ctg/warning.png" class="img-fluid figure-img" alt="Catalog plot tiles in orange, indicating warnings."></a></p>
+<figcaption>Catalog plot tiles in orange, indicating warnings.</figcaption>
+</figure>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>A tile colored in red indicates that the processing failed for that file.</p>
+<p>Tip: set <code>opt_stop_early(ctg)</code> &lt;- FALSE to continue processing</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="img/ctg/error.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Catalog plot showing some tiles in red, indicating errors."><img src="img/ctg/error.png" class="img-fluid figure-img" alt="Catalog plot showing some tiles in red, indicating errors."></a></p>
+<figcaption>Catalog plot showing some tiles in red, indicating errors.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="file-indexing" class="level2">
+<h2 class="anchored" data-anchor-id="file-indexing">File indexing</h2>
+<p>We can explore indexing of <code>LAScatalog</code> input files for efficient processing.</p>
+<p>Indexing generates .lax files associated with each .laz/.las point cloud to speed up processing.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Indexing
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The <code>lidR</code> policy has always been: use <code>LAStools</code> and <code>lasindex</code> for spatial indexing</strong>. Alternatively there is a hidden function in <code>lidR</code> that users can call (<code>lidR:::catalog_laxindex()</code>).</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if files have .lax</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.indexed</span>(ctg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># generate index files</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lidR<span class="sc">:::</span><span class="fu">catalog_laxindex</span>(ctg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><a href="06_catalog_files/figure-html/indexing_files-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="06_catalog_files/figure-html/indexing_files-1.png" class="img-fluid figure-img" width="672"></a></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+Chunk 2 of 9 (22.2%): state ✓
+Chunk 3 of 9 (33.3%): state ✓
+Chunk 4 of 9 (44.4%): state ✓
+Chunk 5 of 9 (55.6%): state ✓
+Chunk 6 of 9 (66.7%): state ✓
+Chunk 7 of 9 (77.8%): state ✓
+Chunk 8 of 9 (88.9%): state ✓
+Chunk 9 of 9 (100%): state ✓</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check if files have .lax</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.indexed</span>(ctg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="generate-chm" class="level2">
+<h2 class="anchored" data-anchor-id="generate-chm">Generate CHM</h2>
+<p>Now that we understand how a catalog works, lets apply it to generate some layers.</p>
+<p>First create another CHM by rasterizing the point cloud data from the catalog similarly to how we processed a single file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate CHM</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>chm <span class="ot">&lt;-</span> <span class="fu">rasterize_canopy</span>(<span class="at">las =</span> ctg,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">res =</span> <span class="dv">1</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">algorithm =</span> <span class="fu">p2r</span>(<span class="at">subcircle =</span> <span class="fl">0.15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+
+                                                                                
+Chunk 2 of 9 (22.2%): state ✓
+
+                                                                                
+Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-chm-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-chm-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-chm-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;3: Canopy Height Model (CHM) generated from the entire LAScatalog at 1.0m resolution."><img src="06_catalog_files/figure-html/fig-catalog-chm-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-chm-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Canopy Height Model (CHM) generated from the entire <code>LAScatalog</code> at 1.0m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-chm-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-chm-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-chm-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;4: Canopy Height Model (CHM) generated from the entire LAScatalog at 1.0m resolution."><img src="06_catalog_files/figure-html/fig-catalog-chm-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-chm-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Canopy Height Model (CHM) generated from the entire <code>LAScatalog</code> at 1.0m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="catalog-processing-options" class="level2">
+<h2 class="anchored" data-anchor-id="catalog-processing-options">Catalog processing options</h2>
+<p>We can manipulate catalog options to alter processing on-the-fly across all tiles.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting options and re-rasterizing the CHM</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_filter</span>(ctg) <span class="ot">&lt;-</span> <span class="st">"-drop_z_below 0 -drop_z_above 50"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_select</span>(ctg) <span class="ot">&lt;-</span> <span class="st">"xyz"</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>chm <span class="ot">&lt;-</span> <span class="fu">rasterize_canopy</span>(<span class="at">las =</span> ctg, <span class="at">res =</span> <span class="dv">1</span>, <span class="at">algorithm =</span> <span class="fu">p2r</span>(<span class="at">subcircle =</span> <span class="fl">0.15</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+
+                                                                                
+Chunk 2 of 9 (22.2%): state ✓
+
+                                                                                
+Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-chm-filtered-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-chm-filtered-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-chm-filtered-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;5: CHM generated from the LAScatalog after applying filters to drop points below 0m and above 50m."><img src="06_catalog_files/figure-html/fig-catalog-chm-filtered-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-chm-filtered-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: CHM generated from the <code>LAScatalog</code> after applying filters to drop points below 0m and above 50m.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-chm-filtered-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-chm-filtered-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-chm-filtered-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;6: CHM generated from the LAScatalog after applying filters to drop points below 0m and above 50m."><img src="06_catalog_files/figure-html/fig-catalog-chm-filtered-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-chm-filtered-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: CHM generated from the <code>LAScatalog</code> after applying filters to drop points below 0m and above 50m.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-pixel-metrics-and-visualize" class="level2">
+<h2 class="anchored" data-anchor-id="generate-pixel-metrics-and-visualize">Generate pixel metrics and visualize</h2>
+<p>We calculate summary metric rasters using the <code>pixel_metrics</code> function and visualize the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate pixel-based metrics</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>max_z <span class="ot">&lt;-</span> <span class="fu">pixel_metrics</span>(<span class="at">las =</span> ctg, <span class="at">func =</span> <span class="sc">~</span><span class="fu">mean</span>(Z), <span class="at">res =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+
+                                                                                
+Chunk 2 of 9 (22.2%): state ✓
+
+                                                                                
+Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(max_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-maxz-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-maxz-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-maxz-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;7: Raster of mean point height (Z) calculated from the LAScatalog at a 20m resolution."><img src="06_catalog_files/figure-html/fig-catalog-maxz-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-maxz-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Raster of mean point height (Z) calculated from the <code>LAScatalog</code> at a 20m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-maxz-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-maxz-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-maxz-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;8: Raster of mean point height (Z) calculated from the LAScatalog at a 20m resolution."><img src="06_catalog_files/figure-html/fig-catalog-maxz-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-maxz-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Raster of mean point height (Z) calculated from the <code>LAScatalog</code> at a 20m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="first-returns-only" class="level2">
+<h2 class="anchored" data-anchor-id="first-returns-only">First returns only</h2>
+<p>We can adjust the catalog options to calculate metrics based on first returns only.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_filter</span>(ctg) <span class="ot">&lt;-</span> <span class="st">"-drop_z_below 0 -drop_z_above 50 -keep_first"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>max_z <span class="ot">&lt;-</span> <span class="fu">pixel_metrics</span>(<span class="at">las =</span> ctg, <span class="at">func =</span> <span class="sc">~</span><span class="fu">mean</span>(Z), <span class="at">res =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+
+                                                                                
+Chunk 2 of 9 (22.2%): state ✓
+
+                                                                                
+Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(max_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-maxz-first-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-maxz-first-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-maxz-first-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;9: Raster of mean point height (Z) using only first returns, calculated from the LAScatalog at 20m resolution."><img src="06_catalog_files/figure-html/fig-catalog-maxz-first-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-maxz-first-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Raster of mean point height (Z) using only first returns, calculated from the <code>LAScatalog</code> at 20m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-maxz-first-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-maxz-first-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-maxz-first-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;10: Raster of mean point height (Z) using only first returns, calculated from the LAScatalog at 20m resolution."><img src="06_catalog_files/figure-html/fig-catalog-maxz-first-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-maxz-first-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Raster of mean point height (Z) using only first returns, calculated from the <code>LAScatalog</code> at 20m resolution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="specifying-catalog-options" class="level2">
+<h2 class="anchored" data-anchor-id="specifying-catalog-options">Specifying catalog options</h2>
+<p>We can define how the LAScatalog should be broken down into chunks for processing. A 10m buffer is added to each chunk to avoid edge artifacts when a function’s calculations depend on neighboring points (also automatically applied by default).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify options</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_select</span>(ctg) <span class="ot">&lt;-</span> <span class="st">"xyz"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_chunk_size</span>(ctg) <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_chunk_buffer</span>(ctg) <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">opt_progress</span>(ctg) <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize and summarize the catalog chunks</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ctg, <span class="at">chunk =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ctg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class       : LAScatalog (v1.1 format 1)
+extent      : 2670500, 2672000, 1258500, 1260000 (xmin, xmax, ymin, ymax)
+coord. ref. : CH1903+ / LV95 
+area        : 2.25 km²
+points      : 11.25 million points
+type        : airborne
+density     : 5 points/m²
+density     : 2 pulses/m²
+num. files  : 9 
+proc. opt.  : buffer: 10 | chunk: 500
+input opt.  : select: xyz | filter: -drop_z_below 0 -drop_z_above 50 -keep_first
+output opt. : in memory | w2w guaranteed | merging enabled
+drivers     :
+ - Raster : format = GTiff  NAflag = -999999  
+ - stars : NA_value = -999999  
+ - Spatial : overwrite = FALSE  
+ - SpatRaster : overwrite = FALSE  NAflag = -999999  
+ - SpatVector : overwrite = FALSE  
+ - LAS : no parameter
+ - sf : quiet = TRUE  
+ - data.frame : no parameter</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-chunks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-chunks-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;11: Visualization of the LAScatalog processing chunks, with a size of 500m (red solid lines) and a 10m buffer (green dashed lines)."><img src="06_catalog_files/figure-html/fig-catalog-chunks-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-chunks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Visualization of the <code>LAScatalog</code> processing chunks, with a size of 500m (red solid lines) and a 10m buffer (green dashed lines).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="parallel-computing" class="level3">
+<h3 class="anchored" data-anchor-id="parallel-computing">Parallel computing</h3>
+<p>In this section, we explore parallel computing using the <code>lidR</code> package.</p>
+<p>Parallel computing can apply the</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Resource Considerations for Parallel Processing:</em></p>
+<p>Be mindful of your system’s resources. Parallel processing loads multiple tiles into memory (RAM) simultaneously. The required memory depends on the number of workers (cores), the point density and size of your tiles, and the complexity of the function being applied. If you encounter memory-related errors, try reducing the number of workers.</p>
+<p>Run <code>parallel::detectCores()</code> to see avaliable workers - <em>limit your use to a fraction of available cores</em> as other processes on your machine require computation.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="load-future-library" class="level2">
+<h2 class="anchored" data-anchor-id="load-future-library">Load <code>future</code> library</h2>
+<p>Firstly, we load the <code>future</code> library to enable parallel processing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(future)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="single-core-processing" class="level2">
+<h2 class="anchored" data-anchor-id="single-core-processing">Single core processing</h2>
+<p>To establish a baseline, we generate a point density raster using a single processing core.</p>
+<p>plan(sequential) from <code>future</code> ensures that the code runs sequentially, not in parallel.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process on single core</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a point density raster (points per square metre)</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>dens_seq <span class="ot">&lt;-</span> <span class="fu">rasterize_density</span>(ctg, <span class="at">res =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ✓
+
+                                                                                
+Chunk 2 of 9 (22.2%): state ✓
+
+                                                                                
+Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-density-seq-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-density-seq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-density-seq-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;12: Point density raster generated using a single processing core."><img src="06_catalog_files/figure-html/fig-catalog-density-seq-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-density-seq-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Point density raster generated using a single processing core.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-density-seq-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-density-seq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-density-seq-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-17" title="Figure&nbsp;13: Point density raster generated using a single processing core."><img src="06_catalog_files/figure-html/fig-catalog-density-seq-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-density-seq-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Point density raster generated using a single processing core.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="parallel-processing" class="level2">
+<h2 class="anchored" data-anchor-id="parallel-processing">Parallel processing</h2>
+<p>Now, we’ll perform the same operation but leverage multiple cores.</p>
+<p>In calling plan(multisession, workers = 3L) from <code>future</code>, lidR will automatically distribute the processing chunks across three CPU cores (workers).</p>
+<p>The result should be identical to the single-core version, and should be faster than single-core systems.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process on multi-core with three workers</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(multisession, <span class="at">workers =</span> <span class="dv">3</span>L)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the same density raster, but in parallel</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>dens_par <span class="ot">&lt;-</span> <span class="fu">rasterize_density</span>(ctg, <span class="at">res =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 1 of 9 (11.1%): state ⚠
+
+                                                                                </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 2 of 9 (22.2%): state ⚠
+
+                                                                                </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Chunk 3 of 9 (33.3%): state ✓
+
+                                                                                
+Chunk 4 of 9 (44.4%): state ✓
+
+                                                                                
+Chunk 5 of 9 (55.6%): state ✓
+
+                                                                                
+Chunk 6 of 9 (66.7%): state ✓
+
+                                                                                
+Chunk 7 of 9 (77.8%): state ✓
+
+                                                                                
+Chunk 8 of 9 (88.9%): state ✓
+
+                                                                                
+Chunk 9 of 9 (100%): state ✓
+
+                                                                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens_par)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-catalog-density-par-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-density-par-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-density-par-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-18" title="Figure&nbsp;14: Point density raster generated in parallel using multiple cores."><img src="06_catalog_files/figure-html/fig-catalog-density-par-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-density-par-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Point density raster generated in parallel using multiple cores.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-catalog-density-par-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-catalog-density-par-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="06_catalog_files/figure-html/fig-catalog-density-par-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-19" title="Figure&nbsp;15: Point density raster generated in parallel using multiple cores."><img src="06_catalog_files/figure-html/fig-catalog-density-par-2.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-catalog-density-par-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Point density raster generated in parallel using multiple cores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="revert-to-single-core" class="level2">
+<h2 class="anchored" data-anchor-id="revert-to-single-core">Revert to single core</h2>
+<p>It is good practice to always return the <code>plan(sequential)</code> after a parallel task is complete to avoid unintended parallel execution in later code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Back to single core</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plan</span>(sequential)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p><em>This concludes the tutorial on basic usage, catalog validation, indexing, CHM generation, metric generation, and parallel computing to generate point density rasters using the <code>lidR</code> and <code>future</code> packages in R.</em></p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>Using:</p>
+<p><code>ctg &lt;- readLAScatalog(folder = "data/ctg_norm")</code></p>
+<section id="e1." class="level4">
+<h4 class="anchored" data-anchor-id="e1.">E1.</h4>
+<p>Calculate a set of metrics from the <code>lidRmetrics</code> package on the catalogue (voxel metrics will take too long)</p>
+<p>Using:</p>
+<p><code>ctg &lt;- readLAScatalog(folder = "data/ctg_class")</code></p>
+</section>
+<section id="e2." class="level4">
+<h4 class="anchored" data-anchor-id="e2.">E2.</h4>
+<p>Read in the non-normalized las catalog filtering the point cloud to only include first returns.</p>
+</section>
+<section id="e3." class="level4">
+<h4 class="anchored" data-anchor-id="e3.">E3.</h4>
+<p>Generate a DTM at 1m spatial resolution for the provided catalog with only first returns.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Multiple Returns and Canopy Penetration This exercise highlights a critical and unique capability of Airborne Laser Scanning (ALS).</p>
+<p>Unlike methods based on imagery like Digital Aerial Photogrammetry (DAP), map the visible surface, lidar pulses can penetrate through gaps in the vegetation generating multiple returns each. This allows us to map the ground surface even under dense forest cover, which is essential for creating accurate Digital Terrain Models (DTMs).</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-lidar\.github\.io\/lidRbook\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+</body></html>
