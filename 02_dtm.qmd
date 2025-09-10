@@ -8,7 +8,7 @@ source("R/setup_rgl.R")
 
 ## Relevant resources
 
--   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/02_dtm.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/02_dtm.R)
 -   [lidRbook section](https://r-lidar.github.io/lidRbook/dtm.html)
 
 ## Overview
@@ -156,8 +156,6 @@ plot_dtm3d(dtm_idw, bg = "white")
 Height normalization is applied by subtracting terrain height from return heights above the ground level. This serves to remove distortion from topography and isolate vegetation structure. In doing so elevation (Z coordinates) of each return is converted from height above some reference surface; such as sea level (mASL) to above ground (mAGL)
 
 Normalization is a critical pre-processing step that enables the signal of vegetation structure to be isolated and mapped.
-
-We'll perform height normalization of lidar data using both DTM-based and point-based normalization methods.
 
 ```{r raw-norm-cs, echo = FALSE}
 p1 <- c(mean(las@data$X), mean(las@data$Y))

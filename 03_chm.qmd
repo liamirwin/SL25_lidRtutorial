@@ -8,7 +8,7 @@ source("R/setup_rgl.R")
 
 ## Relevant Resources
 
--   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/03_chm.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/03_chm.R)
 -   [lidRbook section](https://r-lidar.github.io/lidRbook/dsm.html)
 
 ## Overview
@@ -80,7 +80,7 @@ chm <- rasterize_canopy(las = las, res = 1, algorithm = p2r())
 plot(chm)
 ```
 
-Further increasing to 0.5m causes more empty pixels where no valid points are present. (see tiny white dots on CHM)
+Further increasing to 0.5m causes more empty pixels where no valid points are present (see tiny white dots on CHM).
 
 ```{r}
 #| label: fig-chm-p2r-subcircle
