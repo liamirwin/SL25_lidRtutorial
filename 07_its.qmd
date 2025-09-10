@@ -13,7 +13,7 @@ source("R/setup_rgl.R")
 
 ## Overview
 
-This code demonstrates individual tree segmentation (ITS) using LiDAR data. It covers CHM-based and point cloud-based methods for tree detection and segmentation. The code also shows how to extract metrics at the tree level and visualize them.
+This code demonstrates individual tree segmentation (ITS) using lidar data. It covers CHM-based and point cloud-based methods for tree detection and segmentation. The code also shows how to extract metrics at the tree level and visualize them.
 
 ## Environment
 
@@ -32,7 +32,7 @@ library(lidR)
 library(sf)
 library(terra)
 
-# Read in LiDAR file and set some color palettes
+# Read in lidar file and set some color palettes
 las <- readLAS("data/zrh_norm.laz")
 col <- height.colors(50)
 col1 <- pastel.colors(900)
@@ -40,7 +40,7 @@ col1 <- pastel.colors(900)
 
 ## CHM based methods
 
-We start by creating a Canopy Height Model (CHM) from the LiDAR data. The `rasterize_canopy()` function generates the CHM using a specified resolution (`res`) and a chosen algorithm, here `p2r(0.15)`, to compute the percentiles.
+We start by creating a Canopy Height Model (CHM) from the lidar data. The `rasterize_canopy()` function generates the CHM using a specified resolution (`res`) and a chosen algorithm, here `p2r(0.15)`, to compute the percentiles.
 
 ```{r chm_creation}
 # Generate CHM
@@ -79,7 +79,7 @@ The detected tree tops (`ttops`) are plotted on top of the CHM (`chm`) to visual
 
 ## Segmentation
 
-Now, we perform tree segmentation using the detected tree tops. The `segment_trees()` function segments the trees in the LiDAR point cloud based on the previously detected tree tops.
+Now, we perform tree segmentation using the detected tree tops. The `segment_trees()` function segments the trees in the lidar point cloud based on the previously detected tree tops.
 
 ``` r
 # Segment trees using dalponte
@@ -157,7 +157,7 @@ In this section, we will explore tree detection and segmentation methods that do
 
 ## Tree detection
 
-We begin with tree detection using the local maxima filtering (lmf) algorithm. This approach directly works with the LiDAR point cloud to detect tree tops.
+We begin with tree detection using the local maxima filtering (lmf) algorithm. This approach directly works with the lidar point cloud to detect tree tops.
 
 ```{r tree_detection_no_chm}
 # Detect trees
@@ -176,11 +176,11 @@ x <- plot(las, bg = "white")
 add_treetops3d(x = x, ttops = ttops, radius = 0.5)
 ```
 
-We detect tree tops using the `lmf` algorithm and visualize them in 3D by adding the tree tops to the LiDAR plot.
+We detect tree tops using the `lmf` algorithm and visualize them in 3D by adding the tree tops to the lidar plot.
 
 ## Tree segmentation
 
-Next, we perform tree segmentation using the `li2012` algorithm, which directly processes the LiDAR point cloud.
+Next, we perform tree segmentation using the `li2012` algorithm, which directly processes on the lidar point cloud instead of the CHM.
 
 ``` r
 # Segment using li
@@ -201,7 +201,7 @@ plot(las, color = "treeID")
 plot(las, color = "treeID", bg = "white")
 ```
 
-The `li2012` algorithm segments the trees in the LiDAR point cloud based on local neighborhood information. However, it may not be optimal for this specific dataset.
+The `li2012` algorithm segments the trees in the lidar point cloud based on local neighborhood information. However, it may not be optimal for this specific dataset.
 
 # Extraction of metrics
 
