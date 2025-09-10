@@ -1,9 +1,11 @@
 ---
-title: "`lidR`: (A workshop for) Airborne Lidar Data Manipulation and Visualization for Environmental Applications"
+title: "ALS processing for forest inventory using `LAStools` and `lidR`"
 author:
   - name: "Liam A.K. Irwin"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
   - name: "Brent A. Murray"
+    affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
+  - name: "Sadie Russell"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
   - name: "Tristan R.H. Goodbody"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
@@ -16,7 +18,6 @@ date: 2025-06-22
 source("R/setup_rgl.R")
 ```
 
-
 ## People
 
 **Presenters:**
@@ -25,12 +26,14 @@ source("R/setup_rgl.R")
 
 [Brent Murray (UBC)](https://www.researchgate.net/profile/Brent-Murray-4)
 
+[Sadie Russell (UBC)]()
+
 ## Materials
 
-[This repository](https://github.com/liamirwin/LPS_lidRtutorial) contains the material for an 80 minute `lidR` tutorial workshop. You should install the material on your own machine from [this repository](https://github.com/liamirwin/LPS_lidRtutorial). It contains the code and point-clouds we will use. The workshop intends to:
+[This repository](https://github.com/liamirwin/SL25_lidRtutorial) contains the material for an 3 hour `lidR` tutorial workshop. You should install the material on your own machine from [this repository](https://github.com/liamirwin/SL25_lidRtutorial). It contains the code and point-clouds we will use. The workshop intends to:
 
--   Present an overview of what can be done with `lidR`
--   Give users an understanding of how `lidR` may fit their needs
+-   Present an overview lidar processing with `LAStools` and `lidR`
+-   Give users an understanding of how `LAStools` and `lidR` may fit their needs
 -   Exercises will be done depending on available time - users are encouraged to work on these after the workshop!
 
 ::: callout-tip
@@ -47,8 +50,7 @@ You can download the complete workshop package containing all code, data, and ex
 
 [Download additional normalized lidar files for 05_engine (.zip, 78 MB)](./ctg_norm.zip)
 
-Unzip the first to a folder, and run the `.Rproj` file with RStudio installed for the easiest experience.
-Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
+Unzip the first to a folder, and run the `.Rproj` file with RStudio installed for the easiest experience. Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
 
 ![Target Folder and Data Structure for Workshop Contents](img/folder_structure.png)
 
@@ -62,9 +64,7 @@ Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ct
 ### R Packages
 
 ::: callout-tip
-**Easy setup for new users**
-Please open the `LPS_lidRtutorial_package.Rproj` in RStudio.
-Next, open `01_read.R` to run code to automatically install packages.
+**Easy setup for new users** Please open the `SL25_lidRtutorial_package.Rproj` in RStudio. Next, open `01_read.R` to run code to automatically install packages.
 :::
 
 Please install the `lidR` package in its latest version (4.2.1).
@@ -85,7 +85,7 @@ In the metrics section we introduce and work with a user-made package that suppo
 
 To follow along with these steps; install `lidRmetrics` from GitHub (not available on CRAN), this requires the `devtools` package
 
-```r
+``` r
 if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
@@ -101,13 +101,18 @@ The raw data has been thinned to a uniform density (20 points/m2) to speed up pr
 
 ## Estimated schedule {.smaller}
 
--   Introduction to Lidar and lidR (09:00)
--   Reading LAS and LAZ files (09:10)
--   Point Classification and filtering (9:15)
--   Digital Terrain Models and Height Normalization (9:25)
--   Canopy Height Models (9:35)
--   Lidar Summary Metrics (9:50)
--   File Collection Processing Engine (10:10)
+-   Introduction to Lidar, LAStools, and lidR (09:00)
+-   Preprocessing with LAStools (9:20)
+-   Reading LAS and LAZ files (09:30)
+-   Point Classification and filtering (9:35)
+-   Digital Terrain Models and Height Normalization (9:40)
+-   Canopy Height Models (9:50)
+-   Break (10:00)
+-   Lidar Summary Metrics (10:15)
+-   Area Based Approach (10:35)
+-   File Collection Processing Engine (10:55)
+-   Individual Tree Detection and Segmentation (11:10)
+-   Questions (11:30)
 
 ## Resources
 
@@ -122,7 +127,7 @@ When working on exercises:
 
 ## `lidR`
 
-`lidR` is an R package to work with LiDAR data developed at Laval University (Québec, Canada). It was developed & continues to be maintained by [Jean-Romain Roussel](https://github.com/Jean-Romain) and was made possible between:
+`lidR` is an R package to work with lidar data developed at Laval University (Québec, Canada). It was developed & continues to be maintained by [Jean-Romain Roussel](https://github.com/Jean-Romain) and was made possible between:
 
 -   2015 and 2018 thanks to the financial support of the AWARE project NSERC CRDPJ 462973-14; grantee Prof. Nicholas C. Coops.
 
