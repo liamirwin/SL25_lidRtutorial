@@ -1,5 +1,5 @@
 ---
-title: "Regions of Interest"
+title: "Area-based Approach"
 ---
 
 ```{r setup, include=FALSE}
@@ -8,13 +8,17 @@ source("R/setup_rgl.R")
 
 ## Relevant Resources
 
--   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/07_s1_roi.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/master/R/05_aba_roi.R)
 
--   [lidRbook section](https://r-lidar.github.io/lidRbook/engine.html#engine-clip)
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/modelling.html)
 
 ## Overview
 
-We demonstrate the selection of regions of interest (ROIs) from LiDAR data. Geometries like circles and rectangles are selected based on coordinates. Complex geometries are extracted from shapefiles to clip specific areas.
+The area-based approach (ABA) is a widely-used method for estimating forest attributes, such as timber volume and biomass, by combining field measurements with wall-to-wall LiDAR data.
+
+Here we will demonstrate a typical implementation of the `area-based approach` (ABA) for forest attribute estimation using LiDAR data and ground plot measurements.
+
+In this section we demonstrate the selection of regions of interest (ROIs) from LiDAR data using simple geometries (circles) and geometries extracted from shapefiles.
 
 ## Environment
 
@@ -25,6 +29,226 @@ rm(list = ls(globalenv()))
 # Load packages
 library(lidR)
 library(sf)
+library(terra)
+library(dplyr)
+```
+
+Area-based Approach
+
+Key References:
+
+[lidRbook ABA secton](https://r-lidar.github.io/lidRbook/modelling.html) [White 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf) [White 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
+
+Area-based approach takes lidar metrics and connects them to forest (or other ecosystem) attributes measured on the ground.
+
+Classic approach presented by Nasset 2004, described in depth in [White 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf)
+
+ABA uses coregistered plots as samples to build models to estimate field measured attributes across wall-to-wall coverages of lidar `pixel_metrics`.
+
+In doing so we can transform lidar derived rasters into maps of key forest inventory variables such as stem volume, basal area, and stem density.
+
+\![\[white2013_fig4.png\]\] White et al. 2013 - A best practices guide for generating forest inventory attributes from airborne laser scanning data using an area-based approach (<https://doi.org/10.5558/tfc2013-132>)
+
+## Ground Plot Data
+
+[White 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf) [sgsR](https://tgoodbody.github.io/sgsR/)
+
+Today we will work will a series of fixed radius (11.28 m) circular plots (n = 162), measured across Forêt Montmorency during 2015 and 2016.
+
+At each of these locations a 400 m2 circular area was established in the field, each tree (above a certain size threshold) was measured and the tree list was processed into metrics describing the `merchantable stem volume`, `stem density`, and `basal area` using regional equations.
+
+Today we will perform the steps necessary to integrate these plot measurements together with coincident ALS data into an area-based prediction of field measured attributes across the wider ALS coverage.
+
+We will focus on the processing of the lidar dataset, and present some very simple model development steps, for more detail on model development and prediction see [White 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
+
+\![\[white2017_fig3.png\]\]
+
+[![Overview of area-based model development from White et al. 2017](img/white2017_fig3.png){fig-alt="White et al. 2017 - A model development and application guide for generating an enhanced forest inventory using airborne laser scanning data and an area-based approach" fig-align="center"}](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
+
+## Calculating Plot Level Lidar Metrics
+
+### Option 1: Integrated `plot_metrics` function
+
+```{r plot_metrics, warning=FALSE, message=FALSE}
+# Read in plot centres
+plots <- st_read("data/ctg_plots.gpkg", quiet = TRUE) 
+
+# Read in catalog of normalized LAZ tiles
+ctg <- catalog("data/ctg_norm")
+plot(st_geometry(ctg@data))
+plot(st_geometry(plots ), add = TRUE, col = "red")
+
+# Calculate with all-in-one plot_metrics function
+plot_mets <- plot_metrics(las = ctg, # use the catalog of normalized LAZ files
+                          func = .stdmetrics, # use standard list of metrics
+                          geometry = plots, # use plot centres
+                          radius = 11.28 # define the radius of the circular plots
+                          )
+
+# Select subset of metrics from the resulting dataframe for model development
+plot_mets <- dplyr::select(plot_mets,
+                    c(plot_id, ba_ha, sph_ha, # forest attributes
+                      merch_vol_ha, zq95, pzabove2, zskew # lidar metrics
+                      ))
+
+plot_mets
+```
+
+### Option 2: `clip_roi` and `catalog_apply`
+
+While the `plot_metrics` function is efficient, you may want more control over the process or wish to save the point clouds for each plot for further analysis. The following code demonstrates a more manual workflow. First, we will clip the LiDAR point clouds using the plot boundaries and save each clipped plot as a separate `.laz` file. We then create a new `catalog` of these individual plot point clouds and use `catalog_apply` to calculate standard metrics for each point cloud.
+
+Here we will clip the circular plots, save them as `.laz` files, and treat them as a catalog of independent lidar files to calculate a table of metrics.
+
+```{r clip_plot_metrics}
+# Clip normalized LAZ files for each plot location
+opt_output_files(ctg) <- "data/plots/las/{plot_id}"
+opt_laz_compression(ctg) <- TRUE
+# Create circular polygons of 11.28m radius (400m2 area)
+plot_buffer <- st_buffer(plots, 11.28)
+# Clip normalized LAZ file for each plot
+clip_roi(ctg, plot_buffer)
+
+# Create a new catalog referencing the clipped plots we saved
+ctg_plot <- catalog("data/plots/las")
+opt_independent_files(ctg_plot) <- TRUE # process each plot independently
+
+# Define a metrics function to apply to plots
+generate_plot_metrics <- function(chunk){
+  # Check if file is empty
+  las <- readLAS(chunk)                  
+  if (is.empty(las)) return(NULL)
+  # Calculate standard list of metrics (56) built in to lidR for each point cloud
+  mets <- cloud_metrics(las, .stdmetrics)
+  # Convert output metrics to dataframe (from list)
+  mets_df <- as.data.frame(mets)
+  # Add plot ID to metrics dataframe
+  mets_df$plot_id <- gsub(basename(chunk@files),
+                          pattern = ".laz",
+                          replacement = "")
+  return(mets_df)
+}
+
+# Apply the function to each plot in the catalog
+plot_mets <- catalog_apply(ctg_plot, generate_plot_metrics)
+# Bind the output dataframes into one table
+plot_df <- do.call(rbind, plot_mets)
+# Rejoin the lidar metrics with the plot attributes
+plot_sf <- left_join(plots, plot_df, by = "plot_id")
+# Select subset of metrics for model development
+plot_mets <- dplyr::select(plot_sf,
+                    c(plot_id, ba_ha, sph_ha, # forest attributes
+                      merch_vol_ha, zq95, pzabove2, zskew # lidar metrics
+                      ))
+
+plot_mets
+```
+
+# plot_metrics callout
+
+# Applying across Forêt Montmorency
+
+```{r plot_forest_metrics, echo = FALSE, message = FALSE, warning = FALSE}
+
+library(mapview)
+
+# Read a shapefile representing the boundary
+bdy <- st_read("data/fm_boundary.gpkg", quiet = TRUE) #read in the FM boundary
+# Read in tile index
+ctg_index <- st_read("data/als_index.gpkg", quiet = TRUE)
+
+m <- mapview::mapview(ctg_index, layer.name = "ALS Tiles", alpha = 0.7) +
+  mapview::mapview(plots, layer.name = "Ground Plots", col.regions = "red", alpha = 0.5) +
+  mapview::mapview(bdy, layer.name = "Forêt Montmorency Boundary", col.regions = "blue", alpha.regions = 0.1)
+
+mapviewOptions(basemaps = "Esri.WorldImagery")
+
+m <- mapview::mapview(
+  ctg_index,
+  layer.name = "ALS Tiles",
+  alpha.regions = 0.5
+) +
+  mapview::mapview(
+    plots,
+    layer.name = "Ground Plots",
+    col.regions = "red",
+    alpha = 0.5
+  ) +
+  mapview::mapview(
+    bdy,
+    layer.name = "FM Boundary",
+    col.regions = "blue",
+    alpha.regions = 0.5,
+    alpha = 1.0
+  )
+
+m
+
+bdy_met <- rast("data/metrics/fm_mets_20m.tif")
+
+library(tidyterra)
+library(ggplot2)
+library(patchwork)
+p1 <- bdy_met$zq95 %>% autoplot()+ theme_classic() + labs(fill = "95th percentile of height (m)") + theme(legend.position = 'bottom')
+p2 <- bdy_met$pzabove2 %>% autoplot() + theme_classic() + labs(fill = "Canopy Cover - Percentage of points above 2m (%)") + theme(legend.position = 'bottom')
+p3 <- bdy_met$zskew %>% autoplot()+ theme_classic()+ labs(fill = "Skewness of height distribution") + theme(legend.position = 'bottom')
+
+
+p1 + p2 + p3
+
+```
+
+## Model Development
+
+For more information read: [White 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
+
+```{r}
+#Read in plot metrics with forest attributes and lidar metrics calculated for all 162 plots
+plot_mets <- read.csv("data/plots/plots_all.csv")
+
+# Generate linear models for each forest attribute using three lidar metrics
+lm_vol <- lm(merch_vol_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+lm_ba <- lm(ba_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+lm_sph <- lm(sph_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+
+vol_cf <- lm_vol$coefficients
+ba_cf <- lm_ba$coefficients
+sph_cf <- lm_sph$coefficients
+```
+
+## Model Deployment
+
+```{r}
+# Create functions from model coefficients
+# Function to predict stem volume
+vol_lm_r <- function(zq95,zskew,pzabove2){
+  vol_cf["(Intercept)"] + (vol_cf["zq95"] * zq95) + (vol_cf["zskew"] * zskew) + (vol_cf["pzabove2"] * pzabove2)
+}
+# Function to predict basal area
+ba_lm_r <- function(zq95,zskew,pzabove2){
+  ba_cf["(Intercept)"] + (ba_cf["zq95"] * zq95) + (ba_cf["zskew"] * zskew) + (ba_cf["pzabove2"] * pzabove2)
+}
+# Function to predict stem density
+sph_lm_r <- function(zq95,zskew,pzabove2){
+  sph_cf["(Intercept)"] + (sph_cf["zq95"] * zq95) + (sph_cf["zskew"] * zskew) + (sph_cf["pzabove2"] * pzabove2)
+}
+
+# Load full metrics raster
+metrics_rast <- rast("data/metrics/fm_mets_20m.tif")
+
+# Apply models to subset we created
+
+# Merchantable Stem Volume
+vol_r <- terra::lapp(metrics_rast, fun = vol_lm_r)
+plot(vol_r)
+
+# Basal Area
+ba_r <- terra::lapp(metrics_rast, fun = ba_lm_r)
+plot(ba_r)
+
+# Stem Density
+sph_r <- terra::lapp(metrics_rast, fun = sph_lm_r)
+plot(sph_r)
 ```
 
 ## Simple Geometries
@@ -34,7 +258,7 @@ library(sf)
 We start by loading some LiDAR data and inspecting its header and number of point records.
 
 ```{r load_and_inspect_lidar_data}
-las <- readLAS(files = 'data/zrh_norm.laz')
+las <- readLAS(files = 'data/fm_norm.laz')
 # Inspect the header and the number of point records
 las@header
 las@header$`Number of point records`
@@ -46,8 +270,8 @@ We can select circular and rectangular areas from the LiDAR data based on specif
 
 ```{r select_circular_areas}
 # Establish coordinates
-x <- 2670592
-y <- 1258890
+x <- 254250
+y <- 5235510
 
 # Select a circular area
 circle <- clip_circle(las = las, xcenter = x, ycenter = y, radius = 30)
@@ -89,7 +313,7 @@ We can also supply multiple coordinate pairs to clip multiple ROIs.
 ```{r select_multiple}
 # Select multiple random circular areas
 x <- runif(2, x, x)
-y <- runif(2, 1258840, 1258890)
+y <- runif(2, 5235500, 5235700)
 
 plots <- clip_circle(las = las, xcenter = x, ycenter = y, radius = 10)
 ```
@@ -153,14 +377,14 @@ We clip the `LAS` data in the catalog using specified coordinate groups.
 ctg <- catalog("data/ctg_norm")
 
 # Set coordinate groups
-x <- c(2670578, 2671234, 2671499, 2671755, 2671122)
-y <- c(1258601, 1259050, 1259450, 1259900, 1258750)
+x <- c(254000, 254250, 254500, 254750, 254780)
+y <- c(5235000, 5235250, 5235500, 5235750, 5235800)
 
 # Visualize coordinate groups
 plot(ctg)
 points(x, y)
 
-# Clip plots
+# Clip 30 m plots
 rois <- clip_circle(las = ctg, xcenter = x, ycenter = y, radius = 30)
 ```
 
@@ -208,7 +432,7 @@ file.remove(file.path(path, delete_las))
 
 ```{r independent_files, warning = FALSE, message = FALSE}
 # Read single file as catalog
-ctg <- readLAScatalog(folder = "data/zrh_norm.laz")
+ctg <- readLAScatalog(folder = "data/fm_norm.laz")
 
 # Set options for output files
 opt_output_files(ctg) <- paste0(tempdir(),"/{XCENTER}_{XCENTER}")

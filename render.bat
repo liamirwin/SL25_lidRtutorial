@@ -12,7 +12,7 @@ if not exist "%projectDir%" (
 )
 
 :: Run Quarto render
-quarto render "%projectDir%" --to html --execute --cache --log quarto_render.log
+quarto render "%projectDir%" --to html --execute --log quarto_render.log
 
 :: Inform user of completion
 echo Done rendering project.

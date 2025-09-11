@@ -33,7 +33,7 @@ Classically, lidar metrics used in vegetation characterization typically fall un
     Often referred directly to as *canopy cover*, these metrics generally describe the proportion of returns (as a %) above a certain threshold. Typically used to generally describe how much vegetation (e.g. above 2m) there is compared to ground and other lower surfaces (designed for forest).
 
 ```{r als_metrics_cs, echo = FALSE, message = FALSE, warning = FALSE}
-#| fig-cap: "Two-dimensional cross section of 20x20m area from `zrh_norm.laz` some metrics are generated and presented alongside the coordinates of the points within this example cell"
+#| fig-cap: "Two-dimensional cross section of 20x20m area from `fm_norm.laz` some metrics are generated and presented alongside the coordinates of the points within this example cell"
 source('R/metrics_transect.R')
 ```
 
@@ -55,7 +55,7 @@ To begin we compute simple metrics including mean and max height of points withi
 
 ```{r load_lidar_data}
 # Load the normalized lidar data
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 ```
 
 The `pixel_metrics()` function calculates structural metrics within a defined spatial resolution (`res`).
@@ -202,7 +202,7 @@ plot(user_metric)
 Using:
 
 ``` r
-las <- readLAS("data/zrh_norm.laz")
+las <- readLAS("data/fm_norm.laz")
 ```
 
 #### E1.

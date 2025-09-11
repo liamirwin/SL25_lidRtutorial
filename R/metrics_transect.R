@@ -204,7 +204,7 @@ plot_lidar_metrics <- function(las, metrics_to_run = "basic", point_color = "bla
   return(list(plot = final_plot, metrics = summary_table))
 }
 
-las <- readLAS('data/zrh_norm.laz')
+las <- readLAS('data/fm_norm.laz')
 # Create a transect with a restricted length
 las_transect <- create_transect(las, width = 20, length = 20,shift = c(28,-10))
 

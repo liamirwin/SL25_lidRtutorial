@@ -36,7 +36,7 @@ The sampling/return density of your point cloud (particularly those originating 
 
 ```{r load_lidar_data}
 # Load lidar data and reduce point density
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 
 # Density of the data is reduced from 20 points/m² to 10 points/m² for example purposes
 las <- decimate_points(las, random(density = 10))

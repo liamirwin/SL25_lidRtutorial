@@ -1,6 +1,6 @@
 ---
-title: "`lidR`: (A workshop for) Airborne lidar Data Manipulation and Visualization for Environmental Applications"
-author: "Liam A.K. Irwin, Brent Murray, Nicholas C. Coops"
+title: "`lidR`: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications"
+author: "Liam A.K. Irwin, Brent Murray, Sadie Russel, Nicholas C. Coops"
 favicon: img/logo.png
 format:
   revealjs:
@@ -13,7 +13,7 @@ format:
     scrollable: false
     chalkboard: false
     html-math-method: katex
-    footer: "Living Planet Symposium 2025 – lidR workshop"
+    footer: "Silvilaser 2025 – lidar processing workshop"
 editor: source
 title-slide-attributes: 
   data-background-image: img/logo.png
@@ -26,6 +26,7 @@ fig-dpi: 300
 
 -   Liam A.K. Irwin - PhD Student 
 -   Brent A. Murray - PhD Student
+-   Sadie Russel - PhD Student
 -   Nicholas C. Coops - Professor
 
 Integrated Remote Sensing Studio
@@ -125,16 +126,21 @@ source('R/lidR_downloads_plot.R')
 
 ## Workshop Outline
 
--   Introduction to lidar and lidR (09:00)
--   Reading LAS and LAZ files (09:10)
--   Point Classification and filtering (9:15)
--   Digital Terrain Models and Height Normalization (9:25)
--   Canopy Height Models (9:35)
--   lidar Summary Metrics (9:50)
--   File Collection Processing Engine (10:10)
+-   Introduction to Lidar, LAStools, and lidR (09:00)
+-   Preprocessing with LAStools (9:20)
+-   Reading LAS and LAZ files (09:30)
+-   Point Classification and filtering (9:35)
+-   Digital Terrain Models and Height Normalization (9:40)
+-   Canopy Height Models (9:50)
+-   Break (10:00)
+-   Lidar Summary Metrics (10:15)
+-   Area Based Approach (10:35)
+-   File Collection Processing Engine (10:55)
+-   Individual Tree Detection and Segmentation (11:10)
+-   Questions (11:30)
 
 ## Get Set Up!
 
-https://liamirwin.github.io/LPS_lidRtutorial/
+https://liamirwin.github.io/SL25_lidRtutorial/
 
-[![](img/qrcode.png){fig-align="center"}](https://liamirwin.github.io/LPS_lidRtutorial/)
+[![](img/qrcode.png){fig-align="center"}](https://liamirwin.github.io/SL25_lidRtutorial/)

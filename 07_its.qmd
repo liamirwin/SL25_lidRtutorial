@@ -32,8 +32,10 @@ library(lidR)
 library(sf)
 library(terra)
 
-# Read in lidar file and set some color palettes
-las <- readLAS("data/zrh_norm.laz")
+
+# Read in LiDAR file and set some color palettes
+las <- readLAS("data/fm_norm.laz")
+
 col <- height.colors(50)
 col1 <- pastel.colors(900)
 ```
@@ -94,6 +96,9 @@ las <- segment_trees(las = las, algorithm = dalponte2016(chm = schm, treetops = 
 ```{r tree_segmentation_legnth}
 # Count number of trees detected and segmented
 length(unique(las$treeID) |> na.omit())
+
+tree_ids <- unique(las$treeID)
+
 ```
 
 ``` r
@@ -107,28 +112,32 @@ plot(las, color = "treeID", bg = "white")
 ```
 
 ```{r}
+
+id_1 <- sample(tree_ids, 1)
+id_2 <- sample(tree_ids, 2)
+
 # Select trees by ID
-tree25 <- filter_poi(las = las, treeID == 25)
-tree125 <- filter_poi(las = las, treeID == 125)
+tree1 <- filter_poi(las = las, treeID == id_1)
+tree2 <- filter_poi(las = las, treeID == id_2)
 ```
 
 ``` r
-plot(tree25, size = 4)
+plot(tree1, size = 4)
 ```
 
-```{r visualize_tree_25, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-plot(tree25, size = 4, bg = "white")
+```{r visualize_tree_40, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+plot(tree1, size = 4, bg = "white")
 ```
 
 ```         
-plot(tree125, size = 3)
+plot(tree2, size = 4)
 ```
 
-```{r visualize_tree_125, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-plot(tree125, size = 4, bg = "white")
+```{r visualize_tree_10, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
+plot(tree2, size = 4, bg = "white")
 ```
 
-After segmentation, we count the number of trees detected and visualize all the trees in the point cloud. We then select two trees (`tree25` and `tree125`) and visualize them individually.
+After segmentation, we count the number of trees detected and visualize all the trees in the point cloud. We then select two trees (`tree25` and `tree100`) and visualize them individually.
 
 ::: callout-note
 ## Variability and testing

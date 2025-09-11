@@ -28,7 +28,7 @@ Try adding axis = TRUE, legend = TRUE to your plot argument `plot(las, axis = TR
 
 ```{r las-e1}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 plot(las, color = "ReturnNumber", axis = TRUE, legend = TRUE)
 ```
 
@@ -38,7 +38,7 @@ Create a filtered las object of returns that have an Intensity greater that 50, 
 
 ```{r las-e2}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 i_50 <- filter_poi(las = las, Intensity > 50)
 plot(i_50)
 ```
@@ -50,7 +50,7 @@ Read in the las file with only xyz and intensity only. Hint go to the lidRbook s
 
 ```{r las-e3}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz", select = "xyzi")
+las <- readLAS(files = "data/fm_norm.laz", select = "xyzi")
 ```
 
 
@@ -63,7 +63,7 @@ Compute two DTMs for this point cloud with differing spatial resolutions, plot b
 
 ```{r dtm-e1}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_class.laz")
+las <- readLAS(files = "data/fm_class.laz")
 dtm_5 <- rasterize_terrain(las=las, res=5, algorithm=tin())
 dtm_10 <- rasterize_terrain(las=las, res=10, algorithm=tin())
 plot(dtm_5)
@@ -89,7 +89,7 @@ Using the `p2r()` and `pitfree()` (defining your own arguments) create two CHMs 
 
 ```{r chm-e1}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 chm_p2r <- rasterize_canopy(las=las, res=2, algorithm=p2r())
 
 thresholds <- c(0, 5, 10, 20, 25, 30)
@@ -116,7 +116,7 @@ Create a 10 m CHM using a algorithm of your choice. Would this information still
 
 ```{r chm-e3}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 chm <- rasterize_canopy(las=las, res=10, algorithm=p2r())
 plot(chm)
 ```
@@ -129,7 +129,7 @@ Generate another metric set provided by the `lidRmetrics` package (voxel metrics
 
 ```{r metrics-e1}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 dispersion <- pixel_metrics(las, ~metrics_percentiles(z = Z), res = 20)
 ```
 
@@ -139,7 +139,7 @@ Map the density of ground returns at a 5 m resolution. Hint `filter = -keep_clas
 
 ```{r metrics-e2}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz", filter = "-keep_class 2")
+las <- readLAS(files = "data/fm_norm.laz", filter = "-keep_class 2")
 gnd <- pixel_metrics(las, ~length(Z)/25, res=5)
 plot(gnd)
 ```
@@ -150,7 +150,7 @@ ssuming that biomass is estimated using the equation `B = 0.5 * mean Z + 0.9 * 9
 
 ```{r metrics-e3}
 #| code-fold: true
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 B <- pixel_metrics(las, ~0.5*mean(Z) + 0.9*quantile(Z, probs = 0.9), 10, filter = ~ReturnNumber == 1L)
 plot(B)
 ```

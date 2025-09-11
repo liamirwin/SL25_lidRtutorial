@@ -37,7 +37,7 @@ In this section, we'll generate a Digital Terrain Model (DTM) from lidar data us
 
 ```{r dtm_data_preprocessing}
 # Load lidar data where points are already pre-classified
-las <- readLAS(files = "data/zrh_class.laz")
+las <- readLAS(files = "data/fm_class.laz")
 ```
 
 ### Visualizing Lidar Data
@@ -162,11 +162,11 @@ p1 <- c(mean(las@data$X), mean(las@data$Y))
 p2 <- c(mean(las@data$X) - 250, mean(las@data$Y))
 
 
-las <- readLAS('data/zrh_class.laz')
+las <- readLAS('data/fm_class.laz')
 las_cs <- clip_transect(las, p1 = p1,
                         p2 = p2, width = 0.25) 
 
-las_norm <- readLAS('data/zrh_norm.laz')
+las_norm <- readLAS('data/fm_norm.laz')
 las_cs_norm <- clip_transect(las_norm, p1 = p1,
                         p2 = p2, width = 0.25) 
 

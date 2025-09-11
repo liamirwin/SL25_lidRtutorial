@@ -38,7 +38,7 @@ Load the lidar point cloud data from a LAS file using the `readLAS()` function. 
 
 ```{r load_and_inspect_lidar_data}
 # Load the sample point cloud
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 
 # Inspect header information and print a summary
 las
@@ -62,7 +62,7 @@ plot(las)
 ```
 
 ```{r visualize_lidar_data, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-basic
+#| label: fig-basic
 #| fig-cap: "Point cloud coloured by the Z (elevation) attribute."
 # Visualize the lidar data with a default colour palette
 plot(las, bg = "white")
@@ -78,7 +78,7 @@ For instance, points are typically assigned `Classification` values to different
 LAS Standard Point classification is now standardized by the American Society for Photogrammetry and Remote Sensing (ASPRS). For a complete list of classes, refer to the [LAS 1.4 specification (R15)](https://www.asprs.org/wp-content/uploads/2019/07/LAS_1_4_r15.pdf "LAS 1.4 specification document").
 :::
 
-Our example ALS dataset, collected in 2014 over Zürich uses an older **LAS 1.1 standard**. Its classification codes are interpreted as follows:
+Our example ALS dataset, collected in 2016 over Forêt Montmorency in Quebec uses an older **LAS 1.2 standard**. Its classification codes are interpreted as follows:
 
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
 | Class Code           | Meaning                        | Interpretation                                                  | Number of points |
@@ -87,8 +87,8 @@ Our example ALS dataset, collected in 2014 over Zürich uses an older **LAS 1.1 
 |                      |                                |                                                                 | 195582           |
 |                      |                                |                                                                 | ```              |
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| 3/4/5                | **Low/Medium/High Vegetation** | Vegetation under 1 meter.                                       | ```              |
-|                      |                                |                                                                 | 650123           |
+| 1                    | **Unclassified**               | These points have yet to be assigned a classification           | ```              |
+|                      |                                |                                                                 | 1201564          |
 |                      |                                |                                                                 | ```              |
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
 | 7                    | **Noise**                      | Erroneous points, likely below ground or outliers above ground. | 87               |
@@ -103,7 +103,7 @@ plot(las, color = "Classification")
 ```
 
 ```{r visualize_lidar_data_class, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-classification
+#| label: fig-classification
 #| fig-cap: "Point cloud coloured by Classification. Ground is blue, vegetation is green."
 # Visualize using the classification attribute as colours
 plot(las, color = "Classification", bg = "white")
@@ -116,7 +116,7 @@ plot(las, color = "Intensity")
 ```
 
 ```{r visualize_lidar_data_int, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-intensity
+#| label: fig-intensity
 #| fig-cap: "Point cloud coloured by the Intensity attribute."
 # Visualize using intensity values as colours
 plot(las, color = "Intensity", bg = "white")
@@ -129,7 +129,7 @@ plot(las, color = "ScanAngleRank")
 ```
 
 ```{r visualize_lidar_data_scan, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-scan-angle
+#| label: fig-scan-angle
 #| fig-cap: "Point cloud coloured by ScanAngleRank"
 # Visualize using the scan angle rank as colours
 plot(las, color = "ScanAngleRank", bg = "white")
@@ -149,7 +149,7 @@ The `filter` argument in `readLAS()` can be useful for tasks such as filtering s
 
 ```{r on_the_fly_transform}
 # Load point cloud keeping only Classification 2 (ground returns)
-las <- readLAS(files = "data/zrh_class.laz", filter = "-keep_class 2")
+las <- readLAS(files = "data/fm_class.laz", filter = "-keep_class 2")
 ```
 
 Visualize the *first return filtered* point cloud using the `plot()` function.
@@ -159,7 +159,7 @@ plot(las)
 ```
 
 ```{r visualize_lidar_data_filter_class, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-ground-filter
+#| label: fig-ground-filter
 #| fig-cap: "Point cloud showing only ground points, filtered on readLAS with `-keep_class 2`."
 plot(las, bg = "white")
 ```
@@ -170,7 +170,7 @@ Here we use a filter during `readLAS` to *subset only first returns*.
 
 ```{r filter_points}
 # Load only the first return points
-las <- readLAS(files = "data/zrh_norm.laz", filter = "-keep_first")
+las <- readLAS(files = "data/fm_norm.laz", filter = "-keep_first")
 # Inspect the loaded points
 las
 # Check the memory size after loading only the filtered points
@@ -184,7 +184,7 @@ plot(las)
 ```
 
 ```{r visualize_lidar_data_filter, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-#| label: fig-zrh-first-returns
+#| label: fig-first-returns
 #| fig-cap: "Point cloud showing only first returns, filtered on load with `-keep_first`."
 # Visualize the filtered points
 plot(las, bg = "white")
@@ -194,7 +194,7 @@ The `readLAS()` function also allows us to *select specific attributes* (columns
 
 ```{r select_attributes}
 # Load only the xyz coordinates (X, Y, Z) and ignore other attributes
-las <- readLAS(files = "data/zrh_norm.laz", select = "xyz")
+las <- readLAS(files = "data/fm_norm.laz", select = "xyz")
 # Inspect the loaded attributes
 las@data
 # Check the memory size (much smaller)
@@ -213,7 +213,7 @@ Alternatively LASobjects loaded into memory with `readLAS()` can be filtered imm
 
 ```{r filter_poi_example}
 # Load the lidar file with all the all attributes 
-las <- readLAS(files = "data/zrh_class.laz")
+las <- readLAS(files = "data/fm_class.laz")
 # Filter points with Classification == 2
 class_2 <- filter_poi(las = las, Classification == 2L)
 
@@ -246,7 +246,7 @@ plot(first_returns, bg = "white")
 Using:
 
 ``` r
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 ```
 
 #### E1.
