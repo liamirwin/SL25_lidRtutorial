@@ -168,42 +168,20 @@ ctg_mets <- function(chunk){
 
 
 library(lidR)
-# Add noise to fm_class.laz
-las <- readLAS("data/fm_class.laz")
-
-
-# Clip 500m square at centre of fm_class
-coords <- c(mean(las@data$X) - 250, mean(las@data$Y) - 250,
-            mean(las@data$X) + 250, mean(las@data$Y) + 250)
-
-# Shift over 200m left
-coords <- coords + c(-300, 0, -300, 0)
-
-
-
-las_clip <- clip_rectangle(las, xleft = coords[1], ybottom = coords[2],
-                           xright = coords[3], ytop = coords[4])
-
-writeLAS(las_clip, "data/fm_class_500m.laz")
-las_norm <- readLAS("data/fm_norm.laz")
-las_norm_clip <- clip_rectangle(las_norm, xleft = coords[1], ybottom = coords[2],
-                                xright = coords[3], ytop = coords[4])
-
-las_noise <- las_clip
+# Add noise to the raw laz file
+las <- readLAS('data/raw/fm_4km.laz')
+las_noise <- las
 # add some noise
 set.seed(1337)
-# add random noise to 100 random points
-id = round(runif(100, 0, npoints(las_noise)))
-# generate random error between -50 and 50 m
-err = runif(100, -50, 50)
+# add random noise to 1000 random points
+id = round(runif(1000, 0, npoints(las)))
+# generate random error points between -50 and 50 m
+err = runif(1000, -50, 50)
 # add error to Z values
 las_noise$Z[id] = las_noise$Z[id] + err
 
-las_noise <- classify_noise(las_noise, sor(15,7))
-writeLAS(las_noise, "data/fm_all.laz")
-writeLAS(las_norm_clip, "data/fm_norm_500m.laz")
-x <- ctg@data
-st_write(x, 'data/ctg_als_fm.gpkg', delete_dsn = TRUE)
+writeLAS(las_noise, "data/raw/fm_all.laz")
+
 
 
 

@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -76,6 +41,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-c3e9721a79885947f4bfdcdb0d329912.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -148,29 +116,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">4-METRICS</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./05_aba.html"> 
-<span class="menu-text">5-ABA</span></a>
+    <a class="nav-link" href="./05_catalog.html"> 
+<span class="menu-text">5-LASCATALOG</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./06_catalog.html"> 
-<span class="menu-text">6-LASCATALOG</span></a>
+    <a class="nav-link" href="./06_roi.html"> 
+<span class="menu-text">6-ROI</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./07_its.html"> 
-<span class="menu-text">7-ITS</span></a>
+    <a class="nav-link" href="./07_aba.html"> 
+<span class="menu-text">7-ABA</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./08_solutions.html"> 
-<span class="menu-text">8-SOLUTIONS</span></a>
+    <a class="nav-link" href="./08_its.html"> 
+<span class="menu-text">8-ITS</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-supplemental" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">SUPPLEMENTAL</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-supplemental">    
-        <li class="dropdown-header">ROI</li>
-    </ul>
-  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="./09_solutions.html"> 
+<span class="menu-text">9-SOLUTIONS</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -189,9 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#relevant-resources" id="toc-relevant-resources" class="nav-link active" data-scroll-target="#relevant-resources">Relevant Resources</a></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">Environment</a></li>
   <li><a href="#tiling-with-lastile" id="toc-tiling-with-lastile" class="nav-link" data-scroll-target="#tiling-with-lastile">Tiling with <code>lastile</code></a></li>
-  <li><a href="#command-breakdown" id="toc-command-breakdown" class="nav-link" data-scroll-target="#command-breakdown">Command Breakdown</a></li>
   <li><a href="#denoising-lasnoise" id="toc-denoising-lasnoise" class="nav-link" data-scroll-target="#denoising-lasnoise">Denoising <code>lasnoise</code></a></li>
   <li><a href="#indexing-lasindex" id="toc-indexing-lasindex" class="nav-link" data-scroll-target="#indexing-lasindex">Indexing <code>lasindex</code></a></li>
   </ul>
@@ -228,64 +190,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Welcome to this preprocessing tutorial using LAStools. While <code>lidR</code> in R is a powerful tool for analyzing lidar data, it can be memory-intensive and slow when working with massive, raw point cloud collections. To ensure efficient processing in <code>lidR</code>, especially when using the <code>LAScatalog</code> engine, it’s best practice to first preprocess the data using a tool designed for handling large files.</p>
-<p>LAStools is a suite of highly efficient, command-line-based tools for processing lidar data. In this tutorial, you will learn how to perform three essential preprocessing steps: <em>tiling</em> to break large files into manageable chunks, <em>denoising</em> to classify and remove erroneous points, and <em>indexing</em> to create spatial indexes that accelerate read times.</p>
-<p>Let’s get started with preparing our lidar data for analysis!</p>
-</section>
-<section id="environment" class="level2">
-<h2 class="anchored" data-anchor-id="environment">Environment</h2>
-<p>Unlike <code>lidR</code>, LAStools is standalone software that runs from the command line (e.g., Command Prompt on Windows) or via batch scripts (<code>.bat</code>). The commands shown here are intended for that environment.</p>
+<p>Welcome to this pre-processing tutorial using LAStools. While <code>lidR</code> in R is a powerful tool for analyzing lidar data in a research and development context, it can be memory-intensive and slower when working with large point cloud collections.</p>
+<p>LAStools is another suite of efficient, command-line-based tools for processing lidar data. In this initial tutorial, we will perform three preprocessing steps: <em>tiling</em> to break large files into manageable chunks, <em>denoising</em> to classify and remove erroneous points, and <em>indexing</em> to create spatial indexes that accelerate read times.</p>
+<p>To follow along step by step with the LAStools preprocessing <a href="data/raw/fm_4km.laz" title="Download the 95mb LAZ file to follow along with preprocessing in LAStools">download the raw ALS data (95mb)</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="img/lasview_fmlas.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Result of running lasview -i data/fm_4km.laz"><img src="img/lasview_fmlas.png" class="img-fluid quarto-figure quarto-figure-center figure-img" alt="Result of running lasview -i data/fm_4km.laz"></a></p>
+</figure>
+</div>
+<figcaption>Result of running lasview -i data/fm_4km.laz</figcaption>
+</figure>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Downloading LAStools
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You must download LAStools from their official website. After unzipping the folder, you will find a <code>bin</code> directory containing all the executable tools (e.g., <code>lastile.exe</code>, <code>lasnoise.exe</code>). To run the commands, you either need to navigate to this <code>bin</code> directory in your command prompt or add the directory to your system’s PATH environment variable.</p>
+<p>LAStools requires installation outside of R (see <a href="https://rapidlasso.de/downloads/">rapidlasso.de/downloads</a>)</p>
+<p>After unzipping the folder, you will find a <code>bin</code> directory containing all the executable tools (e.g., <code>lastile.exe</code>, <code>lasnoise.exe</code>). To run the commands, you either need to navigate to this <code>bin</code> directory in your command prompt or add the directory to your system’s PATH environment variable.</p>
+<p>You can follow along using the free version of LAStools, which is sufficient for these preprocessing steps. However, please note that some advanced features may require a paid license.</p>
+<p><strong>Download the pre-processed files to skip this step and move directly to the analysis in <code>lidR</code>.</strong></p>
+<p><a href=".\data/sl25_laz.zip">Download LAZ files</a></p>
 </div>
 </div>
-<p>For the following examples, we will assume your raw <code>.laz</code> files are in a folder <code>C:\lidar_project\raw\</code> and you want to save the processed outputs to <code>C:\lidar_project\processed\</code>.</p>
+<p>For the following examples, we will assume the raw <code>.laz</code> file is in a folder <code>C:\lidar_project\raw\</code> and you want to save the processed outputs to <code>C:\lidar_project\processed\</code>. Replace these paths with your own as needed.</p>
 </section>
 <section id="tiling-with-lastile" class="level2">
 <h2 class="anchored" data-anchor-id="tiling-with-lastile">Tiling with <code>lastile</code></h2>
-<p>The first step is often to tile the data. A single, massive lidar file (or a collection of large, irregularly shaped files) is difficult to process. Tiling divides the data into a grid of smaller, square files. This is the foundation for efficient, parallel processing in <code>lidR</code>.</p>
-<p>We use the <code>lastile</code> tool for this. The command below takes all <code>.laz</code> files from our <code>raw</code> directory and creates 500x500 meter tiles, each with a 25-meter buffer. This buffer is crucial to prevent edge artifacts when we later create seamless products like digital terrain models (DTMs).</p>
+<p>The first step in processing is often to tile the data.</p>
+<p>A single lidar file (or a collection of large, irregularly shaped files) is difficult to process.</p>
+<p>Tiling divides the data into a grid of smaller, square files. This is the foundation for efficient, parallel processing in <code>lidR</code>, <code>LAStools</code>, and other software.</p>
+<p>Here we use the <a href="https://downloads.rapidlasso.de/html/lastile_README.html"><code>lastile</code></a> tool for this. The command below takes all <code>.laz</code> files from our <code>raw</code> directory and creates 500x500 meter tiles.</p>
+<p>Here we specify a buffer of 0 as <code>lidR</code> buffers tiles internally, be careful to use a buffer when performing your entire workflow in <code>LAStools</code> to avoid artifacts at tile edges.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a># Create the output directory for the tiled files</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">mkdir</span> C:\lidar_project\processed\tiled</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a># Run lastile</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>lastile <span class="at">-i</span> <span class="st">"C:\lidar_project\raw\*.laz"</span> <span class="at">-odir</span> <span class="st">"C:\lidar_project\processed\tiled"</span> <span class="at">-o</span> <span class="st">".laz"</span> <span class="at">-tile_size</span> 500 <span class="at">-buffer</span> 25</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="batch cell-code"><code>lastile -i "C:\lidar_project\raw\*.laz" ^
+    -odir "C:\lidar_project\processed\tiled" ^ # output directory
+    -olaz ^ # output format (compressed as .laz files)
+    -tile_size 500 ^ # tile size in meters (unit of crs)
+    -buffer 0  # buffer size </code></pre>
 </div>
-</section>
-<section id="command-breakdown" class="level2">
-<h2 class="anchored" data-anchor-id="command-breakdown">Command Breakdown</h2>
-<p>-i “C:_project*.laz”: Specifies the input files. The * is a wildcard that selects all files ending with .laz in the directory.</p>
-<p>-odir “…”: Specifies the output directory where the new tiled files will be saved.</p>
-<p>-o “.laz”: Sets the output file extension to .laz (compressed format).</p>
-<p>-tile_size 500: Sets the width and height of each tile to 500 units (e.g., meters).</p>
-<p>-buffer 25: Adds a 25-unit buffer of points from adjacent tiles around each tile.</p>
 </section>
 <section id="denoising-lasnoise" class="level2">
 <h2 class="anchored" data-anchor-id="denoising-lasnoise">Denoising <code>lasnoise</code></h2>
-<p>Raw lidar data often contains noise points—erroneous measurements that are typically far above or below the main point cloud. These points can be caused by sensor errors, atmospheric interference, or reflections from objects like birds. Noise can significantly skew analysis, so it’s important to remove it.</p>
+<p>Raw point cloud data can contain noise outlier points that are often above or below the main point cloud. These points can be caused by sensor errors, atmospheric interference, or returning energy from objects like birds. Noise can significantly skew analysis, so it’s important to remove it.</p>
 <p>The lasnoise tool identifies these isolated points and classifies them. We will run this command on the tiled files we just created.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lasnoise <span class="at">-i</span> \tiled\*.laz <span class="at">-odir</span> <span class="st">"_noise"</span> <span class="at">-olaz</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="batch cell-code"><code>lasnoise "C:\lidar_project\processed\tiled\*.laz" ^
+    -odir "C:\lidar_project\processed\denoise"
+    -olaz
+</code></pre>
 </div>
 <p>By default, lasnoise assigns noise points to classification code 7 (Low Point / Noise). It does not delete them.</p>
 <p>This is good practice, as it allows you to inspect the classified noise before deciding to permanently remove the points using a filter command like <code>las2las -i in.laz -o out.laz -drop_class 7</code></p>
+<div class="cell">
+<pre class="batch cell-code"><code>las2las -i "C:\lidar_project\processed\denoise\*.laz" ^
+    -odir "C:\lidar_project\processed\clean"
+    -drop_class 7</code></pre>
+</div>
 </section>
 <section id="indexing-lasindex" class="level2">
 <h2 class="anchored" data-anchor-id="indexing-lasindex">Indexing <code>lasindex</code></h2>
-<p>The final step is to index our cleaned-up tiles. Indexing creates a small companion file (<code>.lax</code>) for each <code>.laz</code> file. This <code>.lax</code> file acts as a spatial index, allowing software like lidR to quickly find and read only the portions of a file it needs for a given query, rather than having to read the entire file.</p>
+<p>Finally we can index our cleaned-up tiles. Indexing creates a small companion file (<code>.lax</code>) for each <code>.laz</code> file. This <code>.lax</code> file acts as a spatial index, allowing software like <code>lidR</code> to quickly find and read the file.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lasindex <span class="at">-i</span> \tiled\*.laz </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre class="batch cell-code"><code>lasindex -i \tiled\*.laz </code></pre>
 </div>
+<p>This command will create a <code>.lax</code> file for each <code>.laz</code> file in the specified directory.</p>
+<p>Now we will continue to the analysis in <code>lidR</code> using these pre-processed files!</p>
+<p>To follow along with the rest of the tutorial download the pre-processed files to skip this step and move directly to the analysis in <code>lidR</code>.</p>
+<p><a href=".\data/ctg_class.zip">Download the tiled, denoised, and indexed lidar files (95mb)</a></p>
+<p><a href=".\data/ctg_norm.zip">Download the tiled normalized files (95mb)</a></p>
 
 
 </section>
@@ -691,6 +671,38 @@ Downloading LAStools
   });
   </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

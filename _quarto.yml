@@ -30,8 +30,8 @@ website:
         href: "04_metrics.qmd"
       - text: "5-LASCATALOG"
         href: "05_catalog.qmd"
-      - text: "6-ROI
-        href: "06_roi.qmd
+      - text: "6-ROI"
+        href: "06_roi.qmd"
       - text: "7-ABA"
         href: "07_aba.qmd"
       - text: "8-ITS"

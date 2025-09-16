@@ -34,6 +34,12 @@ library(lidR)
 
 ### Load and Inspect lidar Data
 
+Download these two `.laz` files to follow along with the next few pages:
+
+[fm_class.laz (1.8mb)](/data/fm_class.laz)
+
+[fm_norm.laz (1.8mb)](/data/fm_class.laz)
+
 Load the lidar point cloud data from a LAS file using the `readLAS()` function. The data is stored in the `las` object. We can inspect the header information and attributes of the `las` object by calling the object.
 
 ```{r load_and_inspect_lidar_data}
@@ -80,19 +86,17 @@ LAS Standard Point classification is now standardized by the American Society fo
 
 Our example ALS dataset, collected in 2016 over Forêt Montmorency in Quebec uses an older **LAS 1.2 standard**. Its classification codes are interpreted as follows:
 
-+----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| Class Code           | Meaning                        | Interpretation                                                  | Number of points |
-+:=====================+:===============================+:================================================================+==================+
-| 2                    | **Ground**                     | The bare earth surface.                                         | ```              |
-|                      |                                |                                                                 | 39374            |
-|                      |                                |                                                                 | ```              |
-+----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| 1                    | **Unclassified**               | These points have yet to be assigned a classification           | ```              |
-|                      |                                |                                                                 | 219378           |
-|                      |                                |                                                                 | ```              |
-+----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| 0                    | **Never Classified**           | The points that were never classified during the process.       | 7720             |
-+----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
++------------+------------------+-------------------------------------------------------+------------------+
+| Class Code | Meaning          | Interpretation                                        | Number of points |
++:===========+:=================+:======================================================+==================+
+| 2          | **Ground**       | The bare earth surface.                               | ```              |
+|            |                  |                                                       | 26788            |
+|            |                  |                                                       | ```              |
++------------+------------------+-------------------------------------------------------+------------------+
+| 1          | **Unclassified** | These points have yet to be assigned a classification | ```              |
+|            |                  |                                                       | 239684           |
+|            |                  |                                                       | ```              |
++------------+------------------+-------------------------------------------------------+------------------+
 
 ``` r
 plot(las, color = "Classification")
