@@ -787,8 +787,8 @@
     "objectID": "LPS_lidR_LiDAR_Intro.html#presenters",
     "href": "LPS_lidR_LiDAR_Intro.html#presenters",
     "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
-    "section": "",
-    "text": "Liam A.K. Irwin - PhD Student\nBrent A. Murray - PhD Student\nSadie Russel - PhD Student\nNicholas C. Coops - Professor\n\nIntegrated Remote Sensing Studio University of British Columbia Vancouver, Canada"
+    "section": "Presenters",
+    "text": "Presenters\n\nLiam A.K. Irwin - PhD Student\nBrent A. Murray - PhD Student\nSadie Russel - PhD Student\nNicholas C. Coops - Professor\n\nIntegrated Remote Sensing Studio University of British Columbia Vancouver, Canada"
   },
   {
     "objectID": "LPS_lidR_LiDAR_Intro.html#overview",
@@ -809,14 +809,14 @@
     "href": "LPS_lidR_LiDAR_Intro.html#lidar-data-point-clouds",
     "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "Lidar Data – Point Clouds",
-    "text": "Lidar Data – Point Clouds\n\n\n\nDiscrete returns are aggregated into point clouds (.LAS/.LAZ)\n\nLidar points have three-dimensional (XYZ) coordinates, and other attributes (Intensity, ReturnNumber, etc…)\n\nPoint clouds can be processed into vegetation structure summaries with lidR\n\n\n\n\n\n\nAs with many remote sensing data analyses tasks we are seeking to produce information from simplification to pull a signal of interest (in this case variability in vegetation structure) out of our dataset (a dense point cloud of three-dimensional coordinates that characterize the vegetation)\nTo do so we often generate summary metrics that act similarly to spectral indices in passive optical remote sensing, they ratio or generate statistics on the distribution of points (max, mean height, canopy cover, percentiles, leaf-area density profiles)"
+    "text": "Lidar Data – Point Clouds\n\n\n\nDiscrete returns are aggregated into point clouds (.LAS/.LAZ)\n\nLidar points have three-dimensional (XYZ) coordinates, and other attributes (Intensity, ReturnNumber, etc…)\n\nPoint clouds can be processed into vegetation structure summaries with lidR\n\n\n\n\n\nAs with many remote sensing data analyses tasks we are seeking to produce information from simplification to pull a signal of interest (in this case variability in vegetation structure) out of our dataset (a dense point cloud of three-dimensional coordinates that characterize the vegetation)\nTo do so we often generate summary metrics that act similarly to spectral indices in passive optical remote sensing, they ratio or generate statistics on the distribution of points (max, mean height, canopy cover, percentiles, leaf-area density profiles)"
   },
   {
     "objectID": "LPS_lidR_LiDAR_Intro.html#lidr",
     "href": "LPS_lidR_LiDAR_Intro.html#lidr",
     "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "lidR",
-    "text": "lidR\n\n\n\nWritten by Jean-Romain Roussel\n\nPackage for manipulating and visualizing ALS data\n\nWritten entirely open source within R-geospatial ecosystem (terra/sf)\n\nMost processes run efficiently with back-end C++ code\n\n\n\n\n\nAttaching package: 'lubridate'\n\n\nThe following objects are masked from 'package:base':\n\n    date, intersect, setdiff, union\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+    "text": "lidR\n\n\n\nWritten by Jean-Romain Roussel\n\nPackage for manipulating and visualizing ALS data\n\nWritten entirely open source within R-geospatial ecosystem (terra/sf)\n\nMost processes run efficiently with back-end C++ code"
   },
   {
     "objectID": "LPS_lidR_LiDAR_Intro.html#r-lidar",
@@ -838,5 +838,19 @@
     "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "Get Set Up!",
     "text": "Get Set Up!\nhttps://liamirwin.github.io/SL25_lidRtutorial/"
+  },
+  {
+    "objectID": "LPS_lidR_LiDAR_Intro.html#lastools",
+    "href": "LPS_lidR_LiDAR_Intro.html#lastools",
+    "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
+    "section": "LAStools",
+    "text": "LAStools\n\n\n\nIndustry grade software suite produced by rapidlasso\n\n52 command-line tools for mutlicore batch processing lidar data\nMore memory efficient than lidR (doesn’t load as dataframe)\nSome tools required paid license"
+  },
+  {
+    "objectID": "LPS_lidR_LiDAR_Intro.html#workshop-outline-.smaller",
+    "href": "LPS_lidR_LiDAR_Intro.html#workshop-outline-.smaller",
+    "title": "lidR: (A workshop for) Airborne lidar Data Manipulation and Visualization for Forestry Applications",
+    "section": "Workshop Outline [.smaller]",
+    "text": "Workshop Outline [.smaller]\n\nIntroduction to Lidar, LAStools, and lidR (09:00)\nPreprocessing with LAStools (9:20)\nReading LAS and LAZ files (09:30)\nPoint Classification and filtering (9:35)\nDigital Terrain Models and Height Normalization (9:40)\nCanopy Height Models (9:50)\nBreak (10:00)\nLidar Summary Metrics (10:15)\nArea Based Approach (10:35)\nFile Collection Processing Engine (10:55)\nIndividual Tree Detection and Segmentation (11:10)\nQuestions (11:30)"
   }
 ]

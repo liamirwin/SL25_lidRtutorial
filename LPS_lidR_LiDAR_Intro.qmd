@@ -14,6 +14,7 @@ format:
     chalkboard: false
     html-math-method: katex
     footer: "Silvilaser 2025 – lidar processing workshop"
+    auto-stretch: true
 editor: source
 title-slide-attributes: 
   data-background-image: img/logo.png
@@ -104,6 +105,29 @@ source('R/lidR_downloads_plot.R')
 
 :::
 
+## LAStools
+
+::: columns
+
+::: column
+- Industry grade software suite produced by rapidlasso  
+- 52 command-line tools for mutlicore batch processing lidar data
+- More memory efficient than lidR (doesn't load as dataframe)
+- Some tools required paid license
+:::
+
+::: column
+
+![](img/lastools.svg)
+
+:::
+
+:::  
+
+::: notes
+
+:::
+
 ## r-lidar
 
 ::: columns
@@ -124,7 +148,7 @@ source('R/lidR_downloads_plot.R')
 
 :::
 
-## Workshop Outline
+## Workshop Outline {.smaller}
 
 -   Introduction to Lidar, LAStools, and lidR (09:00)
 -   Preprocessing with LAStools (9:20)
@@ -132,14 +156,14 @@ source('R/lidR_downloads_plot.R')
 -   Point Classification and filtering (9:35)
 -   Digital Terrain Models and Height Normalization (9:40)
 -   Canopy Height Models (9:50)
--   Break (10:00)
+-   **Break (10:00)**
 -   Lidar Summary Metrics (10:15)
 -   Area Based Approach (10:35)
 -   File Collection Processing Engine (10:55)
 -   Individual Tree Detection and Segmentation (11:10)
 -   Questions (11:30)
 
-## Get Set Up!
+## Get Set Up! {.smaller}
 
 https://liamirwin.github.io/SL25_lidRtutorial/
 
