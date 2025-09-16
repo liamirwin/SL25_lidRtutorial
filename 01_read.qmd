@@ -75,7 +75,7 @@ Lidar systems and pre-processing attribute point clouds with additional attribut
 For instance, points are typically assigned `Classification` values to differentiate surfaces. This is often already done by the data provider or through user applied algorithms to classify for example [noise and ground](https://rdrr.io/cran/lidR/man/classify.html "lidR classify function (not covered in this workshop)") points. The meaning of these ID values depends on the LAS file version and source.
 
 ::: callout-note
-LAS Standard Point classification is now standardized by the American Society for Photogrammetry and Remote Sensing (ASPRS). For a complete list of classes, refer to the [LAS 1.4 specification (R15)](https://www.asprs.org/wp-content/uploads/2019/07/LAS_1_4_r15.pdf "LAS 1.4 specification document").
+LAS Standard Point classification is now standardized by the American Society for Photogrammetry and Remote Sensing (ASPRS). For a complete list of classes, refer to the [LAS 1.4 specification (R15)](https://www.asprs.org/wp-content/uploads/2019/03/LAS_1_4_r14.pdf "LAS 1.4 specification document").
 :::
 
 Our example ALS dataset, collected in 2016 over Forêt Montmorency in Quebec uses an older **LAS 1.2 standard**. Its classification codes are interpreted as follows:
@@ -84,18 +84,14 @@ Our example ALS dataset, collected in 2016 over Forêt Montmorency in Quebec use
 | Class Code           | Meaning                        | Interpretation                                                  | Number of points |
 +:=====================+:===============================+:================================================================+==================+
 | 2                    | **Ground**                     | The bare earth surface.                                         | ```              |
-|                      |                                |                                                                 | 195582           |
+|                      |                                |                                                                 | 39374            |
 |                      |                                |                                                                 | ```              |
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
 | 1                    | **Unclassified**               | These points have yet to be assigned a classification           | ```              |
-|                      |                                |                                                                 | 1201564          |
+|                      |                                |                                                                 | 219378           |
 |                      |                                |                                                                 | ```              |
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| 7                    | **Noise**                      | Erroneous points, likely below ground or outliers above ground. | 87               |
-+----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
-| 12                   | **Overlap Points**             | Points assigned to overlapping flight lines.                    | ```              |
-|                      |                                |                                                                 | 424135           |
-|                      |                                |                                                                 | ```              |
+| 0                    | **Never Classified**           | The points that were never classified during the process.       | 7720             |
 +----------------------+--------------------------------+-----------------------------------------------------------------+------------------+
 
 ``` r
