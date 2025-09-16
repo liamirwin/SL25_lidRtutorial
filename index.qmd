@@ -109,10 +109,11 @@ The raw data has been thinned to a uniform density (20 points/m2) to speed up pr
 -   Canopy Height Models (9:50)
 -   Break (10:00)
 -   Lidar Summary Metrics (10:15)
--   Area Based Approach (10:35)
--   File Collection Processing Engine (10:55)
--   Individual Tree Detection and Segmentation (11:10)
--   Questions (11:30)
+-   File Collection Processing Engine (10:35)
+-   Regions of Interest (10:50)
+-   Area Based Approach (11:00)
+-   Individual Tree Detection and Segmentation (11:20)
+-   Questions (11:40)
 
 ## Resources
 
