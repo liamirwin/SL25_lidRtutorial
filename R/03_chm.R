@@ -1,5 +1,5 @@
 # Canopy Height Models
-# https://liamirwin.github.io/LPS_lidRtutorial/03_chm.html
+# https://liamirwin.github.io/SL25_lidRtutorial/03_chm.html
 
 # Environment setup
 # -----------------
@@ -12,8 +12,10 @@ library(terra)
 # Data Preprocessing
 # -------------------------------------------------------------------
 
-# Load lidar data and decimate to simulate lower density (20 -> 10 pts/m²)
-las <- readLAS(files = "data/zrh_norm.laz")
+# Load lidar data and reduce point density
+las <- readLAS(files = "data/fm_norm.laz")
+
+# Density of the data is reduced from 20 points/m² to 10 points/m² for example purposes
 las <- decimate_points(las, random(density = 10))
 
 # Visualize the point cloud

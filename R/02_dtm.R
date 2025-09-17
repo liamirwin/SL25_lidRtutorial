@@ -1,5 +1,5 @@
 # Digital Terrain Models
-# https://liamirwin.github.io/LPS_lidRtutorial/02_dtm.html
+# https://liamirwin.github.io/SL25_lidRtutorial/02_dtm.html
 
 # Environment setup
 # -----------------
@@ -11,8 +11,8 @@ library(lidR)
 # Digital Terrain Model (DTM) Generation
 # -------------------------------------------------------------------
 
-# Load pre-classified lidar data
-las <- readLAS(files = "data/zrh_class.laz")
+# Load lidar data where points are already pre-classified
+las <- readLAS(files = "data/fm_class.laz")
 
 # Visualize raw lidar point cloud
 plot(las)
