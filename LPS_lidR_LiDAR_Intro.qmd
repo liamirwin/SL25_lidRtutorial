@@ -167,4 +167,4 @@ source('R/lidR_downloads_plot.R')
 
 https://liamirwin.github.io/SL25_lidRtutorial/
 
-[![](img/qrcode.png){fig-align="center"}](https://liamirwin.github.io/SL25_lidRtutorial/)
+[![](img/qrcode.png){fig-align="center" width="40%"}](https://liamirwin.github.io/SL25_lidRtutorial/)

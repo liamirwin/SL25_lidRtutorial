@@ -214,7 +214,7 @@ file.remove(file.path(path, delete_las))
 
 ```{r independent_files, warning = FALSE, message = FALSE}
 # Read single file as catalog
-ctg <- readLAScatalog(folder = "data/fm_norm.laz")
+ctg <- readLAScatalog(folder = "data/fm_class.laz")
 
 # Set options for output files
 opt_output_files(ctg) <- paste0(tempdir(),"/{XCENTER}_{XCENTER}")
