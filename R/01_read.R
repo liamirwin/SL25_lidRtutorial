@@ -1,5 +1,5 @@
 # Read/Plot/Query/Validate
-# https://liamirwin.github.io/LPS_lidRtutorial/01_read.html
+# https://liamirwin.github.io/SL25_lidRtutorial/01_read.html
 # =========================
 # R Packages
 # ------------
@@ -30,7 +30,7 @@ library(lidR)
 # Load and inspect lidar data
 # ----------------------------
 # Load the sample point cloud
-las <- readLAS(files = "data/zrh_norm.laz")
+las <- readLAS(files = "data/fm_norm.laz")
 
 # Inspect header and attribute information
 las
@@ -41,9 +41,6 @@ format(object.size(las), "Mb")
 # Visualize the lidar data
 # ----------------------
 # Default 3D plot
-plot(las)
-
-# Colour by elevation (Z)
 plot(las)
 
 # Colour by classification
@@ -60,27 +57,27 @@ plot(las, color = "ScanAngleRank")
 # -------------------------------------------------------------------
 
 # Load a version with only ground points (classification == 2)
-las_ground <- readLAS(files = "data/zrh_class.laz", filter = "-keep_class 2")
+las <- readLAS(files = "data/fm_class.laz", filter = "-keep_class 2")
 plot(las_ground)
 
 # Keep only first-return points
-las_first <- readLAS(files = "data/zrh_norm.laz", filter = "-keep_first")
+las <- readLAS(files = "data/fm_norm.laz", filter = "-keep_first")
 las_first
 plot(las_first)
 
 #    Select only XYZ coordinates to reduce memory usage
-las_xyz <- readLAS(files = "data/zrh_norm.laz", select = "xyz")
+las <- readLAS(files = "data/fm_norm.laz", select = "xyz")
 las_xyz@data
 format(object.size(las_xyz), "Mb")
 
 # Filter an in-memory LAS object by attribute
-# Flter points with Classification == 2 (ground)
-las <- readLAS('data/zrh_class.laz')
+# Load the lidar file with all the all attributes 
+las <- readLAS(files = "data/fm_class.laz")
+# Filter points with Classification == 2
 class_2 <- filter_poi(las = las, Classification == 2L)
-plot(class_2)
 
-# Combine filters: ground AND first returns
-first_ground <- filter_poi(las = las, Classification == 2L & ReturnNumber == 1L)
+# Combine queries to filter points with Classification 2 and ReturnNumber == 1
+first_returns <- filter_poi(las = las, Classification == 2L & ReturnNumber == 1L)
 plot(first_ground)
 
 # -------------------------------------------------------------------

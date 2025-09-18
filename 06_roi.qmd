@@ -127,7 +127,7 @@ We demonstrate how to extract complex geometries from shapefiles using the `clip
 We use the `sf` package to load an ROI and then clip to its extents.
 
 ```{r extraction_complex_geometries_sf, warning=FALSE, message=FALSE}
-# Load the shapefile using sf
+# Load the geopackage using sf
 stand_bdy <- sf::st_read(dsn = "data/roi/roi.gpkg", quiet = TRUE)
 
 # Plot the lidar header information without the map
