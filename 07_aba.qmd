@@ -14,7 +14,7 @@ source("R/setup_rgl.R")
 
 ## Overview
 
-The area-based approach (ABA) is a widely-used method for estimating forest attributes, such as timber volume and biomass, by combining field measurements with wall-to-wall lidar data.
+The `area-based approach` (ABA) is a widely-used method for estimating forest attributes, such as timber volume and biomass, by combining field measurements with wall-to-wall lidar data.
 
 Here we will demonstrate a typical implementation of the `area-based approach` (ABA) for forest attribute estimation using lidar data and ground plot measurements.
 
@@ -35,24 +35,28 @@ library(dplyr)
 
 -   [lidRbook ABA section](https://r-lidar.github.io/lidRbook/modelling.html)
 
--   [Best Practices for Forest ABA - White 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf)
+-   [Best Practices for Forest ABA - White et al. 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf)
 
--   [ABA Model Development Guide - White 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
+-   [ABA Model Development Guide - White et al. 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
 
 
 -   [Structurally Guided Sampling with sgsR](https://tgoodbody.github.io/sgsR/)
 
-Area-based approaches (ABA) take lidar metrics and connects them to forest (or other ecosystem) attributes typically measured on the ground in field plots. 
+`ABA` takes lidar point cloud metrics and connects them (through regression) to forest (or other ecosystem) attributes typically measured on the ground in field plots. This now fundamental approach was originally presented by [Nasset 2002](https://doi.org/10.1016/S0034-4257(01)00290-5 "Predicting forest stand characteristics with airborne scanning laser using a practical two-stage procedure and field data - Remote Sensing of Environment 2002").
 
-This now fundamental approach was originally presented by [Nasset 2002](https://doi.org/10.1016/S0034-4257(01)00290-5 "Predicting forest stand characteristics with airborne scanning laser using a practical two-stage procedure and field data - Remote Sensing of Environment 2002").
+`ABA` generally use coregistered plots (measured with GNSS coordinates) as samples to build models to estimate field measured attributes across wall-to-wall coverages of lidar `pixel_metrics`.
 
-ABA generally uses coregistered plots as samples to build models to estimate field measured attributes across wall-to-wall coverages of lidar `pixel_metrics`.
+In doing so we can apply models to lidar derived metric rasters over wider coverages to create estimate maps of key *forest inventory variables* such as stem volume, basal area, and stem density.
 
-In doing so we can apply models to lidar derived metric rasters to create estimate maps of key *forest inventory variables* such as stem volume, basal area, and stem density.
+```{r, include = FALSE}
+#| label: fig-white2013-knitr
+#| fig-cap: "ABA workflow - Figure 4 in White et al. 2013."
+#| fig-alt: "A diagram showing the area-based approach workflow."
+#| fig-align: "center"
 
-[![Workflow and principles behind ABA](img/white2013_fig4.png){fig-alt="White et al. 2013 - A best practices guide for generating forest inventory attributes from airborne laser scanning data using an area-based approach" fig-align="center"}](https://doi.org/10.5558/tfc2013-132)
+knitr::include_graphics("img/white2013_fig4.png")
+```
 
-[Overview of area-based model development from White et al. 2017](img/white2017_fig3.png){fig-alt="White et al. 2017 - A model development and application guide for generating an enhanced forest inventory using airborne laser scanning data and an area-based approach" fig-align="center"}](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
 
 ## Ground Plot Data
 
@@ -206,6 +210,16 @@ To keep things simple we will use a small set of three lidar metrics that are co
 For more information read: [White 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
 
 We will generate simple linear models for each of our three forest attributes using these three lidar metrics as predictors and our `r nrow(read.csv("data/plots/plots_all.csv"))` field plots as samples.
+
+```{r, include = FALSE}
+#| label: fig-white2017-knitr
+#| fig-cap: "Overview of area-based model development from Figure 3 in White et al. 2017"
+#| fig-alt: "White et al. 2017 - A model development and application guide for generating an enhanced forest inventory using airborne laser scanning data and an area-based approach"
+#| fig-align: "center"
+
+knitr::include_graphics("img/white2017_fig3.png")
+```
+
 
 ```{r}
 # Read in plot metrics with forest attributes and lidar metrics calculated for all 162 plots

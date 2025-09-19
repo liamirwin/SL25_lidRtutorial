@@ -380,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We demonstrate how to extract complex geometries from shapefiles using the <code>clip_roi()</code> function from the <code>lidR</code> package.</p>
 <p>We use the <code>sf</code> package to load an ROI and then clip to its extents.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the shapefile using sf</span></span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the geopackage using sf</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>stand_bdy <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">"data/roi/roi.gpkg"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the lidar header information without the map</span></span>
@@ -633,14 +633,14 @@ Chunk 4 of 4 (100%): state ✓
 #&gt; 
                                                                                 
 #&gt; class       : SpatRaster 
-#&gt; size        : 88, 191, 1  (nrow, ncol, nlyr)
+#&gt; size        : 146, 95, 1  (nrow, ncol, nlyr)
 #&gt; resolution  : 1, 1  (x, y)
-#&gt; extent      : 254084, 254275, 5235510, 5235598  (xmin, xmax, ymin, ymax)
+#&gt; extent      : 254035, 254130, 5235466, 5235612  (xmin, xmax, ymin, ymax)
 #&gt; coord. ref. : NAD83(CSRS) / MTM zone 7 (EPSG:2949) 
 #&gt; source      : rasterize_terrain.vrt 
 #&gt; name        :      Z 
-#&gt; min value   : 766.28 
-#&gt; max value   : 781.73</code></pre>
+#&gt; min value   : 777.58 
+#&gt; max value   : 787.39</code></pre>
 </div>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check files</span></span>
