@@ -7,10 +7,6 @@ author:
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
   - name: "Sadie Russell"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
-  - name: "Tristan R.H. Goodbody"
-    affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
-  - name: "Jean-Romain Roussel"
-    affiliation: "r-lidar consulting & development"
 date: 2025-06-22
 ---
 
