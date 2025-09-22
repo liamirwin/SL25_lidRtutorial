@@ -1,5 +1,5 @@
 # LAScatalog
-# https://liamirwin.github.io/LPS_lidRtutorial/05_engine.html
+# https://liamirwin.github.io/SL25_lidRtutorial/05_catalog.html
 
 # Environment setup
 # -----------------
@@ -12,7 +12,7 @@ library(sf)
 # Reading and Inspecting a LAScatalog
 # -------------------------------------------------------------------
 
-# Read catalog of LAS/LAZ files
+# Read catalog of files
 ctg <- readLAScatalog(folder = "data/ctg_norm")
 
 # Inspect catalog summary
@@ -28,47 +28,56 @@ plot(ctg, map = TRUE)
 # Indexing for Efficient Processing
 # -------------------------------------------------------------------
 
-# Check if catalog is indexed
+# check if files have .lax
 is.indexed(ctg)
-
-# Generate index files (.lax)
+# generate index files
 lidR:::catalog_laxindex(ctg)
-
-# Confirm indexing
+# check if files have .lax
 is.indexed(ctg)
+
 
 # -------------------------------------------------------------------
 # Generating CHM from a Catalog
 # -------------------------------------------------------------------
 
-# Create CHM at 1m resolution using p2r with subcircle
-chm <- rasterize_canopy(las = ctg, res = 1, algorithm = p2r(subcircle = 0.15))
+# Generate CHM
+chm <- rasterize_canopy(las = ctg,
+                        res = 1,
+                        algorithm = p2r(subcircle = 0.15))
 plot(chm)
 
 # -------------------------------------------------------------------
 # Catalog Processing Options
 # -------------------------------------------------------------------
 
-# Apply filters and select variables
+# Setting options and re-rasterizing the CHM
 opt_filter(ctg) <- "-drop_z_below 0 -drop_z_above 50"
 opt_select(ctg) <- "xyz"
-
-# Re-generate CHM with new options
-chm_filtered <- rasterize_canopy(las = ctg, res = 1, algorithm = p2r(subcircle = 0.15))
-plot(chm_filtered)
+chm <- rasterize_canopy(las = ctg, res = 1, algorithm = p2r(subcircle = 0.15))
+plot(chm)
 
 # -------------------------------------------------------------------
 # Pixel Metrics from a Catalog
 # -------------------------------------------------------------------
 
-# Compute mean Z at 20m resolution
+# Generate pixel-based metrics
 max_z <- pixel_metrics(las = ctg, func = ~mean(Z), res = 20)
 plot(max_z)
 
 # Compute mean Z using first returns only
 opt_filter(ctg) <- "-drop_z_below 0 -drop_z_above 50 -keep_first"
-first_z <- pixel_metrics(las = ctg, func = ~mean(Z), res = 20)
-plot(first_z)
+max_z <- pixel_metrics(las = ctg, func = ~mean(Z), res = 20)
+plot(max_z)
+
+# Specify options
+opt_select(ctg) <- "xyz"
+opt_chunk_size(ctg) <- 500
+opt_chunk_buffer(ctg) <- 10
+opt_progress(ctg) <- TRUE
+
+# Visualize and summarize the catalog chunks
+plot(ctg, chunk = TRUE)
+summary(ctg)
 
 # -------------------------------------------------------------------
 # Parallel Processing
@@ -77,28 +86,34 @@ plot(first_z)
 # Load future for parallel processing of tiles
 library(future)
 
-# Specify chunk options
-opt_select(ctg) <- "xyz" # Keep XYZ coordinates
-opt_chunk_size(ctg) <- 500 # Set processing size to 500m (same as tile)
-opt_chunk_buffer(ctg) <- 10 # Add buffer (done by default too)
-opt_progress(ctg) <- TRUE # Show progress
+t_start <- Sys.time() # start timer
 
-# Plot chunks and summary
-plot(ctg, chunk = TRUE)
-summary(ctg)
-
-# Single-core processing
+# Set to Process on single core (default)
 plan(sequential)
+
+# Generate a point density raster (points per square metre)
 dens_seq <- rasterize_density(ctg, res = 10)
+
 plot(dens_seq)
 
-# Multi-core processing (3 workers)
+time_diff_secs <- difftime(Sys.time(), t_start, units = "secs")
+print(paste("Processing time:", time_diff_secs, "seconds"))
+
+t_start <- Sys.time() # start timer
+# Process on multi-core with three workers
 plan(multisession, workers = 3L)
+
+# Generate the same density raster, but in parallel
 dens_par <- rasterize_density(ctg, res = 10)
+
 plot(dens_par)
 
-# Revert to single core
+time_diff_secs <- difftime(Sys.time(), t_start, units = "secs")
+print(paste("Processing time:", time_diff_secs, "seconds"))
+
+# Back to single core
 plan(sequential)
+
 
 # -------------------------------------------------------------------
 # Exercises

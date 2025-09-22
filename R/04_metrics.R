@@ -1,5 +1,5 @@
 # Lidar Summary Metrics
-# https://liamirwin.github.io/LPS_lidRtutorial/04_metrics.html
+# https://liamirwin.github.io/SL25_lidRtutorial/04_metrics.html
 
 # Environment setup
 # -----------------
@@ -13,57 +13,55 @@ library(lidRmetrics) # Make sure you have this installed via Github (see tutoria
 # Basic Pixel Metrics
 # -------------------------------------------------------------------
 
-# Load normalized lidar data
-las <- readLAS(files = "data/zrh_norm.laz")
+# Load the normalized lidar data
+las <- readLAS(files = "data/fm_norm.laz")
 
 # Compute mean return height at 10m resolution
 hmean <- pixel_metrics(las = las, func = ~mean(Z), res = 10)
 plot(hmean)
 
-# Compute mean return height at 10m resolution
+# Compute max return height at 10m resolution
 hmax <- pixel_metrics(las = las, func = ~max(Z), res = 10)
 plot(hmax)
 
-# Compute both metrics simultaneously using a list
-metrics_multi <- pixel_metrics(las = las,
-                               func = ~list(hmax = max(Z), hmean = mean(Z)),
-                               res = 10)
-plot(metrics_multi)
+# Compute several metrics at once using a list
+metrics <- pixel_metrics(las = las, func = ~list(hmax = max(Z), hmean = mean(Z)), res = 10)
+plot(metrics)
 
-# Use predefined metrics from lidR (.stdmetrics_z)
-metrics_std <- pixel_metrics(las = las, func = .stdmetrics_z, res = 10)
-plot(metrics_std)
-plot(metrics_std, "zsd")
+# Simplify computing metrics with predefined sets of metrics
+metrics <- pixel_metrics(las = las, func = .stdmetrics_z, res = 10)
+plot(metrics)
+
+# Plot a specific metric from the predefined set
+plot(metrics, "zsd")
 
 # -------------------------------------------------------------------
 # Advanced Metrics (lidRmetrics package)
 # -------------------------------------------------------------------
 
 # Canopy cover: proportion of returns above 2m
-cc <- pixel_metrics(las,
-                    func = ~metrics_percabove(z = Z, threshold = 2, zmin = 0),
-                    res = 10)
-plot(cc)
+cc_metrics <- pixel_metrics(las, func = ~metrics_percabove(z = Z, threshold = 2, zmin = 0), res = 10)
+plot(cc_metrics)
 
 # Leaf area density profiles (LAD)
-lad <- pixel_metrics(las, func = ~metrics_lad(z = Z), res = 10)
-plot(lad)
-plot(lad, "lad_cv")
+lad_metrics <- pixel_metrics(las, ~metrics_lad(z = Z), res = 10)
+plot(lad_metrics)
+plot(lad_metrics, "lad_cv")
 
 # Dispersion and vertical complexity
-disp <- pixel_metrics(las, func = ~metrics_dispersion(z = Z, zmax = 40), res = 10)
-plot(disp)
-plot(disp, "CRR")
-plot(disp, "VCI")
+disp_metrics <- pixel_metrics(las, ~metrics_dispersion(z = Z, zmax = 40), res = 10)
+plot(disp_metrics)
+plot(disp_metrics, "CRR")
+plot(disp_metrics, "VCI")
 
-# Create a custom user-defined metric;weighted mean metric between two attributes
-f_weighted <- function(x, weight) sum(x * weight) / sum(weight)
+# Generate a user-defined function to compute weighted mean between two attributes
+f <- function(x, weight) { sum(x*weight)/sum(weight) }
 
-# Apply to calculate the mean height weighted by intensity (arbitrary)
-user_weighted <- pixel_metrics(las,
-                               func = ~f_weighted(Z, Intensity),
-                               res = 10)
-plot(user_weighted)
+# Compute weighted mean of height (Z) as a function of return intensity
+user_metric <- pixel_metrics(las = las, func = ~f(Z, Intensity), res = 10)
+
+# Visualize the output
+plot(user_metric)
 
 # -------------------------------------------------------------------
 # Exercises

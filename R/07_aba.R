@@ -1,111 +1,122 @@
 # Individual Tree Detection & Segmentation
-# https://liamirwin.github.io/LPS_lidRtutorial/supplemental/S2_its.html
+# https://liamirwin.github.io/SL25_lidRtutorial/07_aba.html
 
 # Environment setup
 # -----------------
-# Clear workspace and install/load required packages
+# Clear environment
 rm(list = ls(globalenv()))
-if (!requireNamespace("concaveman", quietly = TRUE)) install.packages("concaveman")
-library(concaveman)
+
+# Load packages
 library(lidR)
 library(sf)
 library(terra)
+library(dplyr)
 
-# Load LiDAR data and set color palettes
-las <- readLAS(files = "data/zrh_norm.laz")
-col <- height.colors(50)
-col1 <- pastel.colors(900)
+# Read in plot centres
+plots <- st_read("data/ctg_plots.gpkg", quiet = TRUE) 
 
-# -------------------------------------------------------------------
-# CHM-Based Segmentation
-# -------------------------------------------------------------------
-
-# Generate CHM with p2r percentile algorithm
-chm <- rasterize_canopy(las = las, res = 0.5, algorithm = p2r(0.15))
-plot(chm, col = col)
-
-# Smooth CHM with 3x3 median filter
-kernel <- matrix(1, 3, 3)
-schm <- terra::focal(chm, w = kernel, fun = median, na.rm = TRUE)
-plot(schm, col = col)
-
-# Detect tree tops on smoothed CHM using local maxima filtering
-ttops <- locate_trees(las = schm, algorithm = lmf(ws = 2.5))
-plot(chm, col = col)
-plot(ttops, col = "black", add = TRUE, cex = 0.5)
-
-# Segment trees using Dalponte et al. (2016) algorithm
-las <- segment_trees(las = las, algorithm = dalponte2016(chm = schm, treetops = ttops))
-length(unique(las$treeID)[!is.na(las$treeID)])
-plot(las, color = "treeID", bg = "white")
-
-# Extract and visualize individual trees
-tree25  <- filter_poi(las = las, treeID ==  25)
-plot(tree25, size = 4, bg = "white")
-tree125 <- filter_poi(las = las, treeID == 125)
-plot(tree125, size = 4, bg = "white")
-
-# -------------------------------------------------------------------
-# Raster-Based ITS
-# -------------------------------------------------------------------
-
-# Generate tree delineation raster from CHM
-trees <- dalponte2016(chm = chm, treetops = ttops)()
-plot(trees, col = col1)
-plot(ttops, add = TRUE, cex = 0.5)
-
-# -------------------------------------------------------------------
-# Point-Cloud ITS (No CHM)
-# -------------------------------------------------------------------
-
-# Detect tree tops directly on point cloud
-ttops2 <- locate_trees(las = las, algorithm = lmf(ws = 3, hmin = 5))
-x <- plot(las, bg = "white")
-add_treetops3d(x = x, ttops = ttops2, radius = 0.5)
-
-# Segment trees using Li et al. (2012) algorithm
-las <- segment_trees(las = las, algorithm = li2012())
-plot(las, color = "treeID", bg = "white")
-
-# -------------------------------------------------------------------
-# Crown Metrics Extraction
-# -------------------------------------------------------------------
-
-# Example: count points per crown
-metrics_n <- crown_metrics(las = las, func = ~list(n = length(Z)))
-plot(metrics_n["n"], cex = 0.8)
-
-# Convex hull area metric
-f_area <- function(x, y) {
-  coords <- cbind(x, y)
-  ch     <- chull(coords)
-  ch     <- c(ch, ch[1])
-  poly   <- sf::st_polygon(list(coords[ch, ]))
-  list(A = sf::st_area(poly))
-}
-metrics_A <- crown_metrics(las = las, func = ~f_area(X, Y))
-plot(metrics_A["A"], cex = 0.8)
-
-# Predefined standard tree metrics
-metrics_std <- crown_metrics(las = las, func = .stdtreemetrics)
-plot(metrics_std["convhull_area"], cex = 0.8)
-plot(metrics_std["Z"], cex = 0.8)
-
-# -------------------------------------------------------------------
-# ITS with LAScatalog
-# -------------------------------------------------------------------
-
-# Configure catalog for ITD
+# Read in catalog of normalized LAZ tiles
 ctg <- catalog("data/ctg_norm")
-opt_filter(ctg)      <- "-drop_z_below 0 -drop_z_above 50"
-opt_select(ctg)      <- "xyz"
-opt_chunk_size(ctg)  <- 500
-opt_chunk_buffer(ctg)<- 10
-opt_progress(ctg)    <- TRUE
-is.empty            <- lidR::is.empty
+plot(st_geometry(ctg@data))
+plot(st_geometry(plots ), add = TRUE, col = "red")
 
-# Detect treetops and generate CHM in catalog
-ttops_cat <- locate_trees(las = ctg, algorithm = lmf(ws = 3, hmin = 10))
-chm_cat   <- rasterize_canopy(las = ctg, res = 1, algorithm = p2r())
-plot(chm_cat)
-plot(ttops_cat, add = TRUE, cex = 0.1, col = "red")
+# Option 1
+# Calculate with all-in-one plot_metrics function
+plot_mets <- plot_metrics(las = ctg, # use the catalog of normalized LAZ files
+                          func = .stdmetrics, # use standard list of metrics
+                          geometry = plots, # use plot centres
+                          radius = 11.28 # define the radius of the circular plots
+)
+
+# Select subset of metrics from the resulting dataframe for model development
+plot_mets <- dplyr::select(plot_mets,
+                           c(plot_id, ba_ha, sph_ha, # forest attributes
+                             merch_vol_ha, zq95, pzabove2, zskew # lidar metrics
+                           ))
+
+# Option 2
+# Clip normalized LAZ files for each plot location
+opt_output_files(ctg) <- "data/plots/las/{plot_id}"
+opt_laz_compression(ctg) <- TRUE
+# Create circular polygons of 11.28m radius (400m2 area)
+plot_buffer <- st_buffer(plots, 11.28)
+# Clip normalized LAZ file for each plot
+clip_roi(ctg, plot_buffer)
+
+# Create a new catalog referencing the clipped plots we saved
+ctg_plot <- catalog("data/plots/las")
+opt_independent_files(ctg_plot) <- TRUE # process each plot independently
+
+# Define a metrics function to apply to plots
+generate_plot_metrics <- function(chunk){
+  # Check if tile is empty
+  las <- readLAS(chunk)                  
+  if (is.empty(las)) return(NULL)
+  # Calculate standard list of metrics (56) built in to lidR for each point cloud
+  mets <- cloud_metrics(las, .stdmetrics)
+  # Convert output metrics to dataframe (from list)
+  mets_df <- as.data.frame(mets)
+  # Add plot ID to metrics dataframe
+  mets_df$plot_id <- gsub(basename(chunk@files),
+                          pattern = ".laz",
+                          replacement = "")
+  return(mets_df)
+}
+
+# Apply our function to each plot in the catalog
+plot_mets <- catalog_apply(ctg_plot, generate_plot_metrics)
+
+# Bind the output dataframes into one table
+plot_df <- do.call(rbind, plot_mets)
+
+# Rejoin the lidar metrics with the plot vector with attributes
+plot_sf <- left_join(plots, plot_df, by = "plot_id")
+
+# Select subset of metrics for model development
+plot_mets <- dplyr::select(plot_sf,
+                           c(plot_id, ba_ha, sph_ha, # forest attributes
+                             merch_vol_ha, zq95, pzabove2, zskew # lidar metrics
+                           ))
+
+# Model Development
+# Read in plot metrics with forest attributes and lidar metrics calculated for all 162 plots
+plot_mets <- read.csv("data/plots/plots_all.csv")
+
+# Generate linear models for each forest attribute using three lidar metrics
+lm_vol <- lm(merch_vol_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+lm_ba <- lm(ba_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+lm_sph <- lm(sph_ha ~ zq95 + zskew + pzabove2, data = plot_mets)
+
+# Extract model coefficients
+vol_cf <- lm_vol$coefficients
+ba_cf <- lm_ba$coefficients
+sph_cf <- lm_sph$coefficients
+
+
+# Create functions from model coefficients that we can apply to metrics rasters
+# Function to predict stem volume
+vol_lm_r <- function(zq95,zskew,pzabove2){
+  vol_cf["(Intercept)"] + (vol_cf["zq95"] * zq95) + (vol_cf["zskew"] * zskew) + (vol_cf["pzabove2"] * pzabove2)
+}
+# Function to predict basal area
+ba_lm_r <- function(zq95,zskew,pzabove2){
+  ba_cf["(Intercept)"] + (ba_cf["zq95"] * zq95) + (ba_cf["zskew"] * zskew) + (ba_cf["pzabove2"] * pzabove2)
+}
+# Function to predict stem density
+sph_lm_r <- function(zq95,zskew,pzabove2){
+  sph_cf["(Intercept)"] + (sph_cf["zq95"] * zq95) + (sph_cf["zskew"] * zskew) + (sph_cf["pzabove2"] * pzabove2)
+}
+
+# Load the full metrics raster
+metrics_rast <- rast("data/metrics/fm_mets_20m.tif")
+plot(metrics_rast)
+# Apply models to generate wall-to-wall forest attribute estimates
+# Merchantable Stem Volume
+vol_r <- terra::lapp(metrics_rast, fun = vol_lm_r)
+plot(vol_r, main = "Merchantable Stem Volume (m3/ha)")
+# Basal Area
+ba_r <- terra::lapp(metrics_rast, fun = ba_lm_r)
+plot(ba_r, main = "Basal Area (m2/ha)")
+# Stem Density
+sph_r <- terra::lapp(metrics_rast, fun = sph_lm_r)
+plot(sph_r, main = "Stem Density (stems/ha)")
