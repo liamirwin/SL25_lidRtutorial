@@ -42,8 +42,8 @@ tree_ids <- unique(las$treeID)
 plot(las, color = "treeID", bg = "white")
 
 # Extract and visualize individual trees
-id_1 <- sample(tree_ids, 1)
-id_2 <- sample(tree_ids, 2)
+id_1 <- 1551
+id_2 <- 3686
 
 # Select trees by ID
 tree1 <- filter_poi(las = las, treeID == id_1)
