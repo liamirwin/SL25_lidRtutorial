@@ -8,7 +8,7 @@ source("R/setup_rgl.R")
 
 ## Relevant Resources
 
--   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/master/R/05_aba_roi.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/06_roi.R)
 
 -   [lidRbook section](https://r-lidar.github.io/lidRbook/modelling.html)
 

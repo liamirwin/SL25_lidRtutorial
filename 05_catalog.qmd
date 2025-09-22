@@ -8,7 +8,7 @@ source("R/setup_rgl.R")
 
 ## Relevant resources:
 
--   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/05_engine.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/05_catalog.R)
 -   [lidRbook section](https://r-lidar.github.io/lidRbook/engine.html)
 
 ## Overview

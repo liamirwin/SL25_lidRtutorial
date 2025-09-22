@@ -8,7 +8,7 @@ source("R/setup_rgl.R")
 
 ## Relevant Resources
 
--   [Code](https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/04_metrics.R)
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/04_metrics.R)
 -   [lidRbook metrics section](https://r-lidar.github.io/lidRbook/grid_metrics.html)
 -   [lidRbook modelling section](https://r-lidar.github.io/lidRbook/modelling.html)
 -   [lidRmetrics package for additional metrics](https://ptompalski.github.io/lidRmetrics/ "Tutorial website for lidRmetrics package")
