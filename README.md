@@ -2,7 +2,7 @@
 
 [This repository](https://github.com/liamirwin/SL25_lidRtutorial) contains the material for an 180 minute `lidR` and `LAStools` tutorial workshop.
 
-This workshop was created for the `2025 Silvilaser Conference`, held in Quebec City, Canada in September/October, 2025
+This workshop was created for the [`2025 Silvilaser Conference`](https://www.silvilaser2025.com/), held in Quebec City, Canada in September/October, 2025
 
 This workshop was presented by `Liam A.K. Irwin`, `Brent A. Murray` and `Sadie Russell` members of the [University of British Columbia Integrated Remote Sensing Studio lab](https://irsslab.forestry.ubc.ca/).
 
