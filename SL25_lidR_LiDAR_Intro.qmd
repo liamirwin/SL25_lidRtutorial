@@ -146,7 +146,7 @@ source('R/lidR_downloads_plot.R')
 :::  
 
 ::: notes
-
+a
 :::
 
 ## Workshop Outline {.smaller}
