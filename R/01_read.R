@@ -58,17 +58,17 @@ plot(las, color = "ScanAngleRank")
 
 # Load a version with only ground points (classification == 2)
 las <- readLAS(files = "data/fm_class.laz", filter = "-keep_class 2")
-plot(las_ground)
+plot(las)
 
 # Keep only first-return points
 las <- readLAS(files = "data/fm_norm.laz", filter = "-keep_first")
-las_first
-plot(las_first)
+las
+plot(las)
 
 #    Select only XYZ coordinates to reduce memory usage
 las <- readLAS(files = "data/fm_norm.laz", select = "xyz")
-las_xyz@data
-format(object.size(las_xyz), "Mb")
+las@data
+format(object.size(las), "Mb")
 
 # Filter an in-memory LAS object by attribute
 # Load the lidar file with all the all attributes 
@@ -78,7 +78,8 @@ class_2 <- filter_poi(las = las, Classification == 2L)
 
 # Combine queries to filter points with Classification 2 and ReturnNumber == 1
 first_returns <- filter_poi(las = las, Classification == 2L & ReturnNumber == 1L)
-plot(first_ground)
+plot(class_2)
+plot(first_returns)
 
 # -------------------------------------------------------------------
 # Exercises
