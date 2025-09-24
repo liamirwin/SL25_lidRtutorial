@@ -69,6 +69,7 @@ Warning messages:
 
 19
 /31                              
+
 20/31 [filter_points]              
 
 21
@@ -110,6 +111,7 @@ Warning messages:
 
 1
 /35                              
+
 2/35 [setup]                      
 
 3
@@ -122,6 +124,7 @@ Warning messages:
 
 7
 /35                              
+
 8/35 [fig-dtm-initial-plot]       
 
 9
@@ -130,11 +133,11 @@ Warning messages:
 
 11
 /35                              
-
 12/35 [dtm_triangulation]          
 
 13
 /35                              
+
 14/35 [fig-dtm-tin-3d]             
 
 15
@@ -175,6 +178,7 @@ Warning messages:
 
 33
 /35                              
+
 34/35 [fig-normalized-tin]         
 
 35
@@ -199,7 +203,6 @@ Warning messages:
 
 3
 /25                              
-
 4/25 [clear_warnings]             
 
 5
@@ -251,11 +254,11 @@ output file: 03_chm.knit.md
 
 1
 /33                           
+
 2/33 [setup]                   
 
 3
 /33                           
-
 4/33 [als_metrics_cs]          
 
 5
@@ -296,9 +299,7 @@ output file: 03_chm.knit.md
 
 23
 /33                           
-
-24
-/33 [cvlad]                   
+24/33 [cvlad]                   
 
 25
 /33                           
@@ -310,7 +311,6 @@ output file: 03_chm.knit.md
 
 29
 /33                           
-
 30/33 [fig-metrics-vci]         
 
 31
@@ -328,11 +328,11 @@ There were 11 warnings (use warnings() to see them)
 
 1
 /35                               
+
 2/35 [setup]                       
 
 3
 /35                               
-
 4/35 [clear_warnings]              
 
 5
@@ -361,7 +361,6 @@ There were 11 warnings (use warnings() to see them)
 
 17
 /35                               
-
 18/35 [fig-catalog-chm]             
 
 19
@@ -386,6 +385,7 @@ There were 11 warnings (use warnings() to see them)
 
 29
 /35                               
+
 30/35 [fig-catalog-density-seq]     
 
 31
@@ -416,6 +416,7 @@ Warning messages:
 
 1
 /41                                   
+
 2/41 [setup]                           
 
 3
@@ -456,6 +457,7 @@ Warning messages:
 
 21
 /41                                   
+
 22/41 [extraction_complex_geometries_sf]
 
 23
@@ -468,11 +470,11 @@ Warning messages:
 
 27
 /41                                   
-28/41 [visualize_clipped_ctg]           
+28
+/41 [visualize_clipped_ctg]           
 
 29
 /41                                   
-
 30/41 [visualize_clipped_ctg_two]       
 
 31
@@ -503,6 +505,7 @@ output file: 06_roi.knit.md
 
 1
 /31                      
+
 2/31 [setup]              
 
 3
@@ -511,11 +514,15 @@ output file: 06_roi.knit.md
 
 5
 /31                      
-6/31 [fig-white2013-knitr]
+
+6
+/31 [fig-white2013-knitr]
 
 7
 /31                      
-8/31 [plot_metrics]       
+
+8
+/31 [plot_metrics]       
 
 9
 /31                      
@@ -527,6 +534,7 @@ output file: 06_roi.knit.md
 
 13
 /31                      
+
 14/31 [plot_plotnetwork]   
 
 15
@@ -557,7 +565,6 @@ output file: 06_roi.knit.md
 
 27
 /31                      
-
 28/31 [unnamed-chunk-2]    
 
 29
@@ -580,10 +587,13 @@ output file: 07_aba.knit.md
 
 5
 /43                           
-6/43 [chm_creation]            
+
+6
+/43 [chm_creation]            
 
 7
 /43                           
+
 8/43 [chm_smoothing]           
 
 9
@@ -600,6 +610,7 @@ output file: 07_aba.knit.md
 
 15
 /43                           
+
 16/43 [visualize_trees]         
 
 17
@@ -608,11 +619,11 @@ output file: 07_aba.knit.md
 
 19
 /43                           
+
 20/43 [visualize_tree_40]       
 
 21
 /43                           
-
 22/43 [visualize_tree_10]       
 
 23
@@ -633,7 +644,9 @@ output file: 07_aba.knit.md
 
 31
 /43                           
-32/43 [visualize_tree_segmented]
+
+32
+/43 [visualize_tree_segmented]
 
 33
 /43                           

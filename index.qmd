@@ -94,17 +94,15 @@ devtools::install_github("ptompalski/lidRmetrics")
 ### Datasets
 
 We will be working with a sample ALS dataset collected in 2016 with a RIEGEL LMS-Q780 over the Forêt Montmorency in Quebec.
+
 This area serves as a research forest for the Université Laval and is managed by the Ministère des Forêts, de la Faune et des Parcs (MFFP) du Quebec.
+
 Quebec ALS data is avaliable for download from the [Ressources naturelles et Faune (RNF) portal](https://geoboutique.mern.gouv.qc.ca/edel/pages/recherche/critereRechercheEdel.faces).
 
 ```{r, echo = FALSE}
-library(mapview)
-library(lidR)
-library(sf)
+bdy <- sf::st_read("data/fm_boundary.gpkg", quiet = TRUE)
 
-bdy <- st_read("data/fm_boundary.gpkg", quiet = TRUE)
-
-congres_pt <- st_as_sf(
+congres_pt <- sf::st_as_sf(
   data.frame(
     name = "We are here",
     lat = 46.81016858232409,
@@ -116,7 +114,7 @@ congres_pt <- st_as_sf(
 
 mapview::mapviewOptions(basemaps = "Esri.WorldImagery")
 
-mapview(
+mapview::mapview(
     bdy,
     layer.name = "Forêt Montmorency",
     col.regions = "blue",
@@ -125,7 +123,7 @@ mapview(
     lwd = 2,
     alpha = 1.0
   ) +
-  mapview(
+  mapview::mapview(
     congres_pt,
     layer.name = "SL25 Location",
     col.regions = "red",
