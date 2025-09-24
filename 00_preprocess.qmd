@@ -5,6 +5,7 @@ engine: knitr
 
 ## Relevant Resources
 
+-   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/00_preprocess.txt)
 -   [LAStools Website](https://lastools.com)
 -   [LAStools User Group](https://groups.google.com/g/lastools)
 

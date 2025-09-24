@@ -1,0 +1,19 @@
+# Tile Lidar File
+lastile -i "C:\lidar_project\raw\*.laz" ^
+    -odir "C:\lidar_project\processed\tiled" ^ # output directory
+    -olaz ^ # output format (compressed as .laz files)
+    -tile_size 500 ^ # tile size in meters (unit of crs)
+    -buffer 0  # buffer size 
+	
+# Denoise Lidar
+lasnoise "C:\lidar_project\processed\tiled\*.laz" ^
+    -odir "C:\lidar_project\processed\denoise"
+    -olaz
+	
+# Remove Noise Returns
+las2las -i "C:\lidar_project\processed\denoise\*.laz" ^
+    -odir "C:\lidar_project\processed\clean"
+    -drop_class 7
+	
+# Index Lidar Tiles
+lasindex -i \tiled\*.laz 
