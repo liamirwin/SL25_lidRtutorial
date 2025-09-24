@@ -13,7 +13,7 @@ library(terra)
 library(dplyr)
 
 # Read in plot centres
-plots <- st_read("data/ctg_plots.gpkg", quiet = TRUE) 
+plots <- st_read("data/plots/ctg_plots.gpkg", quiet = TRUE) 
 
 # Read in catalog of normalized LAZ tiles
 ctg <- catalog("data/ctg_norm")
