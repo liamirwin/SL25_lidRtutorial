@@ -33,10 +33,12 @@ Warning messages:
 
 1
 /31                              
+
 2/31 [setup]                      
 
 3
 /31                              
+
 4/31 [clear_warnings]             
 
 5
@@ -69,7 +71,6 @@ Warning messages:
 
 19
 /31                              
-
 20/31 [filter_points]              
 
 21
@@ -78,6 +79,7 @@ Warning messages:
 
 23
 /31                              
+
 24/31 [select_attributes]          
 
 25
@@ -111,7 +113,6 @@ Warning messages:
 
 1
 /35                              
-
 2/35 [setup]                      
 
 3
@@ -124,7 +125,6 @@ Warning messages:
 
 7
 /35                              
-
 8/35 [fig-dtm-initial-plot]       
 
 9
@@ -137,7 +137,6 @@ Warning messages:
 
 13
 /35                              
-
 14/35 [fig-dtm-tin-3d]             
 
 15
@@ -178,7 +177,6 @@ Warning messages:
 
 33
 /35                              
-
 34/35 [fig-normalized-tin]         
 
 35
@@ -211,7 +209,6 @@ Warning messages:
 
 7
 /25                              
-
 8/25 [fig-chm-initial-las]        
 
 9
@@ -232,6 +229,7 @@ Warning messages:
 
 17
 /25                              
+
 18/25 [fig-chm-p2r-na-fill]        
 
 19
@@ -254,7 +252,6 @@ output file: 03_chm.knit.md
 
 1
 /33                           
-
 2/33 [setup]                   
 
 3
@@ -345,7 +342,8 @@ There were 11 warnings (use warnings() to see them)
 
 9
 /35                               
-10/35 [fig-catalog-plot]            
+10
+/35 [fig-catalog-plot]            
 
 11
 /35                               
@@ -421,6 +419,7 @@ Warning messages:
 
 3
 /41                                   
+
 4/41 [clear warnings]                  
 
 5
@@ -457,7 +456,6 @@ Warning messages:
 
 21
 /41                                   
-
 22/41 [extraction_complex_geometries_sf]
 
 23
@@ -470,8 +468,7 @@ Warning messages:
 
 27
 /41                                   
-28
-/41 [visualize_clipped_ctg]           
+28/41 [visualize_clipped_ctg]           
 
 29
 /41                                   
@@ -505,7 +502,6 @@ output file: 06_roi.knit.md
 
 1
 /31                      
-
 2/31 [setup]              
 
 3
@@ -514,15 +510,11 @@ output file: 06_roi.knit.md
 
 5
 /31                      
-
-6
-/31 [fig-white2013-knitr]
+6/31 [fig-white2013-knitr]
 
 7
 /31                      
-
-8
-/31 [plot_metrics]       
+8/31 [plot_metrics]       
 
 9
 /31                      
@@ -534,7 +526,6 @@ output file: 06_roi.knit.md
 
 13
 /31                      
-
 14/31 [plot_plotnetwork]   
 
 15
@@ -579,6 +570,7 @@ output file: 07_aba.knit.md
 
 1
 /43                           
+
 2/43 [setup]                   
 
 3
@@ -587,13 +579,10 @@ output file: 07_aba.knit.md
 
 5
 /43                           
-
-6
-/43 [chm_creation]            
+6/43 [chm_creation]            
 
 7
 /43                           
-
 8/43 [chm_smoothing]           
 
 9
@@ -610,7 +599,6 @@ output file: 07_aba.knit.md
 
 15
 /43                           
-
 16/43 [visualize_trees]         
 
 17
@@ -619,7 +607,6 @@ output file: 07_aba.knit.md
 
 19
 /43                           
-
 20/43 [visualize_tree_40]       
 
 21
@@ -640,13 +627,13 @@ output file: 07_aba.knit.md
 
 29
 /43                           
-30/43 [tree_segmentation_li]    
+
+30
+/43 [tree_segmentation_li]    
 
 31
 /43                           
-
-32
-/43 [visualize_tree_segmented]
+32/43 [visualize_tree_segmented]
 
 33
 /43                           
@@ -736,7 +723,6 @@ output file: 08_its.knit.md
 
 31
 /33                
-
 32/33 [lascatalog-e2]
 
 33
@@ -757,6 +743,7 @@ output file: SL25_lidR_LiDAR_Intro.knit.md
 
 1
 /5                  
+
 2/5 [setup]          
 
 3

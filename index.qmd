@@ -182,7 +182,7 @@ Since 2024, the `lidR` package is no longer supported by Laval University, but t
 
 ## `LAStools`
 
-`LAStools` is a collection of highly efficient, batch-scriptable, multicore command line tools for processing LiDAR data. It was originally developed by [Martin Isenburg](https://rapidlasso.com/about-us/) and is continually developed and improved by a team at rapidlasso.
+[`LAStools`](https://rapidlasso.de/product-overview/) is a collection of highly efficient, batch-scriptable, multicore command line tools for processing LiDAR data. It was originally developed by Martin Isenburg and is continually developed and improved by a team at rapidlasso.
 
 ![](img/lastools.svg){width=30%}
 
@@ -194,7 +194,7 @@ Since 2024, the `lidR` package is no longer supported by Laval University, but t
 
 Other tools require a license for commercial or educational use that can be purchased from rapidlasso.
 
-Please visit the [LAStools website](https://rapidlasso.com/lastools/) for more information and to download the software.
+Please visit the [LAStools website](https://rapidlasso.de/downloads/) for more information on how to download and install the software.
 
 The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
 :::
