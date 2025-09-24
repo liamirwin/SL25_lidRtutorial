@@ -1,15 +1,16 @@
 ## Materials
 
-[This repository](https://github.com/liamirwin/LPS_lidRtutorial) contains the material for an 80 minute `lidR` tutorial workshop.
+[This repository](https://github.com/liamirwin/SL25_lidRtutorial) contains the material for an 180 minute `lidR` and `LAStools` tutorial workshop.
 
-This workshop was created for the `2025 Living Planet Symposium (LPS)`, 2025 held in Wien, Austria June, 2025
+This workshop was created for the `2025 Silvilaser Conference`, held in Quebec City, Canada in September/October, 2025
 
-This workshop was presented by `Liam A.K. Irwin`, `Brent A. Murray` and `Nicholas C. Coops` members of the [University of British Columbia Integrated Remote Sensing Studio lab](https://irsslab.forestry.ubc.ca/).
+This workshop was presented by `Liam A.K. Irwin`, `Brent A. Murray` and `Sadie Russell` members of the [University of British Columbia Integrated Remote Sensing Studio lab](https://irsslab.forestry.ubc.ca/).
 
 The workshop intends to:
 
+-   Introduce users to the `LAStools` software and the `lidR` package
 -   Present an overview of what can be done with `lidR`
--   Give users an understanding of how `lidR` may fit their needs
+-   Demonstrate key workflows for deriving forest inventory products from airborne laser scanning data
 -   Exercises will be done depending on available time - users are encouraged to work on these after the workshop!
 
 Find the code, exercises, and solutions used in the `.\R` directory.
@@ -18,12 +19,12 @@ Find the code, exercises, and solutions used in the `.\R` directory.
 
 ### R version and Rstudio
 
--   You need to install a recent version of `R` i.e. `R 4.0.x` or newer.
+-   We reccomend installing a recent version of `R` i.e. `R 4.5.x`
 -   We will work with [Rstudio](https://www.rstudio.com/). This IDE is not mandatory to follow the workshop but is highly recommended.
 
 ### R Packages
 
-You need to install the `lidR` package in its latest version (v \>= 4.0.0).
+You need to install the `lidR` package in its latest version (v \>= 4.2.1).
 
 ``` r
 install.packages("lidR")
@@ -39,13 +40,20 @@ install.packages(libs)
 
 ## Estimated schedule
 
--   Introduction to Lidar and lidR (09:00)
--   Reading LAS and LAZ files (09:10)
--   Point Classification and filtering (9:15)
--   Digital Terrain Models and Height Normalization (9:25)
--   Canopy Height Models (9:35)
--   Lidar Summary Metrics (9:50)
--   File Collection Processing Engine (10:10)
+-   Introduction to Lidar, LAStools, and lidR (09:00)
+-   Preprocessing with LAStools (9:20)
+-   Reading LAS and LAZ files (09:30)
+-   Point Classification and filtering (9:35)
+-   Digital Terrain Models and Height Normalization (9:40)
+-   Canopy Height Models (9:50)
+-   Lidar Summary Metrics (9:55)
+-   Break (10:15-10:45)
+-   File Collection Processing Engine (10:45)
+-   Regions of Interest (11:0)
+-   Area Based Approach (11:10)
+-   Individual Tree Detection and Segmentation (11:30)
+-   Questions (11:50)
+
 
 ## Resources
 
@@ -75,3 +83,16 @@ When working on exercises:
 The current release version of `lidR` can be found on [CRAN](https://cran.r-project.org/web/packages/lidR/) and source code is hosted on [GitHub](https://github.com/r-lidar/lidR).
 
 > \[!NOTE\] Since 2024, the `lidR` package is no longer supported by Laval University, but the software will remain free and open-source. `r-lidar` has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their [website](https://www.r-lidar.com/) for more information.
+
+## `LAStools`
+
+[`LAStools`](https://rapidlasso.de/product-overview/) is a collection of highly efficient, batch-scriptable, multicore command line tools for processing LiDAR data. It was originally developed by Martin Isenburg and is continually developed and improved by a team at rapidlasso.
+
+`LAStools` is not open-source software, but many of its powerful tools are freely avaliable to use, including those we will use in this workshop.
+
+Other tools require a license for commercial or educational use that can be purchased from rapidlasso.
+
+Please visit the [LAStools website](https://rapidlasso.de/downloads/) for more information on how to download and install the software.
+
+The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
+
