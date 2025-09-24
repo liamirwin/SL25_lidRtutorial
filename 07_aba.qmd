@@ -250,9 +250,6 @@ p1 <- bdy_met$zq95 %>% autoplot()+ theme_classic() + labs(fill = "95th percentil
 p2 <- bdy_met$pzabove2 %>% autoplot() + theme_classic() + labs(fill = "Canopy Cover - Percentage of points above 2m (%)") + theme(legend.position = 'bottom')
 p3 <- bdy_met$zskew %>% autoplot()+ theme_classic()+ labs(fill = "Skewness of height distribution") + theme(legend.position = 'bottom')
 
-
-p1 + p2 + p3
-
 ```
 
 
@@ -282,11 +279,13 @@ p3
 
 ### Applying Models
 
-Now we can apply our models to the wall-to-wall metrics to generate maps of our three forest attributes. To do this we need to create functions from our model coefficients that we can apply to the raster layers.
+To apply our models we need to create wrapper functions that take our model coefficients and apply them to our pixel metric raster layers.
 
 We will create functions that follows the standard `lm` formula: y = b0 + b1*x1 + b2*x2 + b3*x3
 
 Where y is the attribute, b0 is the intercept, b1, b2, and b3 are the coefficients
+
+Here we will create three functions, one for each of our forest attributes: `Stem Volume` (m3/ha), `Basal Area` (m2/ha), and `Stem Density` (stems/ha).
 
 ```{r}
 # Create functions from model coefficients that we can apply to metrics rasters
@@ -304,7 +303,7 @@ sph_lm_r <- function(zq95,zskew,pzabove2){
 }
 ```
 
-Now in this example using the [`terra`](https://rspatial.github.io/terra/) package with the `lapp` function we will apply our models to the wall-to-wall metrics raster to generate maps of our three forest attributes. `lapp` applies a function to each cell of our multi-layer raster.
+In this example we will achieve this using the [`terra`](https://rspatial.github.io/terra/) package with the `lapp` function that will apply our function to the wall-to-wall metrics raster to generate maps of our three forest attributes. `lapp` applies a function to each cell of our multi-layer metric raster.
 
 ```{r}
 # Load the full metrics raster
