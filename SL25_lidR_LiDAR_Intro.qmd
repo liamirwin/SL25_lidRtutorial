@@ -1,0 +1,171 @@
+---
+title: "Airborne lidar Data Manipulation and Visualization for Forestry Applications"
+author: "Liam A.K. Irwin, Brent Murray, Sadie Russel, Nicholas C. Coops"
+favicon: img/logo.png
+format:
+  revealjs:
+    self-contained: false
+    theme: assets/clean_pt.scss
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    show-slide-number: all
+    scrollable: false
+    chalkboard: false
+    html-math-method: katex
+    footer: "Silvilaser 2025 – lidar processing workshop"
+    auto-stretch: true
+editor: source
+title-slide-attributes: 
+  data-background-image: img/lidR_lastools_logo.png
+  data-background-size: 40%
+  data-background-position: 50% 85%
+fig-dpi: 300
+---
+
+## Presenters
+
+-   Liam A.K. Irwin - PhD Student 
+-   Brent A. Murray - PhD Student
+-   Sadie Russel - PhD Student
+-   Nicholas C. Coops - Professor
+
+Integrated Remote Sensing Studio
+University of British Columbia
+Vancouver, Canada
+
+![](img/UBC_IRSS_logo.png)
+
+## Overview
+
+-   **Li**ght **D**etection **a**nd **R**anging (lidar)
+-   Introduction to the `lidR` package
+-   Introduction to `LAStools`
+-   Workshop outline
+
+## What is lidar?
+
+-   **Li**ght **D**etection **a**nd **R**anging
+-   Active form of remote sensing
+-   Measures distance to target surfaces with millions of narrow light pulses
+-   Airborne laser scanning performs lidar systematically from aircraft or drones
+
+::: notes
+:::
+
+## Lidar Data – Point Clouds
+
+::: columns
+
+::: column
+
+- Discrete returns are aggregated into point clouds (`.LAS/.LAZ`)  
+- Lidar points have three-dimensional (`XYZ`) coordinates, and other attributes (`Intensity`, `ReturnNumber`, etc...)  
+- Point clouds can be processed into vegetation structure summaries with **lidR**
+
+:::
+
+::: column
+
+![](img/plot_z_360.gif){width="120%"}
+
+:::
+
+:::
+
+
+::: notes
+As with many remote sensing data analyses tasks we are seeking to produce `information` from `simplification` to pull a signal of interest (in this case variability in vegetation structure) out of our dataset (a dense point cloud of three-dimensional coordinates that characterize the vegetation)
+
+To do so we often generate summary metrics that act similarly to spectral indices in passive optical remote sensing, they ratio or generate statistics on the distribution of points (max, mean height, canopy cover, percentiles, leaf-area density profiles)
+:::
+
+## lidR
+
+::: columns
+
+::: column
+- Written by `Jean-Romain Roussel`  
+- Package for `manipulating` and `visualizing` ALS data  
+- Written entirely open source within R-geospatial ecosystem (`terra`/`sf`)  
+- Most processes run efficiently with back-end `C++` code
+:::
+
+::: column
+```{r lidR-downloads, echo=FALSE}
+source('R/lidR_downloads_plot.R')
+```
+
+![](img/lidR_paper.png)
+
+:::
+
+:::  
+
+::: notes
+
+:::
+
+## LAStools
+
+::: columns
+
+::: column
+- Industry grade software suite produced by rapidlasso  
+- 52 command-line tools for mutlicore batch processing lidar data
+- More memory efficient than lidR (doesn't load as dataframe)
+- Some tools required paid license
+:::
+
+::: column
+
+![](img/lastools.svg)
+
+:::
+
+:::  
+
+::: notes
+
+:::
+
+## r-lidar
+
+::: columns
+
+::: column
+- lidR author `Jean-Romain Roussel` is commited to maintaining the `lidR` package as fully open source
+- He now runs `r-lidar`; a consulting and development company targeted at lidar applications
+- Visit `r-lidar.com` for more information
+:::
+
+::: column
+![](img/rlidar_banner.png)
+:::
+
+:::  
+
+::: notes
+
+:::
+
+## Workshop Outline {.smaller}
+
+-   Introduction to Lidar, LAStools, and lidR (09:00)
+-   Preprocessing with LAStools (9:20)
+-   Reading LAS and LAZ files (09:30)
+-   Point Classification and filtering (9:35)
+-   Digital Terrain Models and Height Normalization (9:40)
+-   Canopy Height Models (9:50)
+-   **Break (10:00)**
+-   Lidar Summary Metrics (10:15)
+-   Area Based Approach (10:35)
+-   File Collection Processing Engine (10:55)
+-   Individual Tree Detection and Segmentation (11:10)
+-   Questions (11:30)
+
+## Get Set Up! {.smaller}
+
+https://liamirwin.github.io/SL25_lidRtutorial/
+
+[![](img/qrcode.png){fig-align="center" width="40%"}](https://liamirwin.github.io/SL25_lidRtutorial/)

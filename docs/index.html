@@ -9,7 +9,7 @@
 <meta name="author" content="Liam A.K. Irwin">
 <meta name="author" content="Brent A. Murray">
 <meta name="author" content="Sadie Russell">
-<meta name="dcterms.date" content="2025-06-22">
+<meta name="dcterms.date" content="2025-09-29">
 
 <title>ALS processing for forest inventory using LAStools and lidR – lidRtutorial</title>
 <style>
@@ -109,6 +109,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+<script src="site_libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+
+<script src="site_libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
+
+<script src="site_libs/HomeButton-0.0.1/home-button.js"></script>
+
+<script src="site_libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+
+<link href="site_libs/Forêt_Montmorency-CSS-0.0.1/Forêt_Montmorency_home-button.css" rel="stylesheet">
+
+<script src="site_libs/clipboard-0.0.1/setClipboardText.js"></script>
+
+<link href="site_libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet">
+
+<link href="site_libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet">
+
+<link href="site_libs/SL25_Location-CSS-0.0.1/SL25_Location_home-button.css" rel="stylesheet">
+
 
 
 <link rel="stylesheet" href="assets/custom.css">
@@ -199,9 +237,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">R Packages</a></li>
   <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a></li>
   </ul></li>
-  <li><a href="#estimated-schedule" id="toc-estimated-schedule" class="nav-link" data-scroll-target="#estimated-schedule">Estimated schedule</a></li>
+  <li><a href="#workshop-schedule" id="toc-workshop-schedule" class="nav-link" data-scroll-target="#workshop-schedule">Workshop schedule</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#lidr" id="toc-lidr" class="nav-link" data-scroll-target="#lidr"><code>lidR</code></a></li>
+  <li><a href="#lastools" id="toc-lastools" class="nav-link" data-scroll-target="#lastools"><code>LAStools</code></a></li>
   </ul>
 </nav>
     </div>
@@ -250,7 +289,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 22, 2025</p>
+      <p class="date">September 29, 2025</p>
     </div>
   </div>
   
@@ -267,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Presenters:</strong></p>
 <p><a href="https://www.researchgate.net/profile/Liam-Irwin-3">Liam Irwin (UBC)</a></p>
 <p><a href="https://www.researchgate.net/profile/Brent-Murray-4">Brent Murray (UBC)</a></p>
-<p><a href="">Sadie Russell (UBC)</a></p>
+<p><a href="https://ca.linkedin.com/in/sadie-russell-556094271">Sadie Russell (UBC)</a></p>
 </section>
 <section id="materials" class="level2">
 <h2 class="anchored" data-anchor-id="materials">Materials</h2>
@@ -287,17 +326,18 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Introduction slides:</strong> <a href="LPS_lidR_LiDAR_Intro.html">Intro to Airborne LiDAR &amp; lidR</a></p>
+<p><strong>Introduction slides:</strong> <a href="SL25_lidR_LiDAR_Intro.html">Intro to Airborne LiDAR, lidR, and LAStools</a></p>
 </div>
 </div>
 </section>
 <section id="download-workshop-materials" class="level2">
 <h2 class="anchored" data-anchor-id="download-workshop-materials">Download Workshop Materials</h2>
 <p>You can download the complete workshop package containing all code, data, and exercises here:</p>
-<p><a href="./LPS_lidRtutorial_package.zip">Download the LPS lidR Tutorial Package (.zip, 26 MB)</a></p>
-<p><a href="./ctg_class.zip">Download additional classified lidar files for 05_engine (.zip, 80 MB)</a></p>
-<p><a href="./ctg_norm.zip">Download additional normalized lidar files for 05_engine (.zip, 78 MB)</a></p>
-<p>Unzip the first to a folder, and run the <code>.Rproj</code> file with RStudio installed for the easiest experience. Unzip <code>ctg_class.zip</code> and <code>ctg_norm.zip</code> to their respective folders in <code>data/ctg_*</code></p>
+<p><a href="https://ln5.sync.com/dl/c7ee36c20#4cs2wj7d-fwqr6ism-jzrbc7ax-m2qes4fy">Download the entire Silvilaser 2025 lidar processing tutorial package (.zip, 296 MB)</a></p>
+<p><a href="./data/ctg_class.zip">Download only the classified lidar files for 05_engine (.zip, 93 MB)</a></p>
+<p><a href="./data/ctg_norm.zip">Download only the normalized lidar files for 05_engine (.zip, 94 MB)</a></p>
+<p>Unzip the first to a folder, and run the <code>.Rproj</code> file with RStudio installed for the easiest experience.</p>
+<p>If only downloading the classified or normalized lidar files, unzip them to the <code>data</code> folder your working directory.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="img/folder_structure.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Target Folder and Data Structure for Workshop Contents"><img src="img/folder_structure.png" class="img-fluid figure-img" alt="Target Folder and Data Structure for Workshop Contents"></a></p>
@@ -329,7 +369,7 @@ Tip
 <p><strong>Easy setup for new users</strong> Please open the <code>SL25_lidRtutorial_package.Rproj</code> in RStudio. Next, open <code>01_read.R</code> to run code to automatically install packages.</p>
 </div>
 </div>
-<p>Please install the <code>lidR</code> package in its latest version (4.2.1).</p>
+<p>Please install the <code>lidR</code> package in its latest version (4.2.1/4.2.2).</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"lidR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To run all code in the tutorial locally, you will need to install the following packages. You can use <code>lidR</code> without them or follow along with provided code and outputs.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>libs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"terra"</span>,<span class="st">"viridis"</span>,<span class="st">"future"</span>,<span class="st">"sf"</span>,<span class="st">"mapview"</span>)</span>
@@ -345,12 +385,23 @@ Tip
 </section>
 <section id="datasets" class="level3">
 <h3 class="anchored" data-anchor-id="datasets">Datasets</h3>
-<p>We will be working with a sample ALS dataset <a href="https://geolion.zh.ch/geodatensatz/show?nbid=2618" title="Data Description and Access">openly available</a> for Canton Zürich flown in spring 2014.</p>
-<p>The raw data has been thinned to a uniform density (20 points/m2) to speed up processing.</p>
+<p>We will be working with a sample ALS dataset collected in 2016 with a RIEGEL LMS-Q780 over the Forêt Montmorency in Quebec. This area serves as a research forest for the Université Laval and is managed by the Ministère des Forêts, de la Faune et des Parcs (MFFP) du Quebec. Quebec ALS data is avaliable for download from the <a href="https://geoboutique.mern.gouv.qc.ca/edel/pages/recherche/critereRechercheEdel.faces">Ressources naturelles et Faune (RNF) portal</a>.</p>
+<div class="cell" data-layout-align="center">
+<pre><code>#&gt; Linking to GEOS 3.13.1, GDAL 3.11.0, PROJ 9.6.0; sf_use_s2() is TRUE
+#&gt; 
+#&gt; Attaching package: 'sf'
+#&gt; The following object is masked from 'package:lidR':
+#&gt; 
+#&gt;     st_concave_hull</code></pre>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-32138830768c040e3cb4" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-32138830768c040e3cb4">{"x":{"options":{"minZoom":1,"maxZoom":52,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"preferCanvas":false,"bounceAtZoomLimits":false,"maxBounds":[[[-90,-370]],[[90,370]]]},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery","Esri.WorldImagery","Esri.WorldImagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["polygon",420]},{"method":"addPolygons","args":[[[[{"lng":[-71.25268421933968,-71.28847012173811,-71.19304106532933,-71.22584481455762,-71.19850836553327,-71.10258227352421,-71.00864429570308,-70.91917954303651,-70.96092975521228,-70.91172414213672,-70.91917953415792,-71.25268421933968],"lat":[47.14890984237633,47.18916897089695,47.31392257351892,47.42426240930892,47.45209588258025,47.45010778060844,47.56840004120915,47.51670930980568,47.46104236372233,47.44464049770087,47.39245273677175,47.14890984237633]}]]],null,"Forêt Montmorency",{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"pane":"polygon","stroke":true,"color":"#0000FF","weight":2,"opacity":1,"fill":true,"fillColor":"#0000FF","fillOpacity":0.2,"smoothFactor":1,"noClip":false},"<div class='scrollableContainer'><table class=mapview-popup id='popup'><tr class='coord'><td><\/td><th><b>Feature ID&emsp;<\/b><\/th><td>1&emsp;<\/td><\/tr><tr><td>1<\/td><th>geom&emsp;<\/th><td>sfc_POLYGON&emsp;<\/td><\/tr><\/table><\/div>",{"maxWidth":800,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"closeOnClick":true,"className":""},"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"stroke":true,"weight":3,"opacity":1,"fillOpacity":0.28,"bringToFront":false,"sendToBack":false}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":true,"updateWhenIdle":true,"position":"bottomleft"}]},{"method":"addHomeButton","args":[-71.28847012173811,47.14890984237633,-70.91172414213672,47.56840004120915,true,"Forêt_Montmorency","Zoom to Forêt_Montmorency","<strong> Forêt_Montmorency <\/strong>","bottomright"]},{"method":"addLegend","args":[{"colors":["#0000FF"],"labels":["Forêt Montmorency"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"factor","title":"","extra":null,"layerId":null,"className":"info legend","group":"Forêt Montmorency"}]},{"method":"createMapPane","args":["point",440]},{"method":"addCircleMarkers","args":[46.81016858232409,-71.21575480959382,8,null,"SL25 Location",{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"pane":"point","stroke":true,"color":"#333333","weight":1,"opacity":1,"fill":true,"fillColor":"#FF0000","fillOpacity":0.6},null,null,"<div class='scrollableContainer'><table class=mapview-popup id='popup'><tr class='coord'><td><\/td><th><b>Feature ID&emsp;<\/b><\/th><td>1&emsp;<\/td><\/tr><tr><td>1<\/td><th>name&emsp;<\/th><td>We are here&emsp;<\/td><\/tr><tr><td>2<\/td><th>geometry&emsp;<\/th><td>sfc_POINT&emsp;<\/td><\/tr><\/table><\/div>",{"maxWidth":800,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"closeOnClick":true,"className":""},"We are here",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addHomeButton","args":[-71.21575480959382,46.81016858232409,-71.21575480959382,46.81016858232409,true,"SL25_Location","Zoom to SL25_Location","<strong> SL25_Location <\/strong>","bottomright"]},{"method":"addLayersControl","args":["Esri.WorldImagery",["Forêt Montmorency","SL25 Location"],{"collapsed":true,"autoZIndex":true,"position":"topleft"}]},{"method":"addLegend","args":[{"colors":["#FF0000"],"labels":["We are here"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"factor","title":"","extra":null,"layerId":null,"className":"info legend","group":"SL25 Location"}]},{"method":"addHomeButton","args":[-71.28847012173811,46.81016858232409,-70.91172414213672,47.56840004120915,true,null,"Zoom to full extent","<strong>Zoom full<\/strong>","bottomleft"]}],"limits":{"lat":[47.14890984237633,47.56840004120915],"lng":[-71.28847012173811,-70.91172414213672]},"fitBounds":[46.81016858232409,-71.28847012173811,47.56840004120915,-70.91172414213672,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\"position\":\"relative\",\"bottomleft\":\"0px\",\"background-color\":\"rgba(255, 255, 255, 0.7)\",\"box-shadow\":\"0 0 2px #bbb\",\"background-clip\":\"padding-box\",\"margin\":\"0\",\"padding-left\":\"5px\",\"padding-right\":\"5px\",\"color\":\"#333\",\"font-size\":\"9px\",\"font-family\":\"\\\"Helvetica Neue\\\", Arial, Helvetica, sans-serif\",\"text-align\":\"left\",\"z-index\":\"700\"});\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      if( strip !==null) strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x,data){\n           var map = this;\n\n           map.on('keypress', function(e) {\n               console.log(e.originalEvent.code);\n               var key = e.originalEvent.code;\n               if (key === 'KeyE') {\n                   var bb = this.getBounds();\n                   var txt = JSON.stringify(bb);\n                   console.log(txt);\n\n                   setClipboardText('\\'' + txt + '\\'');\n               }\n           })\n        }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+</div>
 </section>
 </section>
-<section id="estimated-schedule" class="level2 smaller">
-<h2 class="smaller anchored" data-anchor-id="estimated-schedule">Estimated schedule</h2>
+<section id="workshop-schedule" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="workshop-schedule">Workshop schedule</h2>
 <ul>
 <li>Introduction to Lidar, LAStools, and lidR (09:00)</li>
 <li>Preprocessing with LAStools (9:20)</li>
@@ -358,13 +409,13 @@ Tip
 <li>Point Classification and filtering (9:35)</li>
 <li>Digital Terrain Models and Height Normalization (9:40)</li>
 <li>Canopy Height Models (9:50)</li>
-<li>Break (10:00)</li>
-<li>Lidar Summary Metrics (10:15)</li>
-<li>File Collection Processing Engine (10:35)</li>
-<li>Regions of Interest (10:50)</li>
-<li>Area Based Approach (11:00)</li>
-<li>Individual Tree Detection and Segmentation (11:20)</li>
-<li>Questions (11:40)</li>
+<li>Lidar Summary Metrics (9:55)</li>
+<li>Break (10:15-10:45)</li>
+<li>File Collection Processing Engine (10:45)</li>
+<li>Regions of Interest (11:0)</li>
+<li>Area Based Approach (11:10)</li>
+<li>Individual Tree Detection and Segmentation (11:30)</li>
+<li>Questions (11:50)</li>
 </ul>
 </section>
 <section id="resources" class="level2">
@@ -403,6 +454,27 @@ Note
 <h2 class="anchored" data-anchor-id="note">Note</h2>
 <p>Since 2024, the <code>lidR</code> package is no longer supported by Laval University, but the software will remain free and open-source. <code>r-lidar</code> has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their <a href="https://www.r-lidar.com/">website</a> for more information.</p>
 </section>
+</div>
+</div>
+</section>
+<section id="lastools" class="level2">
+<h2 class="anchored" data-anchor-id="lastools"><code>LAStools</code></h2>
+<p><code>LAStools</code> is a collection of highly efficient, batch-scriptable, multicore command line tools for processing LiDAR data. It was originally developed by <a href="https://rapidlasso.com/about-us/">Martin Isenburg</a> and is continually developed and improved by a team at rapidlasso.</p>
+<p><a href="img/lastools.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="img/lastools.svg" class="img-fluid" style="width:30.0%"></a></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>LAStools</code> is not open-source software, but many of its powerful tools are freely avaliable to use, including those we will use in this workshop.</p>
+<p>Other tools require a license for commercial or educational use that can be purchased from rapidlasso.</p>
+<p>Please visit the <a href="https://rapidlasso.com/lastools/">LAStools website</a> for more information and to download the software.</p>
+<p>The inital processing steps we will use in this workshop can be completed with the free version of <code>LAStools</code>, or you can make use of the pre-processed data provided in the workshop materials package.</p>
 </div>
 </div>
 

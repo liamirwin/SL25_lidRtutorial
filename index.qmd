@@ -7,7 +7,7 @@ author:
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
   - name: "Sadie Russell"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
-date: 2025-06-22
+date: 2025-09-29
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +22,7 @@ source("R/setup_rgl.R")
 
 [Brent Murray (UBC)](https://www.researchgate.net/profile/Brent-Murray-4)
 
-[Sadie Russell (UBC)]()
+[Sadie Russell (UBC)](https://ca.linkedin.com/in/sadie-russell-556094271)
 
 ## Materials
 
@@ -33,20 +33,22 @@ source("R/setup_rgl.R")
 -   Exercises will be done depending on available time - users are encouraged to work on these after the workshop!
 
 ::: callout-tip
-**Introduction slides:** [Intro to Airborne LiDAR & lidR](LPS_lidR_LiDAR_Intro.html)
+**Introduction slides:** [Intro to Airborne LiDAR, lidR, and LAStools](SL25_lidR_LiDAR_Intro.html)
 :::
 
 ## Download Workshop Materials
 
 You can download the complete workshop package containing all code, data, and exercises here:
 
-[Download the LPS lidR Tutorial Package (.zip, 26 MB)](./LPS_lidRtutorial_package.zip)
+[Download the entire Silvilaser 2025 lidar processing tutorial package (.zip, 296 MB)](https://ln5.sync.com/dl/c7ee36c20#4cs2wj7d-fwqr6ism-jzrbc7ax-m2qes4fy)
 
-[Download additional classified lidar files for 05_engine (.zip, 80 MB)](./ctg_class.zip)
+[Download only the classified lidar files for 05_engine (.zip, 93 MB)](./data/ctg_class.zip)
 
-[Download additional normalized lidar files for 05_engine (.zip, 78 MB)](./ctg_norm.zip)
+[Download only the normalized lidar files for 05_engine (.zip, 94 MB)](./data/ctg_norm.zip)
 
-Unzip the first to a folder, and run the `.Rproj` file with RStudio installed for the easiest experience. Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
+Unzip the first to a folder, and run the `.Rproj` file with RStudio installed for the easiest experience. 
+
+If only downloading the classified or normalized lidar files, unzip them to the `data` folder your working directory.
 
 ![Target Folder and Data Structure for Workshop Contents](img/folder_structure.png)
 
@@ -63,7 +65,7 @@ Unzip the first to a folder, and run the `.Rproj` file with RStudio installed fo
 **Easy setup for new users** Please open the `SL25_lidRtutorial_package.Rproj` in RStudio. Next, open `01_read.R` to run code to automatically install packages.
 :::
 
-Please install the `lidR` package in its latest version (4.2.1).
+Please install the `lidR` package in its latest version (4.2.1/4.2.2).
 
 ``` r
 install.packages("lidR")
@@ -91,11 +93,48 @@ devtools::install_github("ptompalski/lidRmetrics")
 
 ### Datasets
 
-We will be working with a sample ALS dataset [openly available](https://geolion.zh.ch/geodatensatz/show?nbid=2618 "Data Description and Access") for Canton Zürich flown in spring 2014.
+We will be working with a sample ALS dataset collected in 2016 with a RIEGEL LMS-Q780 over the Forêt Montmorency in Quebec.
+This area serves as a research forest for the Université Laval and is managed by the Ministère des Forêts, de la Faune et des Parcs (MFFP) du Quebec.
+Quebec ALS data is avaliable for download from the [Ressources naturelles et Faune (RNF) portal](https://geoboutique.mern.gouv.qc.ca/edel/pages/recherche/critereRechercheEdel.faces).
 
-The raw data has been thinned to a uniform density (20 points/m2) to speed up processing.
+```{r, echo = FALSE}
+library(mapview)
+library(lidR)
+library(sf)
 
-## Estimated schedule {.smaller}
+bdy <- st_read("data/fm_boundary.gpkg", quiet = TRUE)
+
+congres_pt <- st_as_sf(
+  data.frame(
+    name = "We are here",
+    lat = 46.81016858232409,
+    lon = -71.21575480959382
+  ),
+  coords = c("lon", "lat"),
+  crs = 4326
+)
+
+mapview::mapviewOptions(basemaps = "Esri.WorldImagery")
+
+mapview(
+    bdy,
+    layer.name = "Forêt Montmorency",
+    col.regions = "blue",
+    alpha.regions = 0.2,
+    color = "blue",
+    lwd = 2,
+    alpha = 1.0
+  ) +
+  mapview(
+    congres_pt,
+    layer.name = "SL25 Location",
+    col.regions = "red",
+    cex = 8,
+    alpha = 1.0
+  ) 
+```
+
+## Workshop schedule {.smaller}
 
 -   Introduction to Lidar, LAStools, and lidR (09:00)
 -   Preprocessing with LAStools (9:20)
@@ -103,13 +142,13 @@ The raw data has been thinned to a uniform density (20 points/m2) to speed up pr
 -   Point Classification and filtering (9:35)
 -   Digital Terrain Models and Height Normalization (9:40)
 -   Canopy Height Models (9:50)
--   Break (10:00)
--   Lidar Summary Metrics (10:15)
--   File Collection Processing Engine (10:35)
--   Regions of Interest (10:50)
--   Area Based Approach (11:00)
--   Individual Tree Detection and Segmentation (11:20)
--   Questions (11:40)
+-   Lidar Summary Metrics (9:55)
+-   Break (10:15-10:45)
+-   File Collection Processing Engine (10:45)
+-   Regions of Interest (11:0)
+-   Area Based Approach (11:10)
+-   Individual Tree Detection and Segmentation (11:30)
+-   Questions (11:50)
 
 ## Resources
 
@@ -140,4 +179,24 @@ The current release version of `lidR` can be found on [CRAN](https://cran.r-proj
 ## Note
 
 Since 2024, the `lidR` package is no longer supported by Laval University, but the software will remain free and open-source. `r-lidar` has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their [website](https://www.r-lidar.com/) for more information.
+:::
+
+
+## `LAStools`
+
+`LAStools` is a collection of highly efficient, batch-scriptable, multicore command line tools for processing LiDAR data. It was originally developed by [Martin Isenburg](https://rapidlasso.com/about-us/) and is continually developed and improved by a team at rapidlasso.
+
+![](img/lastools.svg){width=30%}
+
+::: callout-note
+
+## Note
+
+`LAStools` is not open-source software, but many of its powerful tools are freely avaliable to use, including those we will use in this workshop.
+
+Other tools require a license for commercial or educational use that can be purchased from rapidlasso.
+
+Please visit the [LAStools website](https://rapidlasso.com/lastools/) for more information and to download the software.
+
+The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
 :::

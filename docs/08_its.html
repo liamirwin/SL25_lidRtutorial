@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="relevant-resources" class="level2">
 <h2 class="anchored" data-anchor-id="relevant-resources">Relevant resources</h2>
 <ul>
-<li><a href="https://github.com/liamirwin/LPS_lidRtutorial/blob/master/R/08_s2_its.R">Code</a></li>
+<li><a href="https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/08_its.R">Code</a></li>
 <li><a href="https://r-lidar.github.io/lidRbook/itd-its.html">lidRbook section</a></li>
 </ul>
 </section>
@@ -366,12 +366,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>id_1 <span class="ot">&lt;-</span> <span class="fu">sample</span>(tree_ids, <span class="dv">1</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>id_2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(tree_ids, <span class="dv">2</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Select trees by ID</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>tree1 <span class="ot">&lt;-</span> <span class="fu">filter_poi</span>(<span class="at">las =</span> las, treeID <span class="sc">==</span> id_1)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">filter_poi</span>(<span class="at">las =</span> las, treeID <span class="sc">==</span> id_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># id_1 &lt;- sample(tree_ids, 1)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>id_1 <span class="ot">&lt;-</span> <span class="dv">1551</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># id_2 &lt;- sample(tree_ids, 1)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>id_2 <span class="ot">&lt;-</span> <span class="dv">3686</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Select trees by ID</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>tree1 <span class="ot">&lt;-</span> <span class="fu">filter_poi</span>(<span class="at">las =</span> las, treeID <span class="sc">==</span> id_1)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>tree2 <span class="ot">&lt;-</span> <span class="fu">filter_poi</span>(<span class="at">las =</span> las, treeID <span class="sc">==</span> id_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree1, <span class="at">size =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="center" data-rgl="true">
@@ -746,164 +748,21 @@ Chunk 9 of 16 (56.2%): state ✓
                                                                                 
 Chunk 10 of 16 (62.5%): state ✓
 #&gt; 
-[=====&gt;                                            ] 11% ETA: 15s     
-[======&gt;                                           ] 12% ETA: 18s     
-[======&gt;                                           ] 12% ETA: 19s     
                                                                                 
 Chunk 11 of 16 (68.8%): state ✓
 #&gt; 
-[=&gt;                                                ] 3% ETA: 60s     
-[=&gt;                                                ] 3% ETA: 59s     
-[=&gt;                                                ] 3% ETA: 59s     
-[=&gt;                                                ] 3% ETA: 58s     
-[=&gt;                                                ] 3% ETA: 57s     
-[=&gt;                                                ] 3% ETA: 56s     
-[=&gt;                                                ] 3% ETA: 55s     
-[=&gt;                                                ] 3% ETA: 54s     
-[=&gt;                                                ] 3% ETA: 53s     
-[=&gt;                                                ] 3% ETA: 53s     
-[=&gt;                                                ] 3% ETA: 52s     
-[==&gt;                                               ] 4% ETA: 51s     
-[==&gt;                                               ] 4% ETA: 51s     
-[==&gt;                                               ] 4% ETA: 50s     
-[==&gt;                                               ] 4% ETA: 49s     
-[==&gt;                                               ] 4% ETA: 49s     
-[==&gt;                                               ] 4% ETA: 48s     
-[==&gt;                                               ] 4% ETA: 47s     
-[==&gt;                                               ] 4% ETA: 47s     
-[==&gt;                                               ] 4% ETA: 46s     
-[==&gt;                                               ] 4% ETA: 46s     
-[==&gt;                                               ] 4% ETA: 45s     
-[==&gt;                                               ] 4% ETA: 45s     
-[==&gt;                                               ] 4% ETA: 45s     
-[==&gt;                                               ] 5% ETA: 44s     
-[==&gt;                                               ] 5% ETA: 44s     
-[==&gt;                                               ] 5% ETA: 43s     
-[==&gt;                                               ] 5% ETA: 43s     
-[==&gt;                                               ] 5% ETA: 43s     
-[==&gt;                                               ] 5% ETA: 42s     
-[==&gt;                                               ] 5% ETA: 42s     
-[==&gt;                                               ] 5% ETA: 41s     
-[==&gt;                                               ] 5% ETA: 41s     
-[==&gt;                                               ] 5% ETA: 41s     
-[==&gt;                                               ] 5% ETA: 40s     
-[==&gt;                                               ] 5% ETA: 40s     
-[==&gt;                                               ] 5% ETA: 40s     
-[===&gt;                                              ] 6% ETA: 39s     
-[===&gt;                                              ] 6% ETA: 39s     
-[===&gt;                                              ] 6% ETA: 39s     
-[===&gt;                                              ] 6% ETA: 38s     
-[===&gt;                                              ] 6% ETA: 38s     
-[===&gt;                                              ] 6% ETA: 38s     
-[===&gt;                                              ] 6% ETA: 37s     
-[===&gt;                                              ] 6% ETA: 37s     
-[===&gt;                                              ] 6% ETA: 37s     
-[===&gt;                                              ] 6% ETA: 36s     
-[===&gt;                                              ] 6% ETA: 36s     
-[===&gt;                                              ] 6% ETA: 36s     
-[===&gt;                                              ] 6% ETA: 35s     
-[===&gt;                                              ] 7% ETA: 35s     
-[===&gt;                                              ] 7% ETA: 35s     
-[===&gt;                                              ] 7% ETA: 34s     
-[===&gt;                                              ] 7% ETA: 34s     
-[===&gt;                                              ] 7% ETA: 34s     
-[===&gt;                                              ] 7% ETA: 33s     
-[===&gt;                                              ] 7% ETA: 33s     
-[===&gt;                                              ] 7% ETA: 33s     
-[===&gt;                                              ] 7% ETA: 32s     
-[===&gt;                                              ] 7% ETA: 32s     
-[===&gt;                                              ] 7% ETA: 32s     
-[===&gt;                                              ] 7% ETA: 32s     
-[===&gt;                                              ] 7% ETA: 32s     
-[====&gt;                                             ] 8% ETA: 31s     
-[====&gt;                                             ] 8% ETA: 31s     
-[====&gt;                                             ] 8% ETA: 31s     
-[====&gt;                                             ] 8% ETA: 31s     
-[====&gt;                                             ] 8% ETA: 31s     
-[====&gt;                                             ] 8% ETA: 30s     
-[====&gt;                                             ] 8% ETA: 30s     
-[====&gt;                                             ] 8% ETA: 30s     
-[====&gt;                                             ] 8% ETA: 30s     
-[====&gt;                                             ] 8% ETA: 29s     
-[====&gt;                                             ] 8% ETA: 29s     
-[====&gt;                                             ] 8% ETA: 29s     
-[====&gt;                                             ] 8% ETA: 29s     
-[====&gt;                                             ] 9% ETA: 29s     
-[====&gt;                                             ] 9% ETA: 29s     
-[====&gt;                                             ] 9% ETA: 29s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 28s     
-[====&gt;                                             ] 9% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 27s     
-[=====&gt;                                            ] 10% ETA: 28s     
-[=====&gt;                                            ] 10% ETA: 30s     
-[=====&gt;                                            ] 10% ETA: 30s     
-[=====&gt;                                            ] 10% ETA: 31s     
-[=====&gt;                                            ] 10% ETA: 31s     
                                                                                 
 Chunk 12 of 16 (75%): state ✓
 #&gt; 
-[======&gt;                                           ] 13% ETA: 12s     
-[======&gt;                                           ] 13% ETA: 12s     
-[======&gt;                                           ] 13% ETA: 12s     
-[======&gt;                                           ] 13% ETA: 12s     
-[======&gt;                                           ] 13% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 14% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[=======&gt;                                          ] 15% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 16% ETA: 12s     
-[========&gt;                                         ] 17% ETA: 12s     
-[========&gt;                                         ] 17% ETA: 12s     
-[========&gt;                                         ] 17% ETA: 12s     
-[========&gt;                                         ] 17% ETA: 12s     
-[========&gt;                                         ] 17% ETA: 12s     
                                                                                 
 Chunk 13 of 16 (81.2%): state ✓
 #&gt; 
                                                                                 
 Chunk 14 of 16 (87.5%): state ✓
 #&gt; 
-[========&gt;                                         ] 17% ETA: 10s     
-[========&gt;                                         ] 17% ETA: 10s     
                                                                                 
 Chunk 15 of 16 (93.8%): state ✓
 #&gt; 
-[========&gt;                                         ] 17% ETA: 9s     
-[========&gt;                                         ] 17% ETA: 9s     
-[=========&gt;                                        ] 18% ETA: 9s     
                                                                                 
 Chunk 16 of 16 (100%): state ✓
 #&gt; 
@@ -936,10 +795,6 @@ Chunk 6 of 16 (37.5%): state ✓
                                                                                 
 Chunk 7 of 16 (43.8%): state ✓
 #&gt; 
-[=====&gt;                                            ] 10% ETA: 18s     
-[=====&gt;                                            ] 10% ETA: 18s     
-[=====&gt;                                            ] 10% ETA: 18s     
-[=====&gt;                                            ] 10% ETA: 20s     
                                                                                 
 Chunk 8 of 16 (50%): state ✓
 #&gt; 
@@ -952,7 +807,6 @@ Chunk 10 of 16 (62.5%): state ✓
                                                                                 
 Chunk 11 of 16 (68.8%): state ✓
 #&gt; 
-[=====&gt;                                            ] 10% ETA: 21s     
                                                                                 
 Chunk 12 of 16 (75%): state ✓
 #&gt; 

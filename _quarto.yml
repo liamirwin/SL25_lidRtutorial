@@ -4,7 +4,7 @@ project:
   execute-dir: project
   render:
     - "*.qmd"
-    - "LPS_lidR_LiDAR_Intro.qmd"
+    - "SL25_lidR_LiDAR_Intro.qmd"
     - "!R/"
 
 website:
