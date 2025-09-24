@@ -43,7 +43,7 @@ Tiling divides the data into a grid of smaller, square files. This is the founda
 
 Here we use the [`lastile`](https://downloads.rapidlasso.de/html/lastile_README.html) tool for this. The command below takes all `.laz` files from our `raw` directory and creates 500x500 meter tiles.
 
-Here we specify a buffer of 0 as `lidR` buffers tiles internally, be careful to use a buffer when performing your entire workflow in `LAStools` to avoid artifacts at tile edges.
+Here we specify a buffer of 0 as `lidR` buffers tiles internally. Be sure to use a buffer when performing your entire workflow in `LAStools` to avoid artifacts at tile edges.
 
 ```{batch, eval = F}
 lastile -i "C:\lidar_project\raw\*.laz" ^

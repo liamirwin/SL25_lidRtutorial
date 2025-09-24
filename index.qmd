@@ -5,7 +5,7 @@ author:
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
   - name: "Brent A. Murray"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
-  - name: "Sadie Russell"
+  - name: "Sadie J.S. Russell"
     affiliation: "Integrated Remote Sensing Studio, University of British Columbia"
 date: 2025-09-29
 ---
@@ -62,7 +62,7 @@ If only downloading the classified or normalized lidar files, unzip them to the 
 ### R Packages
 
 ::: callout-tip
-**Easy setup for new users** Please open the `SL25_lidRtutorial_package.Rproj` in RStudio. Next, open `01_read.R` to run code to automatically install packages.
+**Easy setup for new users:** Please open the `SL25_lidRtutorial_package.Rproj` in RStudio. Next, open `01_read.R` to run code to automatically install packages.
 :::
 
 Please install the `lidR` package in its latest version (4.2.1/4.2.2).
@@ -137,7 +137,7 @@ mapview::mapview(
 -   Introduction to Lidar, LAStools, and lidR (09:00)
 -   Preprocessing with LAStools (9:20)
 -   Reading LAS and LAZ files (09:30)
--   Point Classification and filtering (9:35)
+-   Point Classification and Filtering (9:35)
 -   Digital Terrain Models and Height Normalization (9:40)
 -   Canopy Height Models (9:50)
 -   Lidar Summary Metrics (9:55)
