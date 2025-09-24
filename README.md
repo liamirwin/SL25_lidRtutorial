@@ -68,7 +68,7 @@ When working on exercises:
 
 ## Additional Resources
 
--   [Silvilaser 2023 lidR tutorial - Forest Inventory Focused](https://tgoodbody.github.io/lidRtutorial/)
+-   [Silvilaser 2023 lidR tutorial](https://tgoodbody.github.io/lidRtutorial/)
 
 ## `lidR`
 
@@ -95,4 +95,5 @@ Other tools require a license for commercial or educational use that can be purc
 Please visit the [LAStools website](https://rapidlasso.de/downloads/) for more information on how to download and install the software.
 
 The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
+
 
