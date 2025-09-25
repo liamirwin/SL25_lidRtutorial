@@ -82,7 +82,8 @@ When working on exercises:
 
 The current release version of `lidR` can be found on [CRAN](https://cran.r-project.org/web/packages/lidR/) and source code is hosted on [GitHub](https://github.com/r-lidar/lidR).
 
-> \[!NOTE\] Since 2024, the `lidR` package is no longer supported by Laval University, but the software will remain free and open-source. `r-lidar` has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their [website](https://www.r-lidar.com/) for more information.
+> [!NOTE]
+> Since 2024, the `lidR` package is no longer supported by Laval University, but the software will remain free and open-source. `r-lidar` has transitioned into a company to ensure sustainability and now offers independent services for training courses, consulting, and development. Please feel free to visit their [website](https://www.r-lidar.com/) for more information.
 
 ## `LAStools`
 
@@ -95,6 +96,10 @@ Other tools require a license for commercial or educational use that can be purc
 Please visit the [LAStools website](https://rapidlasso.de/downloads/) for more information on how to download and install the software.
 
 The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
+
+
+
+
 
 
 
