@@ -30,9 +30,9 @@ library(terra)
 
 ## Data Preprocessing
 
-Once again we load the lidar in to memory with `readLAS`. this time however, we sample points randomly to `decimate` the point cloud and simulate lower density lidar data using `decimate_points()`.
+Once again we load the lidar in to memory with `readLAS`. This time however, we sample points randomly to `decimate` the point cloud and simulate lower density lidar data using `decimate_points()`.
 
-The sampling/return density of your point cloud (particularly those originating from the canopy surface for a CHM) dictates the lowest acceptable spatial resolution.
+The sampling/return density of your point cloud dictates the lowest acceptable spatial resolution. For a CHM, it is particularly dependent on the returns originating from the canopy surface.
 
 ```{r load_lidar_data}
 # Load lidar data and reduce point density
@@ -103,7 +103,7 @@ plot(chm)
 ```
 
 
-The `p2r()` algorithm also allows filling empty pixels using TIN (Triangulated Irregular Network) interpolation, which can help in areas with sparse lidar points to obtain a smoother CHM.
+The `p2r()` algorithm also allows for filling of empty pixels using TIN (Triangulated Irregular Network) interpolation, which can help in areas with sparse lidar points to obtain a smoother CHM.
 
 ```{r}
 #| label: fig-chm-p2r-na-fill
@@ -115,7 +115,7 @@ plot(chm)
 
 ## Triangulation Based Pitfree Algorithm
 
-The `rasterize_canopy` function can also use the Khosravipour et al. 2014 `pitfree()` algorithm with specified height thresholds and a maximum edge length to generate a CHM. This algorithm aims to correct depressions in the CHM surface, especially designed to prevent gaps in CHMs from low density lidar.
+The `rasterize_canopy` function can also use the Khosravipour et al. 2014 `pitfree()` algorithm with specified height thresholds and a maximum edge length to generate a CHM. This algorithm aims to correct depressions in the CHM surface to prevent gaps from low density lidar.
 
 ::: callout-tip
 ## Pit-free algorithm
@@ -174,4 +174,4 @@ Create a 10 m CHM using a algorithm of your choice. Would this information still
 
 ## Conclusion
 
-This tutorial covered different algorithms for generating Canopy Height Models (CHMs) from lidar data using the `lidR` package in R. It includes point-to-raster-based algorithms and triangulation-based algorithms, as well as post-processing using the `terra` package.
+This tutorial section covered different algorithms for generating Canopy Height Models (CHMs) from lidar data using the `lidR` package in R. It includes point-to-raster-based algorithms and triangulation-based algorithms, as well as post-processing using the `terra` package.

@@ -263,3 +263,7 @@ Create a filtered las object of returns that have an Intensity greater that 50, 
 
 Read in the las file with only xyz and intensity only. Hint go to the [lidRbook section](https://r-lidar.github.io/lidRbook/io.html) to find out how to do this
 
+## Conclusion
+
+This tutorial section explored the basic usage of the `lidR` package in R for processing and analyzing lidar data. We covered loading lidar data, inspecting and visualizng the data, selceting specific attributes, and filtering points of interest. 
+
