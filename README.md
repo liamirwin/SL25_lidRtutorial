@@ -4,7 +4,7 @@
 
 This workshop was created for the [`2025 Silvilaser Conference`](https://www.silvilaser2025.com/), held in Quebec City, Canada in September/October, 2025
 
-This workshop was presented by `Liam A.K. Irwin`, `Brent A. Murray` and `Sadie Russell` members of the [University of British Columbia Integrated Remote Sensing Studio lab](https://irsslab.forestry.ubc.ca/).
+This workshop was presented by `Liam A.K. Irwin`, `Brent A. Murray` and `Sadie J.S. Russell` members of the [University of British Columbia Integrated Remote Sensing Studio lab](https://irsslab.forestry.ubc.ca/).
 
 The workshop intends to:
 
@@ -95,5 +95,6 @@ Other tools require a license for commercial or educational use that can be purc
 Please visit the [LAStools website](https://rapidlasso.de/downloads/) for more information on how to download and install the software.
 
 The inital processing steps we will use in this workshop can be completed with the free version of `LAStools`, or you can make use of the pre-processed data provided in the workshop materials package.
+
 
 
