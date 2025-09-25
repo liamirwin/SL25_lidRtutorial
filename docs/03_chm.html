@@ -250,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h2>
-<p>Once again we load the lidar in to memory with <code>readLAS</code>. this time however, we sample points randomly to <code>decimate</code> the point cloud and simulate lower density lidar data using <code>decimate_points()</code>.</p>
-<p>The sampling/return density of your point cloud (particularly those originating from the canopy surface for a CHM) dictates the lowest acceptable spatial resolution.</p>
+<p>Once again we load the lidar in to memory with <code>readLAS</code>. This time however, we sample points randomly to <code>decimate</code> the point cloud and simulate lower density lidar data using <code>decimate_points()</code>.</p>
+<p>The sampling/return density of your point cloud dictates the lowest acceptable spatial resolution. For a CHM, it is particularly dependent on the returns originating from the canopy surface.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load lidar data and reduce point density</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>las <span class="ot">&lt;-</span> <span class="fu">readLAS</span>(<span class="at">files =</span> <span class="st">"data/fm_norm.laz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -354,7 +354,7 @@ Figure&nbsp;5: CHM generated with an increased <code>subcircle</code> radius, wi
 </div>
 </div>
 </div>
-<p>The <code>p2r()</code> algorithm also allows filling empty pixels using TIN (Triangulated Irregular Network) interpolation, which can help in areas with sparse lidar points to obtain a smoother CHM.</p>
+<p>The <code>p2r()</code> algorithm also allows for filling of empty pixels using TIN (Triangulated Irregular Network) interpolation, which can help in areas with sparse lidar points to obtain a smoother CHM.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can fill empty pixels using TIN interpolation</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>chm <span class="ot">&lt;-</span> <span class="fu">rasterize_canopy</span>(<span class="at">las =</span> las, <span class="at">res =</span> <span class="fl">0.5</span>, <span class="at">algorithm =</span> <span class="fu">p2r</span>(<span class="at">subcircle =</span> <span class="fl">0.0</span>, <span class="at">na.fill =</span> <span class="fu">tin</span>()))</span>
@@ -375,7 +375,7 @@ Figure&nbsp;6: CHM with empty pixels filled using Triangulated Irregular Network
 </section>
 <section id="triangulation-based-pitfree-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="triangulation-based-pitfree-algorithm">Triangulation Based Pitfree Algorithm</h2>
-<p>The <code>rasterize_canopy</code> function can also use the Khosravipour et al.&nbsp;2014 <code>pitfree()</code> algorithm with specified height thresholds and a maximum edge length to generate a CHM. This algorithm aims to correct depressions in the CHM surface, especially designed to prevent gaps in CHMs from low density lidar.</p>
+<p>The <code>rasterize_canopy</code> function can also use the Khosravipour et al.&nbsp;2014 <code>pitfree()</code> algorithm with specified height thresholds and a maximum edge length to generate a CHM. This algorithm aims to correct depressions in the CHM surface to prevent gaps from low density lidar.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -468,7 +468,7 @@ Figure&nbsp;9: The <code>pitfree</code> CHM after post-processing with a 3x3 mea
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This tutorial covered different algorithms for generating Canopy Height Models (CHMs) from lidar data using the <code>lidR</code> package in R. It includes point-to-raster-based algorithms and triangulation-based algorithms, as well as post-processing using the <code>terra</code> package.</p>
+<p>This tutorial section covered different algorithms for generating Canopy Height Models (CHMs) from lidar data using the <code>lidR</code> package in R. It includes point-to-raster-based algorithms and triangulation-based algorithms, as well as post-processing using the <code>terra</code> package.</p>
 
 
 </section>

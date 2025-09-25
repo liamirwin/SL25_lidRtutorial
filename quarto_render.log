@@ -45,6 +45,7 @@ Warning messages:
 
 7
 /31                              
+
 8/31 [fig-basic]                  
 
 9
@@ -69,7 +70,6 @@ Warning messages:
 
 19
 /31                              
-
 20/31 [filter_points]              
 
 21
@@ -82,7 +82,9 @@ Warning messages:
 
 25
 /31                              
-26/31 [filter_poi_example]         
+
+26
+/31 [filter_poi_example]         
 
 27
 /31                              
@@ -111,10 +113,13 @@ Warning messages:
 
 1
 /35                              
-2/35 [setup]                      
+
+2
+/35 [setup]                      
 
 3
 /35                              
+
 4/35 [clear_warnings]             
 
 5
@@ -123,6 +128,7 @@ Warning messages:
 
 7
 /35                              
+
 8/35 [fig-dtm-initial-plot]       
 
 9
@@ -135,7 +141,6 @@ Warning messages:
 
 13
 /35                              
-
 14/35 [fig-dtm-tin-3d]             
 
 15
@@ -262,8 +267,9 @@ output file: 03_chm.knit.md
 
 7
 /33                           
-8/33 [load_lidar_data]         
 
+8
+/33 [load_lidar_data]         
 
 9
 /33                           
@@ -279,8 +285,7 @@ output file: 03_chm.knit.md
 
 15
 /33                           
-16
-/33 [fig-metrics-std]         
+16/33 [fig-metrics-std]         
 
 17
 /33                           
@@ -345,7 +350,9 @@ There were 11 warnings (use warnings() to see them)
 
 11
 /35                               
-12/35 [fig-catalog-plot-interactive]
+
+12
+/35 [fig-catalog-plot-interactive]
 
 13
 /35                               
@@ -369,6 +376,7 @@ There were 11 warnings (use warnings() to see them)
 
 23
 /35                               
+
 24/35 [fig-catalog-maxz-first]      
 
 25
@@ -385,7 +393,6 @@ There were 11 warnings (use warnings() to see them)
 
 31
 /35                               
-
 32/35 [fig-catalog-density-par]     
 
 33
@@ -456,6 +463,7 @@ Warning messages:
 
 23
 /41                                   
+
 24/41 [plot_stand]                      
 
 25
@@ -472,6 +480,7 @@ Warning messages:
 
 31
 /41                                   
+
 32/41 [validate_clipped]                
 
 33
@@ -498,6 +507,7 @@ output file: 06_roi.knit.md
 
 1
 /31                      
+
 2/31 [setup]              
 
 3
@@ -514,6 +524,7 @@ output file: 06_roi.knit.md
 
 9
 /31                      
+
 10/31 [clip_plots]         
 
 11
@@ -522,8 +533,8 @@ output file: 06_roi.knit.md
 
 13
 /31                      
-
-14/31 [plot_plotnetwork]   
+14/
+31 [plot_plotnetwork]   
 
 15
 /31                      
@@ -537,12 +548,11 @@ output file: 06_roi.knit.md
 
 19
 /31                      
-
-20
-/31 [plot_forest_metrics]
+20/31 [plot_forest_metrics]
 
 21
 /31                      
+
 22/31 [fig-metric-zq95]    
 
 23
@@ -569,7 +579,6 @@ output file: 07_aba.knit.md
 
 1
 /43                           
-
 2/43 [setup]                   
 
 3
@@ -594,7 +603,9 @@ output file: 07_aba.knit.md
 
 13
 /43                           
-14/43 [tree_segmentation_legnth]
+
+14
+/43 [tree_segmentation_legnth]
 
 15
 /43                           
@@ -630,6 +641,7 @@ output file: 07_aba.knit.md
 
 31
 /43                           
+
 32/43 [visualize_tree_segmented]
 
 33
@@ -642,7 +654,9 @@ output file: 07_aba.knit.md
 
 37
 /43                           
-38/43 [pre_defined_metrics]     
+
+38
+/43 [pre_defined_metrics]     
 
 39
 /43                           
@@ -660,6 +674,7 @@ output file: 08_its.knit.md
 
 1
 /33                
+
 2/33 [setup]        
 
 3
@@ -721,6 +736,7 @@ output file: 08_its.knit.md
 
 31
 /33                
+
 32/33 [lascatalog-e2]
 
 33
@@ -731,7 +747,6 @@ output file: 09_solutions.knit.md
 
 1
 /3                 
-
 2/3 [lidR-downloads]
 
 3
@@ -742,6 +757,7 @@ output file: SL25_lidR_LiDAR_Intro.knit.md
 
 1
 /5                  
+
 2/5 [setup]          
 
 3

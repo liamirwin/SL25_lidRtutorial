@@ -319,8 +319,8 @@ Figure&nbsp;1: Point cloud coloured by the Z (elevation) attribute.
 </section>
 <section id="point-classification" class="level2">
 <h2 class="anchored" data-anchor-id="point-classification">Point Classification</h2>
-<p>Lidar systems and pre-processing attribute point clouds with additional attributes beyond just X, Y and Z coordinates.</p>
-<p>For instance, points are typically assigned <code>Classification</code> values to differentiate surfaces. This is often already done by the data provider or through user applied algorithms to classify for example <a href="https://rdrr.io/cran/lidR/man/classify.html" title="lidR classify function (not covered in this workshop)">noise and ground</a> points. The meaning of these ID values depends on the LAS file version and source.</p>
+<p>Lidar systems and pre-processing steps add extra information to point clouds, beyond just the X, Y, and Z coordinates of each point.</p>
+<p>For instance, points are typically assigned <code>Classification</code> values to differentiate between surfaces. This is often already done by the data provider or through user applied algorithms to classify for example <a href="https://rdrr.io/cran/lidR/man/classify.html" title="lidR classify function (not covered in this workshop)">noise and ground</a> points. The meaning of these ID values depends on the LAS file version and source.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -380,7 +380,7 @@ Figure&nbsp;2: Point cloud coloured by Classification. Ground is blue, vegetatio
 </div>
 </div>
 </div>
-<p>Lidar point clouds record Return <code>Intensity</code> information; representing the <em>strength of the returning signal</em>. This attribute varies widely depending on sensor/acquisition characteristics can be useful in biodiversity mapping.</p>
+<p>Lidar point clouds capture Return <code>Intensity</code> information; representing the <em>strength of the returning signal</em>. This attribute varies widely depending on sensor/acquisition characteristics and can be useful in biodiversity mapping.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(las, <span class="at">color =</span> <span class="st">"Intensity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="center" data-rgl="true">
 <div class="cell-output-display">
@@ -416,16 +416,16 @@ Figure&nbsp;4: Point cloud coloured by ScanAngleRank
 <section id="filtering-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-dataset">Filtering Dataset</h2>
 <p>Often we do not need the entire set of points or attributes (columns) loaded in memory for our analysis. We can use <code>Classification</code> as well as other attributes to pre-filter point clouds before further processing.</p>
-<p>There are two key was in <code>lidR</code> to achieve this.</p>
+<p>There are two key ways in <code>lidR</code> to achieve this.</p>
 <section id="filtering-points-on-the-fly-efficient" class="level3">
 <h3 class="anchored" data-anchor-id="filtering-points-on-the-fly-efficient">Filtering points on-the-fly (efficient)</h3>
 <p>First, we load subsets of the lidar points based on certain criteria using the <code>filter</code> argument in directly in <code>readLAS()</code>.</p>
-<p>The <code>filter</code> argument in <code>readLAS()</code> can be useful for tasks such as filtering specific classifications, to isolate ground, remove noise, etc…</p>
+<p>The <code>filter</code> argument in <code>readLAS()</code> can be useful for tasks such as filtering specific classifications, isolating ground, removing noise, etc…</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load point cloud keeping only Classification 2 (ground returns)</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>las <span class="ot">&lt;-</span> <span class="fu">readLAS</span>(<span class="at">files =</span> <span class="st">"data/fm_class.laz"</span>, <span class="at">filter =</span> <span class="st">"-keep_class 2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Visualize the <em>first return filtered</em> point cloud using the <code>plot()</code> function.</p>
+<p>Visualize the point cloud of <em>ground returns</em> using the <code>plot()</code> function.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(las)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="center" data-rgl="true">
 <div class="cell-output-display">
@@ -461,7 +461,7 @@ Figure&nbsp;5: Point cloud showing only ground points, filtered on readLAS with 
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(<span class="fu">object.size</span>(las), <span class="st">"Mb"</span>)</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "15.6 Mb"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Visualize the <em>first return filtered</em> point cloud using the <code>plot()</code> function.</p>
+<p>Visualize the point cloud of <em>first returns</em> using the <code>plot()</code> function.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(las)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="center" data-rgl="true">
 <div class="cell-output-display">
@@ -578,7 +578,7 @@ Figure&nbsp;8: First-return ground points filtered using <code>filter_poi()</cod
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This concludes our tutorial on the basic usage of the <code>lidR</code> package in R for processing and analyzing lidar data. We covered loading lidar data, inspecting and visualizing the data, selecting specific attributes, and filtering points of interest.</p>
+<p>This tutorial section explored the basic usage of the <code>lidR</code> package in R for processing and analyzing lidar data. We covered loading lidar data, inspecting and visualizng the data, selceting specific attributes, and filtering points of interest.</p>
 
 
 </section>

@@ -229,7 +229,7 @@ Note
 <p>A single lidar file (or a collection of large, irregularly shaped files) is difficult to process.</p>
 <p>Tiling divides the data into a grid of smaller, square files. This is the foundation for efficient, parallel processing in <code>lidR</code>, <code>LAStools</code>, and other software.</p>
 <p>Here we use the <a href="https://downloads.rapidlasso.de/html/lastile_README.html"><code>lastile</code></a> tool for this. The command below takes all <code>.laz</code> files from our <code>raw</code> directory and creates 500x500 meter tiles.</p>
-<p>Here we specify a buffer of 0 as <code>lidR</code> buffers tiles internally, be careful to use a buffer when performing your entire workflow in <code>LAStools</code> to avoid artifacts at tile edges.</p>
+<p>Here we specify a buffer of 0 as <code>lidR</code> buffers tiles internally. Be sure to use a buffer when performing your entire workflow in <code>LAStools</code> to avoid artifacts at tile edges.</p>
 <div class="cell">
 <pre class="batch cell-code"><code>lastile -i "C:\lidar_project\raw\*.laz" ^
     -odir "C:\lidar_project\processed\tiled" ^ # output directory

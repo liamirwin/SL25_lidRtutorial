@@ -234,17 +234,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This code demonstrates an example of generating <strong>pixel-based summary metrics</strong> of lidar data. This is a common task to capture critical information describing the vertical distribution of lidar returns across a regular grid (raster). Pixel metrics are used in various predictive modelling tasks and often to capture critical vegetation characteristics ranging from height to variability and cover.</p>
+<p>This code demonstrates generating <strong>pixel-based summary metrics</strong> of lidar data. This is a common task to capture critical information describing the vertical distribution of lidar returns across a regular grid (raster). Pixel metrics are used in various predictive modelling tasks and often to capture critical vegetation characteristics ranging from height to variability and cover.</p>
 <p>Beyond statistical summary metrics such as (<em>mean</em>, <em>max</em>, <em>sd</em>, etc), many researchers have developed custom metrics linked to critical vegetation attributes such as <strong>leaf-area index</strong>, <strong>vertical complexity indices</strong>, etc.</p>
 <p>Additional metrics can also be generated with <code>lidR</code> using <strong>voxel approaches</strong>, where three-dimensional sub-compartments are fit to better capture complexity — <em>at the cost of vastly increasing computational</em> requirements and introducing additional parameters.</p>
 <p>Classically, lidar metrics used in vegetation characterization typically fall under three categories:</p>
 <ol type="1">
 <li><p><strong>Height metrics</strong><br>
-These typically describe how tall the vegetation generally is. Often max height, mean height, and percentiles of height are important in the prediction of attributes including land cover, and continuous variables like biomass.</p></li>
+These typically describe how tall the vegetation is. Often max height, mean height, and percentiles of height are important in the prediction of attributes including land cover, and continuous variables like biomass.</p></li>
 <li><p><strong>Variability metrics</strong><br>
 Metrics describing the shape of the distribution of returns often capture additional signals useful for explaining the level of vegetation complexity within a pixel. Skewed versus bimodal distributions, for example, can represent a very dense upper canopy in a forest compared to a multi-layer stand.</p></li>
 <li><p><strong>Cover metrics</strong><br>
-Often referred directly to as <em>canopy cover</em>, these metrics generally describe the proportion of returns (as a %) above a certain threshold. Typically used to generally describe how much vegetation (e.g.&nbsp;above 2m) there is compared to ground and other lower surfaces (designed for forest).</p></li>
+Often referred directly to as <em>canopy cover</em>, these metrics generally describe the proportion of returns (as a %) above a certain threshold. This is generally used to describe how much vegetation there is at a given height (e.g.&nbsp;above 2m) compared to ground and other lower surfaces (designed for forest).</p></li>
 </ol>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -275,7 +275,7 @@ Often referred directly to as <em>canopy cover</em>, these metrics generally des
 </section>
 <section id="basic-usage" class="level2">
 <h2 class="anchored" data-anchor-id="basic-usage">Basic Usage</h2>
-<p>To begin we compute simple metrics including mean and max height of points within 10x10 m pixels and visualizing the results. The code shows how to compute multiple metrics simultaneously and use predefined metric sets. Advanced usage introduces user-defined metrics for more specialized calculations.</p>
+<p>To begin we compute simple metrics, such as mean and max height, within 10x10 m pixels and visualize the results. The code shows how to compute single metrics or multiple metrics simultaneously using predefined metric sets. Advanced usage introduces user-defined metrics for more specialized calculations.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the normalized lidar data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>las <span class="ot">&lt;-</span> <span class="fu">readLAS</span>(<span class="at">files =</span> <span class="st">"data/fm_norm.laz"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -424,7 +424,7 @@ Figure&nbsp;5: Raster of the standard deviation of lidar return heights (<code>z
 <p><code>lidR</code> provides flexibility for users to define custom metrics. Check out 3rd party packages like <a href="https://github.com/ptompalski/lidRmetrics"><code>lidRmetrics</code></a> for suites of advanced metrics typically demonstrated in peer-reviewed articles and implemented in <code>lidR</code> through <a href="https://github.com/ptompalski/lidRmetrics"><code>lidRmetrics</code></a>.</p>
 </div>
 </div>
-<p>We will present several metrics often tied to vegetation and biodiversity, for an overview of connecting metrics with habitat see <a href="http://doi.org/10.1016/j.ecolind.2016.02.057" title="Coops, N. C., Tompaski, P., Nijland, W., Rickbeil, G. J. M., Nielsen, S. E., Bater, C. W., &amp; Stadt, J. J. (2016). A forest structure habitat index based on airborne laser scanning data. Ecological Indicators, 67, 346-357.">this article</a>.</p>
+<p>We will present several metrics often tied to vegetation and biodiversity. For an overview of connecting metrics with habitat see <a href="http://doi.org/10.1016/j.ecolind.2016.02.057" title="Coops, N. C., Tompaski, P., Nijland, W., Rickbeil, G. J. M., Nielsen, S. E., Bater, C. W., &amp; Stadt, J. J. (2016). A forest structure habitat index based on airborne laser scanning data. Ecological Indicators, 67, 346-357.">this article</a>.</p>
 <p><a href="https://ptompalski.github.io/lidRmetrics/reference/metrics_percabove.html" title="Proportion of returns above a threshold (2m) is commonly used to approximate canopy cover in forests and beyond">Canopy Cover</a></p>
 <p>Canopy cover is often estimated using the proportion of lidar returns generated over some threshold. Two metres is commonly used, ultimately canopy cover seeks to quantify relatively how much vegetation (points) is present.</p>
 <div class="cell" data-layout-align="center">
@@ -444,7 +444,7 @@ Figure&nbsp;6: Canopy cover metric, calculated as the proportion of lidar return
 </div>
 </div>
 <p><a href="https://ptompalski.github.io/lidRmetrics/reference/metrics_lad.html" title="LAD profiles are commonly used in predictive modelling to approximate the leaf area index (LAI) of vegetation with lidar">Leaf Area Density Profiles</a> (<a href="http://dx.doi.org/10.1016/j.rse.2014.10.004" title="Journal article credited with LAD metrics formulae">Bouvier et al.&nbsp;2015</a>)</p>
-<p>Leaf Area Density (LAD) profiles describe the vertical distribution of foliage within the canopy. The method estimates the amount of leaf material in successive horizontal layers by modeling how lidar pulses are intercepted as they travel down through the vegetation.</p>
+<p>Leaf Area Density (LAD) profiles describe the vertical distribution of foliage within the canopy. LAD estimates the amount of leaf material in successive horizontal layers by modeling how lidar pulses are intercepted as they travel down through the vegetation.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lad_metrics <span class="ot">&lt;-</span> <span class="fu">pixel_metrics</span>(las, <span class="sc">~</span><span class="fu">metrics_lad</span>(<span class="at">z =</span> Z), <span class="at">res =</span> <span class="dv">10</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lad_metrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -530,7 +530,7 @@ Figure&nbsp;10: Vertical Complexity Index (VCI) at 10m resolution. Higher values
 </div>
 <p><code>User Defined Metrics</code></p>
 <p>We can also create our own user-defined metric functions. This demonstrates the flexibility of the <code>lidR</code> package!</p>
-<p>Here we generate an arbitrary function to compute a weighted mean between two attributes. We then calculate the mean height of 10 m pixels weighted by return Intensity (albeit a potentially meaningless metric)</p>
+<p>Here we generate an arbitrary function to compute a weighted mean between two attributes. We then calculate the mean height of 10 m pixels weighted by return <code>Intensity</code> (albeit a potentially meaningless metric).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a user-defined function to compute weighted mean between two attributes</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, weight) { <span class="fu">sum</span>(x<span class="sc">*</span>weight)<span class="sc">/</span><span class="fu">sum</span>(weight) }</span>
@@ -573,7 +573,7 @@ Figure&nbsp;11: Raster plot of a user-defined metric: the mean height (Z) weight
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this tutorial, we covered basic usage of the <code>lidR</code> package for computing mean and max heights within grid cells and using predefined sets of metrics. Additionally, we explored the advanced usage with the ability to define user-specific metrics for grid computation.</p>
+<p>In this section of the tutorial, we covered basic usage of the <code>lidR</code> package for computing mean and max heights within grid cells and using predefined sets of metrics. Additionally, we explored the advanced usage with the ability to define user-specific metrics for grid computation.</p>
 
 
 </section>
