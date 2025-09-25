@@ -1,7 +1,7 @@
 # Digital Terrain Models
 # https://liamirwin.github.io/SL25_lidRtutorial/02_dtm.html
 
-# Environment setup
+# Environment Setup
 # -----------------
 # Clear current workspace and load required packages
 rm(list = ls(globalenv()))
