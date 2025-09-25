@@ -801,8 +801,8 @@
     "objectID": "SL25_lidR_LiDAR_Intro.html#presenters",
     "href": "SL25_lidR_LiDAR_Intro.html#presenters",
     "title": "Airborne lidar Data Manipulation and Visualization for Forestry Applications",
-    "section": "",
-    "text": "Liam A.K. Irwin - PhD Student\nBrent A. Murray - PhD Student\nSadie Russel - PhD Student\nNicholas C. Coops - Professor\n\nIntegrated Remote Sensing Studio University of British Columbia Vancouver, Canada"
+    "section": "Presenters",
+    "text": "Presenters\n\nLiam A.K. Irwin - PhD Student\nBrent A. Murray - PhD Student\nSadie Russel - PhD Student\nNicholas C. Coops - Professor\n\nIntegrated Remote Sensing Studio University of British Columbia Vancouver, Canada"
   },
   {
     "objectID": "SL25_lidR_LiDAR_Intro.html#overview",
@@ -823,14 +823,14 @@
     "href": "SL25_lidR_LiDAR_Intro.html#lidar-data-point-clouds",
     "title": "Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "Lidar Data – Point Clouds",
-    "text": "Lidar Data – Point Clouds\n\n\n\nDiscrete returns are aggregated into point clouds (.LAS/.LAZ)\n\nLidar points have three-dimensional (XYZ) coordinates, and other attributes (Intensity, ReturnNumber, etc…)\n\nPoint clouds can be processed into vegetation structure summaries with lidR\n\n\n\n\n\n\nAs with many remote sensing data analyses tasks we are seeking to produce information from simplification to pull a signal of interest (in this case variability in vegetation structure) out of our dataset (a dense point cloud of three-dimensional coordinates that characterize the vegetation)\nTo do so we often generate summary metrics that act similarly to spectral indices in passive optical remote sensing, they ratio or generate statistics on the distribution of points (max, mean height, canopy cover, percentiles, leaf-area density profiles)"
+    "text": "Lidar Data – Point Clouds\n\n\n\nDiscrete returns are aggregated into point clouds (.LAS/.LAZ)\n\nLidar points have three-dimensional (XYZ) coordinates, and other attributes (Intensity, ReturnNumber, etc…)\n\nPoint clouds can be processed into vegetation structure summaries with lidR\n\n\n\n\n\nAs with many remote sensing data analyses tasks we are seeking to produce information from simplification to pull a signal of interest (in this case variability in vegetation structure) out of our dataset (a dense point cloud of three-dimensional coordinates that characterize the vegetation)\nTo do so we often generate summary metrics that act similarly to spectral indices in passive optical remote sensing, they ratio or generate statistics on the distribution of points (max, mean height, canopy cover, percentiles, leaf-area density profiles)"
   },
   {
     "objectID": "SL25_lidR_LiDAR_Intro.html#lidr",
     "href": "SL25_lidR_LiDAR_Intro.html#lidr",
     "title": "Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "lidR",
-    "text": "lidR\n\n\n\nWritten by Jean-Romain Roussel\n\nPackage for manipulating and visualizing ALS data\n\nWritten entirely open source within R-geospatial ecosystem (terra/sf)\n\nMost processes run efficiently with back-end C++ code\n\n\n\n\n\nAttaching package: 'lubridate'\n\n\nThe following objects are masked from 'package:base':\n\n    date, intersect, setdiff, union\n\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union"
+    "text": "lidR\n\n\n\nWritten by Jean-Romain Roussel\n\nPackage for manipulating and visualizing ALS data\n\nWritten entirely open source within R-geospatial ecosystem (terra/sf)\n\nMost processes run efficiently with back-end C++ code"
   },
   {
     "objectID": "SL25_lidR_LiDAR_Intro.html#lastools",
@@ -844,7 +844,7 @@
     "href": "SL25_lidR_LiDAR_Intro.html#r-lidar",
     "title": "Airborne lidar Data Manipulation and Visualization for Forestry Applications",
     "section": "r-lidar",
-    "text": "r-lidar\n\n\n\nlidR author Jean-Romain Roussel is commited to maintaining the lidR package as fully open source\nHe now runs r-lidar; a consulting and development company targeted at lidar applications\nVisit r-lidar.com for more information\n\n\n\n\n\n\na"
+    "text": "r-lidar\n\n\n\nlidR author Jean-Romain Roussel is commited to maintaining the lidR package as fully open source\nHe now runs r-lidar; a consulting and development company targeted at lidar applications\nVisit r-lidar.com for more information\n\n\n\n\n\na"
   },
   {
     "objectID": "SL25_lidR_LiDAR_Intro.html#workshop-outline",
