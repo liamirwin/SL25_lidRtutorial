@@ -15,7 +15,7 @@ source("R/setup_rgl.R")
 
 ## Overview
 
-This code demonstrates an example of generating **pixel-based summary metrics** of lidar data. This is a common task to capture critical information describing the vertical distribution of lidar returns across a regular grid (raster). Pixel metrics are used in various predictive modelling tasks and often to capture critical vegetation characteristics ranging from height to variability and cover.
+This code demonstrates generating **pixel-based summary metrics** of lidar data. This is a common task to capture critical information describing the vertical distribution of lidar returns across a regular grid (raster). Pixel metrics are used in various predictive modelling tasks and often to capture critical vegetation characteristics ranging from height to variability and cover.
 
 Beyond statistical summary metrics such as (*mean*, *max*, *sd*, etc), many researchers have developed custom metrics linked to critical vegetation attributes such as **leaf-area index**, **vertical complexity indices**, etc.
 
@@ -24,13 +24,13 @@ Additional metrics can also be generated with `lidR` using **voxel approaches**,
 Classically, lidar metrics used in vegetation characterization typically fall under three categories:
 
 1.  **Height metrics**\
-    These typically describe how tall the vegetation generally is. Often max height, mean height, and percentiles of height are important in the prediction of attributes including land cover, and continuous variables like biomass.
+    These typically describe how tall the vegetation is. Often max height, mean height, and percentiles of height are important in the prediction of attributes including land cover, and continuous variables like biomass.
 
 2.  **Variability metrics**\
     Metrics describing the shape of the distribution of returns often capture additional signals useful for explaining the level of vegetation complexity within a pixel. Skewed versus bimodal distributions, for example, can represent a very dense upper canopy in a forest compared to a multi-layer stand.
 
 3.  **Cover metrics**\
-    Often referred directly to as *canopy cover*, these metrics generally describe the proportion of returns (as a %) above a certain threshold. Typically used to generally describe how much vegetation (e.g. above 2m) there is compared to ground and other lower surfaces (designed for forest).
+    Often referred directly to as *canopy cover*, these metrics generally describe the proportion of returns (as a %) above a certain threshold. This is generally used to describe how much vegetation there is at a given height (e.g. above 2m) compared to ground and other lower surfaces (designed for forest).
 
 ```{r als_metrics_cs, echo = FALSE, message = FALSE, warning = FALSE}
 #| fig-cap: "Two-dimensional cross section of 20x20m area from `fm_norm.laz` some metrics are generated and presented alongside the coordinates of the points within this example cell"
@@ -51,7 +51,7 @@ library(lidRmetrics)
 
 ## Basic Usage
 
-To begin we compute simple metrics including mean and max height of points within 10x10 m pixels and visualizing the results. The code shows how to compute multiple metrics simultaneously and use predefined metric sets. Advanced usage introduces user-defined metrics for more specialized calculations.
+To begin we compute simple metrics, such as mean and max height, within 10x10 m pixels and visualize the results. The code shows how to compute single metrics or multiple metrics simultaneously using predefined metric sets. Advanced usage introduces user-defined metrics for more specialized calculations.
 
 ```{r load_lidar_data}
 # Load the normalized lidar data
@@ -117,7 +117,7 @@ plot(metrics, "zsd")
 `lidR` provides flexibility for users to define custom metrics. Check out 3rd party packages like [`lidRmetrics`](https://github.com/ptompalski/lidRmetrics) for suites of advanced metrics typically demonstrated in peer-reviewed articles and implemented in `lidR` through [`lidRmetrics`](https://github.com/ptompalski/lidRmetrics).
 :::
 
-We will present several metrics often tied to vegetation and biodiversity, for an overview of connecting metrics with habitat see [this article](http://doi.org/10.1016/j.ecolind.2016.02.057 "Coops, N. C., Tompaski, P., Nijland, W., Rickbeil, G. J. M., Nielsen, S. E., Bater, C. W., & Stadt, J. J. (2016). A forest structure habitat index based on airborne laser scanning data. Ecological Indicators, 67, 346-357.").
+We will present several metrics often tied to vegetation and biodiversity. For an overview of connecting metrics with habitat see [this article](http://doi.org/10.1016/j.ecolind.2016.02.057 "Coops, N. C., Tompaski, P., Nijland, W., Rickbeil, G. J. M., Nielsen, S. E., Bater, C. W., & Stadt, J. J. (2016). A forest structure habitat index based on airborne laser scanning data. Ecological Indicators, 67, 346-357.").
 
 [Canopy Cover](https://ptompalski.github.io/lidRmetrics/reference/metrics_percabove.html "Proportion of returns above a threshold (2m) is commonly used to approximate canopy cover in forests and beyond")
 
@@ -132,7 +132,7 @@ plot(cc_metrics)
 
 [Leaf Area Density Profiles](https://ptompalski.github.io/lidRmetrics/reference/metrics_lad.html "LAD profiles are commonly used in predictive modelling to approximate the leaf area index (LAI) of vegetation with lidar") ([Bouvier et al. 2015](http://dx.doi.org/10.1016/j.rse.2014.10.004 "Journal article credited with LAD metrics formulae"))
 
-Leaf Area Density (LAD) profiles describe the vertical distribution of foliage within the canopy. The method estimates the amount of leaf material in successive horizontal layers by modeling how lidar pulses are intercepted as they travel down through the vegetation.
+Leaf Area Density (LAD) profiles describe the vertical distribution of foliage within the canopy. LAD estimates the amount of leaf material in successive horizontal layers by modeling how lidar pulses are intercepted as they travel down through the vegetation.
 
 ```{r lad_metrics}
 #| label: fig-metrics-lad
@@ -182,7 +182,7 @@ plot(disp_metrics, "VCI")
 
 We can also create our own user-defined metric functions. This demonstrates the flexibility of the `lidR` package!
 
-Here we generate an arbitrary function to compute a weighted mean between two attributes. We then calculate the mean height of 10 m pixels weighted by return Intensity (albeit a potentially meaningless metric)
+Here we generate an arbitrary function to compute a weighted mean between two attributes. We then calculate the mean height of 10 m pixels weighted by return `Intensity` (albeit a potentially meaningless metric).
 
 ```{r user_defined_metric_pixel_metrics}
 #| label: fig-metrics-user-defined
@@ -219,4 +219,4 @@ Assuming that biomass is estimated using the equation `B = 0.5 * mean Z + 0.9 * 
 
 ## Conclusion
 
-In this tutorial, we covered basic usage of the `lidR` package for computing mean and max heights within grid cells and using predefined sets of metrics. Additionally, we explored the advanced usage with the ability to define user-specific metrics for grid computation.
+In this section of the tutorial, we covered basic usage of the `lidR` package for computing mean and max heights within grid cells and using predefined sets of metrics. Additionally, we explored the advanced usage with the ability to define user-specific metrics for grid computation.

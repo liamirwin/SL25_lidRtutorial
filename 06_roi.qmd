@@ -18,7 +18,7 @@ The area-based approach (ABA) is a widely-used method for estimating forest attr
 
 Here we will demonstrate a typical implementation of the `area-based approach` (ABA) for forest attribute estimation using lidar data and ground plot measurements.
 
-In this section we demonstrate the selection of regions of interest (ROIs) from lidardata using simple geometries (circles) and geometries extracted from shapefiles.
+In this section we demonstrate the selection of regions of interest (ROIs) from lidar data using simple geometries (circles) and geometries extracted from shapefiles.
 
 ## Environment
 

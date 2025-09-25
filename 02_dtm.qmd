@@ -222,7 +222,7 @@ plot(nlas_dtm, bg = "white")
 
 ### DTM-based Normalization with TIN Algorithm
 
-We perform DTM-based normalization on the lidar data using the TIN algorithm. Rather than specifying a resolution for an interpolated DTM a triangular irregular network (TIN) will be directly fit to ground returns (on-the-fly) and used to normalize points elevations.
+We perform DTM-based normalization on the lidar data using the TIN algorithm. Rather than specifying a resolution for an interpolated DTM, a triangular irregular network (TIN) will be directly fit to ground returns (on-the-fly) and used to normalize points elevations.
 
 ```{r normalization_dtm_tin}
 # Normalize the lidar data using DTM-based normalization with TIN algorithm
@@ -252,4 +252,4 @@ Now use the `plot_dtm3d()` function to visualize and move around your newly crea
 
 ## Conclusion
 
-This tutorial covered the creation of Digital Terrain Models (DTMs) from lidar data using different algorithms and explored height normalization techniques. The exercises provided hands-on opportunities to apply these concepts, enhancing understanding and practical skills.
+This tutorial section covered the creation of Digital Terrain Models (DTMs) from lidar data using different algorithms and explored height normalization techniques. The exercises provided hands-on opportunities to apply these concepts, enhancing understanding and practical skills.

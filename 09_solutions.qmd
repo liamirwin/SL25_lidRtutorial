@@ -190,9 +190,3 @@ dtm_first <- rasterize_terrain(ctg, res = 1, algorithm = tin())
 plot(dtm_first)
 ```
 
-::: callout-tip
-The Multiple Returns and Canopy Penetration
-This exercise highlights a critical and unique capability of Airborne Laser Scanning (ALS). 
-
-Unlike methods based on imagery like Digital Aerial Photogrammetry (DAP), map the visible surface, LiDAR pulses can penetrate through gaps in the vegetation generating multiple returns each. This allows us to map the ground surface even under dense forest cover, which is essential for creating accurate Digital Terrain Models (DTMs).
-:::

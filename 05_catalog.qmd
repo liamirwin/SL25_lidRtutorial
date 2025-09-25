@@ -28,7 +28,7 @@ library(sf)
 
 ## Basic Usage
 
-In this section, we will cover the basic usage of the `lidR` package, including reading lidar data, visualization, and inspecting metadata.
+In this section, we will cover the basic usage of the catalog functions in the `lidR` package, including reading lidar catalogs, visualization, and inspecting metadata.
 
 If you haven't downloaded the catalog files yet:
 
@@ -64,7 +64,7 @@ We can visualize the catalog, showing the spatial coverage of the lidar data *he
 plot(ctg, chunk = TRUE)
 ```
 
-With the `mapview` package installed, this map can be interactive if we use `map = TRUE`. Try clicking on a tile to see its header information.
+With the `mapview` package installed, this map can be interactive by including `map = TRUE`. Try clicking on a tile to see its header information.
 
 ```{r visualize_catalog-mapview}
 #| label: fig-catalog-plot-interactive
@@ -82,7 +82,7 @@ When all processing is completed without issues, all tiles are colored green.
 
 ### Warning
 
-If a process runs but generates a warning for a tile they are coloured yellow. The processing for that tile may have completed, but it requires inspection.
+If a process runs but generates a warning for a tile they are coloured orange. The processing for that tile may have completed, but it requires inspection.
 
 ![Catalog plot tiles in orange, indicating warnings.](img/ctg/warning.png)
 
@@ -247,7 +247,7 @@ print(paste("Processing time:", time_diff_secs, "seconds"))
 
 Now, we'll perform the same operation but leverage multiple cores. 
 
-In calling plan(multisession, workers = 3L) from `future`, lidR will automatically distribute the processing chunks across three CPU cores (workers). 
+In calling plan(multisession, workers = 3L) from `future`, `lidR` will automatically distribute the processing chunks across three CPU cores (workers). 
 
 The result should be identical to the single-core version, and should be faster than single-core systems.
 
@@ -278,7 +278,7 @@ plan(sequential)
 
 ## Conclusion
 
-*This concludes the tutorial on basic usage, catalog validation, indexing, CHM generation, metric generation, and parallel computing to generate point density rasters using the `lidR` and `future` packages in R.*
+This concludes the tutorial section on basic catalog usage, including validation, indexing, CHM generation, metric generation, and parallel computing to generate point density rasters using the `lidR` and `future` packages in R.
 
 ## Exercises
 
@@ -288,7 +288,7 @@ Using:
 
 #### E1.
 
-Calculate a set of metrics from the `lidRmetrics` package on the catalogue (voxel metrics will take too long)
+Calculate a set of metrics from the `lidRmetrics` package on the catalog (voxel metrics will take too long)
 
 Using:
 
@@ -303,7 +303,7 @@ Read in the non-normalized las catalog filtering the point cloud to only include
 Generate a DTM at 1m spatial resolution for the provided catalog with only first returns.
 
 ::: callout-tip
-The Multiple Returns and Canopy Penetration
+**Multiple Returns and Canopy Penetration:**
 This exercise highlights a critical and unique capability of Airborne Laser Scanning (ALS). 
 
 Unlike methods based on imagery like Digital Aerial Photogrammetry (DAP), map the visible surface, lidar pulses can penetrate through gaps in the vegetation generating multiple returns each. This allows us to map the ground surface even under dense forest cover, which is essential for creating accurate Digital Terrain Models (DTMs).
