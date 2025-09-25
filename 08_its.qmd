@@ -9,7 +9,7 @@ source("R/setup_rgl.R")
 ## Relevant resources
 
 -   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/08_its.R)
--   [lidRbook section](https://r-lidar.github.io/lidRbook/itd-its.html)
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/itd.html)
 
 ## Overview
 
@@ -128,7 +128,7 @@ plot(tree1, size = 4)
 ```
 
 ```{r visualize_tree_40, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-plot(tree1, size = 4, bg = "white")
+plot(tree1, size = 6, bg = "white")
 ```
 
 ```         
@@ -136,7 +136,7 @@ plot(tree2, size = 4)
 ```
 
 ```{r visualize_tree_10, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
-plot(tree2, size = 4, bg = "white")
+plot(tree2, size = 6, bg = "white")
 ```
 
 After segmentation, we count the number of trees detected and visualize all the trees in the point cloud. We then select two trees (`tree25` and `tree100`) and visualize them individually.

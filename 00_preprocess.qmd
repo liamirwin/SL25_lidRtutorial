@@ -6,7 +6,7 @@ engine: knitr
 ## Relevant Resources
 
 -   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/00_preprocess.txt)
--   [LAStools Website](https://lastools.com)
+-   [LAStools Website](https://rapidlasso.de/product-overview/)
 -   [LAStools User Group](https://groups.google.com/g/lastools)
 
 ## Overview
@@ -28,7 +28,7 @@ You can follow along using the free version of LAStools, which is sufficient for
 
 **Download the pre-processed files to skip this step and move directly to the analysis in `lidR`.**
 
-[Download LAZ files](/data/sl25_laz.zip)
+[Download LAZ files](/data/fm_laz.zip)
 :::
 
 For the following examples, we will assume the raw `.laz` file is in a folder `C:\lidar_project\raw\` and you want to save the processed outputs to `C:\lidar_project\processed\`. Replace these paths with your own as needed.

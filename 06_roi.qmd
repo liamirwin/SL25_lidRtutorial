@@ -9,8 +9,7 @@ source("R/setup_rgl.R")
 ## Relevant Resources
 
 -   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/06_roi.R)
-
--   [lidRbook section](https://r-lidar.github.io/lidRbook/modelling.html)
+-   [lidRbook section](https://r-lidar.github.io/lidRbook/engine.html#sec-engine-clip)
 
 ## Overview
 
@@ -70,7 +69,7 @@ plot(circle)
 
 ```{r plot_circle, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(circle, bg = "white")
+plot(circle, size=3, bg = "white")
 ```
 
 We can do the same with a rectangular area by defining corner coordinates.
@@ -87,7 +86,7 @@ plot(rect)
 
 ```{r plot_rectangle, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(rect, bg = "white")
+plot(rect, size=3, bg = "white")
 ```
 
 We can also supply multiple coordinate pairs to clip multiple ROIs.
@@ -107,7 +106,7 @@ plot(plots[[1]])
 
 ```{r plot_1, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(plots[[1]], bg = "white")
+plot(plots[[1]], size=3, bg = "white")
 ```
 
 ``` r
@@ -117,7 +116,7 @@ plot(plots[[2]])
 
 ```{r plot_2, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(plots[[2]], bg = "white")
+plot(plots[[2]], size=3, bg = "white")
 ```
 
 ## Extraction of Complex Geometries from Shapefiles
@@ -147,7 +146,7 @@ plot(stand)
 
 ```{r plot_stand, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Plot the extracted points within the stand area
-plot(stand, bg = "white")
+plot(stand, size=3, bg = "white")
 ```
 
 ## Clipping ROIs with a catalog
@@ -176,7 +175,7 @@ plot(rois[[1]])
 
 ```{r visualize_clipped_ctg, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(rois[[1]], bg = "white")
+plot(rois[[1]], size=3, bg = "white")
 ```
 
 ``` r
@@ -185,7 +184,7 @@ plot(rois[[3]])
 
 ```{r visualize_clipped_ctg_two, echo = FALSE, rgl = TRUE, fig.width = 8, fig.height = 6}
 # Visualize the lidar data with a default color palette
-plot(rois[[3]], bg = "white")
+plot(rois[[3]], size=3, bg = "white")
 ```
 
 ## Validate clipped data

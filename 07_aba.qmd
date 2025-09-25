@@ -9,7 +9,6 @@ source("R/setup_rgl.R")
 ## Relevant Resources
 
 -   [Code](https://github.com/liamirwin/SL25_lidRtutorial/blob/main/R/07_aba.R)
-
 -   [lidRbook section](https://r-lidar.github.io/lidRbook/modelling.html)
 
 ## Overview
@@ -32,13 +31,9 @@ library(dplyr)
 ```
 
 ## Key References
-
--   [lidRbook ABA section](https://r-lidar.github.io/lidRbook/modelling.html)
-
 -   [Best Practices for Forest ABA - White et al. 2013](https://publications.gc.ca/collections/collection_2013/rncan-nrcan/Fo148-1-10-eng.pdf)
 
 -   [ABA Model Development Guide - White et al. 2017](https://publications.gc.ca/collections/collection_2018/rncan-nrcan/Fo148-1-18-eng.pdf)
-
 
 -   [Structurally Guided Sampling with sgsR](https://tgoodbody.github.io/sgsR/)
 

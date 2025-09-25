@@ -33,6 +33,7 @@ In this section, we will cover the basic usage of the catalog functions in the `
 If you haven't downloaded the catalog files yet:
 
 [Download additional classified lidar files for 05_engine (.zip, 94 MB)](./data/ctg_class.zip)
+
 [Download additional normalized lidar files for 05_engine (.zip, 93 MB)](./data/ctg_norm.zip)
 
 Unzip `ctg_class.zip` and `ctg_norm.zip` to their respective folders in `data/ctg_*`
